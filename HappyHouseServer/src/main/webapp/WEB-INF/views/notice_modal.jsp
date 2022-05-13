@@ -22,8 +22,8 @@
 						<textarea rows="8" class="form-control" placeholder="본문"
 							name="content"></textarea>
 					</div>
-					<input type="hidden" name="userId" value="${memberInfo.id}">
-					<input type="hidden" name="userName" value="${memberInfo.name}">
+					<input type="hidden" name="userId" value="${memberId}">
+					<input type="hidden" name="userName" value="${memberName}">
 				</div>
 
 				<!-- Modal footer -->
