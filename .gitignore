@@ -1,0 +1,11 @@
+/.metadata/
+node_modules/
+dist/
+npm-debug.log
+yarn-error.log
+
+*.DS_Store
+*.csv
+*.docx
+*.pdf
+*.xlsx
