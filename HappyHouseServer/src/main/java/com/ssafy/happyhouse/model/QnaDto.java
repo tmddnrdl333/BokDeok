@@ -65,4 +65,10 @@ public class QnaDto {
 		this.regTime = regTime;
 	}
 
+	@Override
+	public String toString() {
+		return "QnaDto [QnaNo=" + QnaNo + ", userId=" + userId + ", userName=" + userName + ", subject=" + subject
+				+ ", question=" + question + ", answer=" + answer + ", regTime=" + regTime + "]";
+	}
+
 }

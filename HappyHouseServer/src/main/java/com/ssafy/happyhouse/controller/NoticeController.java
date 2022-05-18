@@ -10,17 +10,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.happyhouse.model.NoticeDto;
 import com.ssafy.happyhouse.model.service.NoticeService;
-
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @RequestMapping("/notice")
@@ -42,15 +43,7 @@ public class NoticeController {
 			condition.put("subject", subject);
 
 		List<NoticeDto> list = noticeService.getNoticeListByCondition(condition);
-//		model.addAttribute("list", list);
-//		model.addAttribute("condition", condition);
 		return new ResponseEntity<List<NoticeDto>>(list, HttpStatus.OK);
-	}
-
-	@PostMapping("/auth/regist")
-	public ResponseEntity writeNotice(@RequestBody NoticeDto noticeDto) throws SQLException {
-		noticeService.writeNotice(noticeDto);
-		return ResponseEntity.created(URI.create("/notice/" + noticeDto.getNoticeNo())).build();
 	}
 
 	@GetMapping("/{noticeNo}")
@@ -61,18 +54,23 @@ public class NoticeController {
 		return ResponseEntity.notFound().build();
 	}
 
-	@PostMapping("/auth/remove/{noticeNo}")
+	@PostMapping("/auth")
+	public ResponseEntity writeNotice(@RequestBody NoticeDto noticeDto) throws SQLException {
+		noticeService.writeNotice(noticeDto);
+		return ResponseEntity.created(URI.create("/notice/" + noticeDto.getNoticeNo())).build();
+	}
+
+	@DeleteMapping("/auth/{noticeNo}")
 	public ResponseEntity removeNotice(@PathVariable int noticeNo) throws SQLException {
 		noticeService.removeNotice(noticeNo);
-//		return "redirect:/notice";
 		return ResponseEntity.noContent().build();
 	}
 
-	@PostMapping("/auth/modify/{noticeNo}")
-	public ResponseEntity modifyNotice(@PathVariable int noticeNo, @RequestBody NoticeDto noticeDto) throws SQLException {
-		System.out.println(noticeDto.getContent());
+	@PutMapping("/auth/{noticeNo}")
+	public ResponseEntity modifyNotice(@PathVariable int noticeNo, @RequestBody NoticeDto noticeDto)
+			throws SQLException {
+		noticeDto.setNoticeNo(noticeNo);
 		noticeService.modifyNotice(noticeDto);
-//		return "redirect:/notice";
 		return ResponseEntity.noContent().build();
 	}
 

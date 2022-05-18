@@ -22,26 +22,25 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.happyhouse.model.MemberDto;
 import com.ssafy.happyhouse.model.service.MemberService;
 
-
 @RestController
 @RequestMapping("/user")
 public class MemberController {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
 	@Autowired
 	private MemberService memberService;
-	
+
 	@GetMapping
-	public ResponseEntity<List<MemberDto>> getMembers(){
+	public ResponseEntity<List<MemberDto>> getMembers() {
 //		logger.debug(session.getAttribute("memberInfo").toString());
 		List<MemberDto> list = memberService.listMember();
-		if(list.size() > 0) {
+		if (list.size() > 0) {
 			return new ResponseEntity<List<MemberDto>>(list, HttpStatus.OK);
 		}
 		return new ResponseEntity<List<MemberDto>>(HttpStatus.NO_CONTENT);
 	}
-	
+
 	@GetMapping("/idCheck")
 	public ResponseEntity<Integer> idCheck(@RequestBody String id) {
 		int idCount = memberService.idCheck(id);
@@ -49,8 +48,7 @@ public class MemberController {
 //			return ResponseEntity.noContent().build();
 		return new ResponseEntity<Integer>(idCount, HttpStatus.OK);
 	}
-	
-	
+
 	@PostMapping("/regist")
 	public ResponseEntity regist(@RequestBody MemberDto member) {
 		memberService.registMember(member);
@@ -60,55 +58,52 @@ public class MemberController {
 	@PostMapping("/login")
 	public ResponseEntity<MemberDto> login(@RequestBody Map<String, String> map, HttpSession session) {
 		MemberDto member = memberService.login(map);
-		if(member != null) {
-			session.setAttribute("memberId", member.getId());
-			session.setAttribute("memberName", member.getName());
+		if (member != null) {
+			session.setAttribute("userId", member.getId());
+			session.setAttribute("userName", member.getName());
+			System.out.println("로그인 헀엉");
 			return ResponseEntity.ok(member);
-		} 
+		}
 		return ResponseEntity.notFound().build();
 	}
-	
+
 	@GetMapping("/logout")
 	public ResponseEntity logout(HttpSession session) {
 		session.invalidate();
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@GetMapping("/info")
-	public ResponseEntity<MemberDto> memberDetail(HttpSession session){
-		String id = (String) session.getAttribute("memberId");
+	public ResponseEntity<MemberDto> memberDetail(HttpSession session) {
+		String id = (String) session.getAttribute("userId");
 		MemberDto member = memberService.getMember(id);
-		if(member != null) {
+		if (member != null) {
 			return ResponseEntity.ok(member);
 		}
 		return ResponseEntity.notFound().build();
 	}
-	
+
 	@DeleteMapping("/remove")
 	public ResponseEntity removeMember(HttpSession session) {
-		String id = (String) session.getAttribute("memberId");
+		String id = (String) session.getAttribute("userId");
 		MemberDto member = memberService.getMember(id);
-		if(member != null) {
+		if (member != null) {
 			session.invalidate();
 			memberService.deleteMember(id);
 			return ResponseEntity.noContent().build();
-		} 
+		}
 		return ResponseEntity.notFound().build();
 	}
-	
+
 	@PutMapping("/modify")
 	public ResponseEntity modifyMember(@RequestBody MemberDto updateMember, HttpSession session) {
-		String id = (String) session.getAttribute("memberId");
+		String id = (String) session.getAttribute("userId");
 		MemberDto member = memberService.getMember(id);
-		if(member != null) {
+		if (member != null) {
 			memberService.updateMember(updateMember);
 			return ResponseEntity.ok().build();
-		} 
+		}
 		return ResponseEntity.notFound().build();
 	}
-	
-	
-	
-	
-	
+
 }

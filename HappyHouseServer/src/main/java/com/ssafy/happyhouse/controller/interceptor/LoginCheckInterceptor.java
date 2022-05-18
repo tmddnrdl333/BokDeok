@@ -15,11 +15,13 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		HttpSession session = request.getSession();
-		MemberDto member = (MemberDto) session.getAttribute("memberInfo");
-		if(member == null) {
+//		MemberDto member = (MemberDto) session.getAttribute("memberInfo");
+		String userId = (String) session.getAttribute("userId");
+		String userName = (String) session.getAttribute("userName");
+		if (userId == null || userName == null) {
 //			request.setAttribute("errorMsg", "로그인이 필요합니다!!");
 //			request.getRequestDispatcher("/WEB-INF/views/notice.jsp").forward(request, response);
-			response.sendRedirect("/notice");
+			response.sendRedirect("/");
 			return false;
 		}
 		return true;

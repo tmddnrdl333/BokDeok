@@ -55,4 +55,10 @@ public class NoticeDto {
 	public void setRegTime(String regTime) {
 		this.regTime = regTime;
 	}
+
+	@Override
+	public String toString() {
+		return "NoticeDto [noticeNo=" + noticeNo + ", userId=" + userId + ", userName=" + userName + ", subject="
+				+ subject + ", content=" + content + ", regTime=" + regTime + "]";
+	}
 }
