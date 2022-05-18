@@ -50,10 +50,10 @@ public class NoticeController {
 	@PostMapping("/auth/regist")
 	public ResponseEntity writeNotice(@RequestBody NoticeDto noticeDto) throws SQLException {
 		noticeService.writeNotice(noticeDto);
-		return ResponseEntity.created(URI.create("/notice/article" + noticeDto.getNoticeNo())).build();
+		return ResponseEntity.created(URI.create("/notice/" + noticeDto.getNoticeNo())).build();
 	}
 
-	@GetMapping("/article/{noticeNo}")
+	@GetMapping("/{noticeNo}")
 	public ResponseEntity<NoticeDto> noticeDetail(@PathVariable int noticeNo) throws SQLException {
 		NoticeDto noticeDto = noticeService.getNotice(noticeNo);
 		if (noticeDto != null)

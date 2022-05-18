@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.happyhouse.model.HouseInfoDto;
 import com.ssafy.happyhouse.model.InterestlocDto;
@@ -22,7 +23,7 @@ import com.ssafy.happyhouse.model.MemberDto;
 import com.ssafy.happyhouse.model.SearchFilterDto;
 import com.ssafy.happyhouse.model.service.InterestlocService;
 
-@Controller
+@RestController
 @RequestMapping("/interest")
 public class InterestlocController {
 
@@ -31,13 +32,7 @@ public class InterestlocController {
 	@Autowired
 	private InterestlocService interestlocService;
 
-	@GetMapping
-	public String interestlocPage() {
-		return "/interest";
-	}
-
 	@GetMapping("/list")
-	@ResponseBody
 	public ResponseEntity<List<InterestlocDto>> interestlocList(HttpSession session) {
 		MemberDto member = (MemberDto) session.getAttribute("memberInfo");
 		List<InterestlocDto> list = interestlocService.getInterestloc(member.getId());
@@ -49,7 +44,6 @@ public class InterestlocController {
 	}
 
 	@GetMapping("/apt")
-	@ResponseBody
 	public ResponseEntity<List<HouseInfoDto>> interestAptList(HttpSession session) {
 		MemberDto member = (MemberDto) session.getAttribute("memberInfo");
 		List<HouseInfoDto> hList = interestlocService.getInterestAptList(member.getId());
@@ -64,17 +58,14 @@ public class InterestlocController {
 
 	@GetMapping("/search")
 	public ResponseEntity<List<HouseInfoDto>> aptSearchResult(HttpSession session,
-			@RequestParam(value = "priceLeft") int priceLeft,
-			@RequestParam(value = "priceRight") int priceRight,
-			@RequestParam(value = "areaLeft") int areaLeft,
-			@RequestParam(value = "areaRight") int areaRight){
+			@RequestParam(value = "priceLeft") int priceLeft, @RequestParam(value = "priceRight") int priceRight,
+			@RequestParam(value = "areaLeft") int areaLeft, @RequestParam(value = "areaRight") int areaRight) {
 		MemberDto member = (MemberDto) session.getAttribute("memberInfo");
 		SearchFilterDto filter = new SearchFilterDto(member.getId(), priceLeft, priceRight, areaLeft, areaRight);
 		return new ResponseEntity<List<HouseInfoDto>>(interestlocService.searchApt(filter), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/add/{dongCode}")
-	@ResponseBody
 	public ResponseEntity<List<InterestlocDto>> addInterestloc(@PathVariable String dongCode, HttpSession session) {
 		InterestlocDto interestloc = new InterestlocDto();
 		MemberDto member = (MemberDto) session.getAttribute("memberInfo");
@@ -86,7 +77,6 @@ public class InterestlocController {
 	}
 
 	@GetMapping("/delete/{dongCode}")
-	@ResponseBody
 	public ResponseEntity<List<InterestlocDto>> deleteInterestloc(@PathVariable String dongCode, HttpSession session) {
 		InterestlocDto interestloc = new InterestlocDto();
 		MemberDto member = (MemberDto) session.getAttribute("memberInfo");

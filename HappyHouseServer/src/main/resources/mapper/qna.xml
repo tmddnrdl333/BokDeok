@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.ssafy.happyhouse.model.mapper.QnaMapper">
+
+	<select id="getQna" parameterType="int"
+		resultType="QnaDto">
+		select * from qna
+		where qnaNo = #{qnaNo}
+	</select>
+
+	<select id="getQnaListByCondition" parameterType="map"
+		resultType="QnaDto">
+		select * from qna
+		<where>
+			<if test="userName != '' and userName != null">
+				userName like concat('%',#{userName},'%')
+			</if>
+			<if test="subject != '' and subject != null">
+				and subject like concat('%',#{subject},'%')
+			</if>
+		</where>
+	</select>
+
+	<insert id="writeQna" parameterType="QnaDto">
+		insert into qna
+		(userId,userName,subject,question,regTime)
+		values
+		(#{userId},#{userName},#{subject},#{question},now())
+	</insert>
+
+	<update id="modifyQna" parameterType="QnaDto">
+		update qna set subject=#{subject}, question=#{question}, answer=#{answer} where qnaNo=#{qnaNo}
+	</update>
+	
+	<delete id="removeQna" parameterType="int">
+		delete from qna where qnaNo=#{qnaNo}
+	</delete>
+	
+
+</mapper>
