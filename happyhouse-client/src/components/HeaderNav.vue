@@ -2,21 +2,24 @@
   <!-- nav start -->
   <div class="container-fluid row">
     <div>
-      <a class="nav-link" href="/">
-        <img id="logo" class="rounded" src="@/assets/logo.jpg" width="60px"
-      /></a>
+      <router-link class="nav-link" to="/"
+        ><img id="logo" class="rounded" src="@/assets/logo.jpg" width="60px"
+      /></router-link>
     </div>
     <div class="col">
       <nav class="m-2 navbar navbar-expand-sm bg-dark navbar-dark rounded">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="/apt">아파트 조회</a>
+            <router-link class="nav-link" to="/apt">아파트 조회</router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/notice">공지사항</a>
+            <router-link class="nav-link" to="/notice">공지사항</router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/interest">관심 지역</a>
+            <router-link class="nav-link" to="/qna">QnA</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/interest">관심 지역</router-link>
           </li>
         </ul>
       </nav>
