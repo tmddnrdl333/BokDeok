@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,7 @@ import com.ssafy.happyhouse.model.service.MemberService;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin
 public class MemberController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
@@ -62,7 +64,7 @@ public class MemberController {
 			session.setAttribute("userId", member.getId());
 			session.setAttribute("userName", member.getName());
 			System.out.println(session.getAttribute("userId"));
-			System.out.println("로그인 헀엉");
+			System.out.println("로그인 했엉");
 			return ResponseEntity.ok(member);
 		}
 		return ResponseEntity.notFound().build();

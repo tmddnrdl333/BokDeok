@@ -18,6 +18,7 @@ import QnaDetail from "@/components/qna/QnaDetail.vue";
 import QnaModify from "@/components/qna/QnaModify.vue";
 import QnaAnswer from "@/components/qna/QnaAnswer.vue";
 import QnaAnswerInput from "@/components/qna/QnaAnswerInput.vue";
+import MemberLogin from "@/components/member/MemberLogin.vue";
 import MemberSignup from "@/components/member/MemberSignup.vue";
 import MemberInfo from "@/components/member/MemberInfo.vue";
 
@@ -97,6 +98,10 @@ const routes = [
     path: "/member",
     component: MemberView,
     children: [
+      {
+        path: "login",
+        component: MemberLogin,
+      },
       {
         path: "signup",
         component: MemberSignup,

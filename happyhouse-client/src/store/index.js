@@ -87,15 +87,10 @@ export default new Vuex.Store({
         .then(({ data }) => context.commit(Constant.SET_QNA, { qna: data }));
     },
     [Constant.REGIST_QNA](context, payload) {
-      return axios
-        .post("http://127.0.0.1/qna", {
-          qnaNo: payload.qna.qnaNo,
-          userId: payload.qna.userId,
-          userName: payload.qna.userName,
+      axios
+        .post("http://127.0.0.1/qna/auth", {
           subject: payload.qna.subject,
           question: payload.qna.question,
-          answer: payload.qna.answer,
-          regTime: payload.qna.regTime,
         })
         .then(() => {
           console.log("store : 질문 등록에 성공하였습니다.");
@@ -103,7 +98,7 @@ export default new Vuex.Store({
     },
     [Constant.MODIFY_QNA](context, payload) {
       return axios
-        .put(`http://127.0.0.1/qna/${payload.qna.qnaNo}`, {
+        .put(`http://127.0.0.1/qna/auth/${payload.qna.qnaNo}`, {
           qnaNo: payload.qna.qnaNo,
           userId: payload.qna.userId,
           userName: payload.qna.userName,

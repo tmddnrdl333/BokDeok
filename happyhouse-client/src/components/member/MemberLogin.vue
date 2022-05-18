@@ -62,23 +62,18 @@ export default {
     };
   },
   methods: {
-    confirm() {
-      alert("입력해주세요.");
-    },
     movePage() {
       this.$router.push("/member/signup");
     },
     login() {
-      console.log("로그인 시도"); // test
-      console.log(this.user); // test
-
       axios
         .post("http://127.0.0.1/user/login", {
           id: this.user.id,
           pw: this.user.pw,
         })
-        .then(console.log(sessionStorage.getItem("userId")));
-      // test
+        .then(() => {
+          this.$router.push("/");
+        });
     },
   },
 };

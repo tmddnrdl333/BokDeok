@@ -60,6 +60,7 @@
 </template>
 
 <script>
+import axios from "axios";
 // import http from "@/api/http";
 import Constant from "@/common/Constant.js";
 export default {
@@ -123,13 +124,22 @@ export default {
       // this.$router.push("/qna/list");
     },
     registQna() {
-      this.$store
-        .dispatch(Constant.REGIST_QNA, { qna: this.qna })
-        .then(() => {
-          alert("등록에 성공하였습니다.");
-          this.moveList();
+      // this.$store
+      //   .dispatch(Constant.REGIST_QNA, { qna: this.qna })
+      //   .then(() => {
+      //     alert("등록에 성공하였습니다.");
+      //     this.moveList();
+      //   })
+      //   .catch(() => alert("등록에 실패하였습니다."));
+      console.log(this.qna);
+      axios
+        .post("http://localhost/qna/auth", {
+          subject: this.qna.subject,
+          question: this.qna.question,
         })
-        .catch(() => alert("등록에 실패하였습니다."));
+        .then((res) => {
+          console.log("store : 질문 등록에 성공하였습니다." + res);
+        });
     },
     modifyQna() {
       this.$store
