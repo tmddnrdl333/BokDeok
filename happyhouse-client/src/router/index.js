@@ -6,10 +6,18 @@ import AptView from "@/views/AptView.vue";
 import NoticeView from "@/views/NoticeView.vue";
 import InterestView from "@/views/InterestView.vue";
 import MemberView from "@/views/MemberView.vue";
+import QnaView from "@/views/QnaView.vue";
 
 import NoticeList from "@/components/notice/NoticeList.vue";
 import NoticeRegist from "@/components/notice/NoticeRegist.vue";
 import NoticeDetail from "@/components/notice/NoticeDetail.vue";
+import NoticeModify from "@/components/notice/NoticeModify.vue";
+import QnaList from "@/components/qna/QnaList.vue";
+import QnaRegist from "@/components/qna/QnaRegist.vue";
+import QnaDetail from "@/components/qna/QnaDetail.vue";
+import QnaModify from "@/components/qna/QnaModify.vue";
+import QnaAnswer from "@/components/qna/QnaAnswer.vue";
+import QnaAnswerInput from "@/components/qna/QnaAnswerInput.vue";
 import MemberSignup from "@/components/member/MemberSignup.vue";
 import MemberInfo from "@/components/member/MemberInfo.vue";
 
@@ -27,6 +35,7 @@ const routes = [
   {
     path: "/notice",
     component: NoticeView,
+    redirect: "/notice/list",
     children: [
       {
         path: "list",
@@ -37,36 +46,46 @@ const routes = [
         component: NoticeRegist,
       },
       {
-        path: "detail",
+        path: ":noticeNo",
         component: NoticeDetail,
+      },
+      {
+        path: "modify/:noticeNo",
+        component: NoticeModify,
       },
     ],
   },
   {
     path: "/qna",
     name: "qna",
-    component: () => import("@/views/QnaView.vue"),
+    component: QnaView,
     redirect: "/qna/list",
     children: [
       {
         path: "list",
-        name: "qnaList",
-        component: () => import("@/components/qna/QnaList.vue"),
+        component: QnaList,
       },
       {
         path: "regist",
-        name: "qnaRegist",
-        component: () => import("@/components/qna/QnaRegist.vue"),
+        component: QnaRegist,
       },
       {
         path: ":qnaNo",
-        name: "qnaDetail",
-        component: () => import("@/components/qna/QnaDetail.vue"),
+        component: QnaDetail,
+        children: [
+          {
+            path: "",
+            component: QnaAnswer,
+          },
+          {
+            path: "answer",
+            component: QnaAnswerInput,
+          },
+        ],
       },
       {
         path: "modify/:qnaNo",
-        name: "qnaModify",
-        component: () => import("@/components/qna/QnaModify.vue"),
+        component: QnaModify,
       },
     ],
   },

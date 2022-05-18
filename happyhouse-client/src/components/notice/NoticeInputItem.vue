@@ -2,22 +2,6 @@
   <b-row class="mb-1">
     <b-col style="text-align: left">
       <b-form @submit="onSubmit" @reset="onReset">
-        <!-- <b-form-group
-          id="userid-group"
-          label="작성자:"
-          label-for="userid"
-          description="작성자를 입력하세요."
-        >
-          <b-form-input
-            id="userid"
-            :disabled="isUserid"
-            v-model="qna.userid"
-            type="text"
-            required
-            placeholder="작성자 입력..."
-          ></b-form-input>
-        </b-form-group> -->
-
         <b-form-group
           id="subject-group"
           label="제목:"
@@ -26,17 +10,17 @@
         >
           <b-form-input
             id="subject"
-            v-model="qna.subject"
+            v-model="notice.subject"
             type="text"
             required
             placeholder="제목 입력..."
           ></b-form-input>
         </b-form-group>
 
-        <b-form-group id="question-group" label="내용:" label-for="question">
+        <b-form-group id="content-group" label="내용:" label-for="content">
           <b-form-textarea
-            id="question"
-            v-model="qna.question"
+            id="content"
+            v-model="notice.content"
             placeholder="질문 내용 입력..."
             rows="10"
             max-rows="15"
@@ -60,24 +44,24 @@
 </template>
 
 <script>
-// import http from "@/api/http";
 import Constant from "@/common/Constant.js";
 export default {
   data() {
     return {
-      qnaNo: 0,
+      noticeNo: 0,
+
       isUserid: false,
     };
   },
   computed: {
-    qna() {
-      if (this.type === "modify") return this.$store.state.qna;
+    notice() {
+      if (this.type === "modify") return this.$store.state.notice;
       return {
-        qnaNo: 0,
+        noticeNo: 0,
         userId: "",
         userName: "",
         subject: "",
-        question: "",
+        content: "",
       };
     },
   },
@@ -86,8 +70,8 @@ export default {
   },
   created() {
     if (this.type === "modify") {
-      this.qnaNo = this.$route.params.qnaNo;
-      this.getQna({ qnaNo: this.qnaNo });
+      this.noticeNo = this.$route.params.noticeNo;
+      this.getnotice({ noticeNo: this.noticeNo });
       this.isUserid = true;
     }
   },
@@ -97,54 +81,49 @@ export default {
 
       let err = true;
       let msg = "";
-      // !this.qna.userId &&
-      //   ((msg = "작성자 입력해주세요"),
-      //   (err = false),
-      //   this.$refs.userId.focus());
-      // err &&
-      !this.qna.subject &&
+      !this.notice.subject &&
         ((msg = "제목 입력해주세요"),
         (err = false),
         this.$refs.subject.focus());
       err &&
-        !this.qna.question &&
+        !this.notice.content &&
         ((msg = "질문 내용 입력해주세요"),
         (err = false),
-        this.$refs.question.focus());
+        this.$refs.content.focus());
 
       if (!err) alert(msg);
-      else this.type === "regist" ? this.registQna() : this.modifyQna();
+      else this.type === "regist" ? this.registNotice() : this.modifyNotice();
     },
     onReset(event) {
       event.preventDefault();
-      // this.qna.qnaNo = 0;
-      this.qna.subject = "";
-      this.qna.question = "";
-      // this.$router.push("/qna/list");
+      this.notice.subject = "";
+      this.notice.content = "";
+      // this.$router.push({ name: "boardList" });
     },
-    registQna() {
+    registNotice() {
+      // console.log(this.notice);
       this.$store
-        .dispatch(Constant.REGIST_QNA, { qna: this.qna })
+        .dispatch(Constant.REGIST_NOTICE, { notice: this.notice })
         .then(() => {
           alert("등록에 성공하였습니다.");
           this.moveList();
         })
         .catch(() => alert("등록에 실패하였습니다."));
     },
-    modifyQna() {
+    modifyNotice() {
       this.$store
-        .dispatch(Constant.MODIFY_QNA, { qna: this.qna })
+        .dispatch(Constant.MODIFY_notice, { notice: this.notice })
         .then(() => {
           alert("수정에 성공하였습니다.");
           this.moveList();
         })
         .catch(() => alert("수정에 실패하였습니다."));
     },
-    getQna(qna) {
-      this.$store.dispatch(Constant.GET_QNA, qna);
+    getnotice(notice) {
+      this.$store.dispatch(Constant.GET_NOTICE, notice);
     },
     moveList() {
-      this.$router.push("/qna/list");
+      this.$router.push("/notice/list");
     },
   },
 };

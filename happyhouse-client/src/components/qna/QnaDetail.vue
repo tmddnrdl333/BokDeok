@@ -15,7 +15,7 @@
           no-body
         >
           <b-card-body class="text-left">
-            <div v-html="message"></div>
+            <div v-html="question"></div>
           </b-card-body>
         </b-card>
       </b-col>
@@ -38,6 +38,7 @@
         >
       </b-col></b-row
     >
+    <router-view></router-view>
   </b-container>
 </template>
 
@@ -53,7 +54,7 @@ export default {
     qna() {
       return this.$store.state.qna;
     },
-    message() {
+    question() {
       if (this.qna.question) return this.qna.question.split("\n").join("<br>");
       return "";
     },
@@ -71,18 +72,11 @@ export default {
       this.$store.dispatch(Constant.GET_QNA, qna);
     },
     moveModifyQna() {
-      this.$router.replace({
-        name: "qnaModify",
-        params: { qnaNo: this.qna.qnaNo },
-      });
-      //   this.$router.push({ path: `/board/modify/${this.qna.qnano}` });
+      this.$router.push({ path: `/qna/modify/${this.qna.qnaNo}` });
     },
-    // deleteQna() {
-    //   axios.delete(`http://127.0.0.1:8080/qna/${this.qnaNo}`).then(() => {
-    //     alert("QnA 삭제에 성공하였습니다.");
-    //     this.moveList();
-    //   });
-    // },
+    deleteQna() {
+      this.$store.dispatch(Constant.DELETE_QNA, { qnaNo: this.qnaNo });
+    },
   },
 };
 </script>

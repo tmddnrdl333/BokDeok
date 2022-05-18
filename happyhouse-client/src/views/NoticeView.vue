@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>NoticeView등장</h2>
+    <router-view></router-view>
   </div>
 </template>
 

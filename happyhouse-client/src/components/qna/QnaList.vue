@@ -7,7 +7,7 @@
     </b-row>
     <b-row class="mb-1">
       <b-col class="text-right">
-        <b-button variant="outline-primary" @click="movePage()"
+        <b-button variant="outline-primary" @click="moveRegist()"
           >질문하기</b-button
         >
       </b-col>
@@ -17,7 +17,7 @@
         <b-table-simple hover responsive>
           <b-thead head-variant="dark">
             <b-tr>
-              <b-th>글번호</b-th>
+              <b-th>번호</b-th>
               <b-th>제목</b-th>
               <b-th>작성자</b-th>
               <b-th>작성일</b-th>
@@ -27,10 +27,9 @@
             <tr v-for="qna in qnas" :key="qna.quaNo">
               <td>{{ qna.qnaNo }}</td>
               <td>
-                <router-link
-                  :to="{ name: 'qnaDetail', params: { qnaNo: qna.qnaNo } }"
-                  >{{ qna.subject }}</router-link
-                >
+                <router-link :to="'/qna/' + qna.qnaNo">{{
+                  qna.subject
+                }}</router-link>
               </td>
               <td>{{ qna.userName }}</td>
               <td>{{ qna.regTime }}</td>
@@ -65,7 +64,7 @@ export default {
     getQnas() {
       this.$store.dispatch(Constant.GET_QNAS);
     },
-    movePage() {
+    moveRegist() {
       this.$router.push("/qna/regist");
     },
   },
