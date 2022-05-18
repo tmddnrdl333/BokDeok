@@ -61,6 +61,7 @@ public class MemberController {
 		if (member != null) {
 			session.setAttribute("userId", member.getId());
 			session.setAttribute("userName", member.getName());
+			System.out.println(session.getAttribute("userId"));
 			System.out.println("로그인 헀엉");
 			return ResponseEntity.ok(member);
 		}

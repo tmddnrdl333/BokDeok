@@ -28,10 +28,15 @@
       <nav class="m-2 navbar navbar-expand-sm bg-light navbar-light rounded">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="#">로그인</a>
+            <router-link class="nav-link" to="/member/login"
+              >로그인</router-link
+            >
           </li>
+
           <li class="nav-item">
-            <a class="nav-link" href="#">회원가입</a>
+            <router-link class="nav-link" to="/member/signup"
+              >회원가입</router-link
+            >
           </li>
         </ul>
       </nav>

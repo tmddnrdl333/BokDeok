@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+import VueSession from "vue-session";
 
 // Import Bootstrap and BootstrapVue CSS files (order is important)
 import "bootstrap/dist/css/bootstrap.css";
@@ -20,3 +21,8 @@ new Vue({
   store,
   render: (h) => h(App),
 }).$mount("#app");
+
+var sessionOptions = {
+  persist: true,
+};
+Vue.use(VueSession, sessionOptions);
