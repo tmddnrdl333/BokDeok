@@ -37,6 +37,11 @@ public class QnaServiceImpl implements QnaService {
 	}
 
 	@Override
+	public boolean answerQna(QnaDto qnaDto) throws SQLException {
+		return qnaMapper.answerQna(qnaDto);
+	}
+
+	@Override
 	public boolean removeQna(int qnaNo) throws SQLException {
 		return qnaMapper.removeQna(qnaNo);
 	}

@@ -58,18 +58,18 @@ public class InterestlocController {
 //	}
 
 	@PostMapping("/{dongCode}")
-	public ResponseEntity<List<InterestlocDto>> addInterestloc(@PathVariable String dongCode, HttpSession session) {
+	public ResponseEntity addInterestloc(@PathVariable String dongCode, HttpSession session) {
 		InterestlocDto interestloc = new InterestlocDto();
 		String userId = (String) session.getAttribute("userId");
 		interestloc.setMember_id(userId);
 		interestloc.setBaseaddress_dongCode(dongCode);
 		interestlocService.addInterestloc(interestloc);
 		List<InterestlocDto> list = interestlocService.getInterestloc(userId);
-		return new ResponseEntity<List<InterestlocDto>>(list, HttpStatus.OK);
+		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("/{dongCode}")
-	public ResponseEntity<List<InterestlocDto>> deleteInterestloc(@PathVariable String dongCode, HttpSession session) {
+	public ResponseEntity deleteInterestloc(@PathVariable String dongCode, HttpSession session) {
 		InterestlocDto interestloc = new InterestlocDto();
 		String userId = (String) session.getAttribute("userId");
 		interestloc.setMember_id(userId);
@@ -77,9 +77,9 @@ public class InterestlocController {
 		interestlocService.deleteInterestloc(interestloc);
 		List<InterestlocDto> list = interestlocService.getInterestloc(userId);
 		if (list != null) {
-			return new ResponseEntity<List<InterestlocDto>>(list, HttpStatus.OK);
+			return ResponseEntity.noContent().build();
 		}
-		return new ResponseEntity<List<InterestlocDto>>(HttpStatus.NO_CONTENT);
+		return ResponseEntity.badRequest().build();
 	}
 
 }

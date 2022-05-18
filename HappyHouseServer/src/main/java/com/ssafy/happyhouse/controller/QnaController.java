@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,22 +57,46 @@ public class QnaController {
 	}
 
 	@PostMapping("/auth")
-	public ResponseEntity writeQna(@RequestBody QnaDto qnaDto) throws SQLException {
+	public ResponseEntity writeQna(@RequestBody QnaDto qnaDto, HttpSession session) throws SQLException {
+		qnaDto.setUserId((String) session.getAttribute("userId"));
+		qnaDto.setUserName((String) session.getAttribute("userName"));
 		qnaService.writeQna(qnaDto);
-		return ResponseEntity.created(URI.create("/qna/" + qnaDto.getQnaNo())).build();
+		return ResponseEntity.noContent().build();
 	}
 
 	@DeleteMapping("/auth/{qnaNo}")
-	public ResponseEntity removeQna(@PathVariable int qnaNo) throws SQLException {
-		qnaService.removeQna(qnaNo);
-		return ResponseEntity.noContent().build();
+	public ResponseEntity removeQna(@PathVariable int qnaNo, HttpSession session) throws SQLException {
+		String writer = qnaService.getQna(qnaNo).getUserId(); // 작성자
+		String remover = (String) session.getAttribute("userId"); // 삭제하려는 사람
+		if (writer.equals(remover) || remover.equals("admin")) { // 작성자or관리자만 삭제 가능
+			qnaService.removeQna(qnaNo);
+			return ResponseEntity.noContent().build();
+		} else
+			return ResponseEntity.badRequest().build();
 	}
 
 	@PutMapping("/auth/{qnaNo}")
-	public ResponseEntity modifyQna(@PathVariable int qnaNo, @RequestBody QnaDto qnaDto) throws SQLException {
-		qnaDto.setQnaNo(qnaNo);
-		qnaService.modifyQna(qnaDto);
-		return ResponseEntity.noContent().build();
+	public ResponseEntity modifyQna(@PathVariable int qnaNo, @RequestBody QnaDto qnaDto, HttpSession session)
+			throws SQLException {
+		String writer = qnaService.getQna(qnaNo).getUserId(); // 작성자
+		String modifier = (String) session.getAttribute("userId"); // 수정하려는 사람
+		if (writer.equals(modifier)) { // 작성자만 수정 가능
+			qnaDto.setQnaNo(qnaNo);
+			qnaService.modifyQna(qnaDto);
+			return ResponseEntity.ok().build();
+		} else
+			return ResponseEntity.badRequest().build();
 	}
 
+	@PutMapping("/auth/answer/{qnaNo}")
+	public ResponseEntity answerQna(@PathVariable int qnaNo, @RequestBody QnaDto qnaDto, HttpSession session)
+			throws SQLException {
+		String answerer = (String) session.getAttribute("userId"); // 답변하려는 사람
+		if (answerer.equals("admin")) { // 관리자만 답변 가능
+			qnaDto.setQnaNo(qnaNo);
+			qnaService.modifyQna(qnaDto);
+			return ResponseEntity.ok().build();
+		} else
+			return ResponseEntity.badRequest().build();
+	}
 }

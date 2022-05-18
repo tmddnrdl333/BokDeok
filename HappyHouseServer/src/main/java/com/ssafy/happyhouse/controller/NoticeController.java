@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,23 +57,34 @@ public class NoticeController {
 	}
 
 	@PostMapping("/auth")
-	public ResponseEntity writeNotice(@RequestBody NoticeDto noticeDto) throws SQLException {
+	public ResponseEntity writeNotice(@RequestBody NoticeDto noticeDto, HttpSession session) throws SQLException {
+		noticeDto.setUserId((String) session.getAttribute("userId"));
+		noticeDto.setUserName((String) session.getAttribute("userName"));
 		noticeService.writeNotice(noticeDto);
-		return ResponseEntity.created(URI.create("/notice/" + noticeDto.getNoticeNo())).build();
+		return ResponseEntity.noContent().build();
 	}
 
 	@DeleteMapping("/auth/{noticeNo}")
-	public ResponseEntity removeNotice(@PathVariable int noticeNo) throws SQLException {
-		noticeService.removeNotice(noticeNo);
-		return ResponseEntity.noContent().build();
+	public ResponseEntity removeNotice(@PathVariable int noticeNo, HttpSession session) throws SQLException {
+		String remover = (String) session.getAttribute("userId"); // 삭제하려는 사람
+		if (remover.equals("admin")) { // 관리자만 삭제 가능
+			noticeService.removeNotice(noticeNo);
+			return ResponseEntity.noContent().build();
+		} else {
+			return ResponseEntity.badRequest().build();
+		}
 	}
 
 	@PutMapping("/auth/{noticeNo}")
-	public ResponseEntity modifyNotice(@PathVariable int noticeNo, @RequestBody NoticeDto noticeDto)
-			throws SQLException {
-		noticeDto.setNoticeNo(noticeNo);
-		noticeService.modifyNotice(noticeDto);
-		return ResponseEntity.noContent().build();
+	public ResponseEntity modifyNotice(@PathVariable int noticeNo, @RequestBody NoticeDto noticeDto,
+			HttpSession session) throws SQLException {
+		String modifier = (String) session.getAttribute("userId"); // 수정하려는 사람
+		if (modifier.equals("admin")) { // 관리자만 수정 가능
+			noticeDto.setNoticeNo(noticeNo);
+			noticeService.modifyNotice(noticeDto);
+			return ResponseEntity.ok().build();
+		} else {
+			return ResponseEntity.badRequest().build();
+		}
 	}
-
 }

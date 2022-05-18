@@ -32,7 +32,11 @@
 	</insert>
 
 	<update id="modifyQna" parameterType="QnaDto">
-		update qna set subject=#{subject}, question=#{question}, answer=#{answer} where qnaNo=#{qnaNo}
+		update qna set subject=#{subject}, question=#{question} where qnaNo=#{qnaNo}
+	</update>
+
+	<update id="answerQna" parameterType="QnaDto">
+		update qna set answer=#{answer} where qnaNo=#{qnaNo}
 	</update>
 	
 	<delete id="removeQna" parameterType="int">

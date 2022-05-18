@@ -19,5 +19,7 @@ public interface QnaMapper {
 
 	boolean modifyQna(QnaDto qnaDto) throws SQLException;
 
+	boolean answerQna(QnaDto qnaDto) throws SQLException;
+
 	boolean removeQna(int qnaNo) throws SQLException;
 }
