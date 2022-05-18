@@ -1,6 +1,5 @@
 package com.ssafy.happyhouse.controller;
 
-import java.net.URI;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.happyhouse.model.NoticeDto;
 import com.ssafy.happyhouse.model.service.NoticeService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/notice")
 public class NoticeController {
@@ -56,10 +57,12 @@ public class NoticeController {
 		return ResponseEntity.notFound().build();
 	}
 
-	@PostMapping("/auth")
-	public ResponseEntity writeNotice(@RequestBody NoticeDto noticeDto, HttpSession session) throws SQLException {
-		noticeDto.setUserId((String) session.getAttribute("userId"));
-		noticeDto.setUserName((String) session.getAttribute("userName"));
+//	@CrossOrigin(origins="http://localhost:8080", maxAge=3600)
+	@PostMapping("/test")
+	public ResponseEntity writeNotice(@RequestBody NoticeDto noticeDto) throws SQLException {
+//		System.out.println(session.getAttribute("userId"));
+		noticeDto.setUserId("1234");
+		noticeDto.setUserName("kim");
 		noticeService.writeNotice(noticeDto);
 		return ResponseEntity.noContent().build();
 	}

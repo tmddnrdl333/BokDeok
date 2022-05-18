@@ -133,22 +133,32 @@ export default {
       //   .catch(() => alert("등록에 실패하였습니다."));
       console.log(this.qna);
       axios
-        .post("http://localhost/qna/auth", {
+        .post("http://localhost/qna/write", {
           subject: this.qna.subject,
           question: this.qna.question,
         })
         .then((res) => {
           console.log("store : 질문 등록에 성공하였습니다." + res);
+          this.moveList();
         });
     },
     modifyQna() {
-      this.$store
-        .dispatch(Constant.MODIFY_QNA, { qna: this.qna })
-        .then(() => {
-          alert("수정에 성공하였습니다.");
-          this.moveList();
+      axios
+        .put(`http://localhost/qna/${this.qnaNo}`, {
+          subject: this.qna.subject,
+          question: this.qna.question,
         })
-        .catch(() => alert("수정에 실패하였습니다."));
+        .then((res) => {
+          console.log("store : 수정에 성공하였습니다." + res);
+          this.moveList();
+        });
+      // this.$store
+      //   .dispatch(Constant.MODIFY_QNA, { qna: this.qna })
+      //   .then(() => {
+      //     alert("수정에 성공하였습니다.");
+      //     this.moveList();
+      //   })
+      //   .catch(() => alert("수정에 실패하였습니다."));
     },
     getQna(qna) {
       this.$store.dispatch(Constant.GET_QNA, qna);

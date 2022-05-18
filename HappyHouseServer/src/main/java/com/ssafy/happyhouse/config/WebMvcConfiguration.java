@@ -24,6 +24,19 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("index");
 	}
+//	@Override
+//    public void addCorsMappings(CorsRegistry registry) {
+////        registry.addMapping("/**")
+////                .allowedOrigins("http://localhost:8080", "http://localhost:8081")
+////                .allowedMethods("GET", "POST", "PUT", "DELETE");
+//		registry.addMapping("/**")
+//        .allowedOrigins("*")
+//        .allowedMethods("POST", "OPTIONS", "GET")
+//        .allowedHeaders("Content-Type", "Custom-Header")
+//        .allowCredentials(false).maxAge(5);
+
+
+//    }
 	
 //	@Override
 //    public void addCorsMappings(CorsRegistry registry) {

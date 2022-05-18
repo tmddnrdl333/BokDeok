@@ -45,6 +45,8 @@
 
 <script>
 import Constant from "@/common/Constant.js";
+import axios from "axios";
+// import http from "@/api/http.js";
 export default {
   data() {
     return {
@@ -100,15 +102,45 @@ export default {
       this.notice.content = "";
       // this.$router.push({ name: "boardList" });
     },
+    // registNotice() {
+    // http
+    //   .post(`/notice/auth`, {
+    //     noticeNo: this.notice.noticeNo,
+    //     userId: this.notice.userId,
+    //     userName: this.notice.userName,
+    //     subject: this.notice.subject,
+    //     content: this.notice.content,
+    //     regTime: this.notice.regTime,
+    //   })
+    //   .then(({ data }) => {
+    //     let msg = "등록 처리시 문제가 발생했습니다.";
+    //     if (data === "success") {
+    //       msg = "등록이 완료되었습니다.";
+    //     }
+    //     alert(msg);
+    //     this.moveList();
+    //   });
+    // this.$store
+    //   .dispatch(Constant.REGIST_NOTICE, { notice: this.notice })
+    //   .then(() => {
+    //     alert("등록에 성공하였습니다.");
+    //     this.moveList();
+    //   })
+    //   .catch(() => alert("등록에 실패하였습니다."));
+    // },
     registNotice() {
-      // console.log(this.notice);
-      this.$store
-        .dispatch(Constant.REGIST_NOTICE, { notice: this.notice })
-        .then(() => {
-          alert("등록에 성공하였습니다.");
-          this.moveList();
+      axios
+        .post("http://127.0.0.1/notice/auth", {
+          noticeNo: 0,
+          userId: "5678",
+          userName: "zz",
+          subject: "zz",
+          content: "zz",
+          regTime: "zz",
         })
-        .catch(() => alert("등록에 실패하였습니다."));
+        .then(() => {
+          this.$router.push("/");
+        });
     },
     modifyNotice() {
       this.$store

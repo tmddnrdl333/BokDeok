@@ -44,7 +44,7 @@ export default new Vuex.Store({
     },
     [Constant.REGIST_NOTICE](context, payload) {
       return axios
-        .post("http://127.0.0.1/notice", {
+        .post("http://127.0.0.1/notice/auth", {
           noticeNo: payload.notice.noticeNo,
           userId: payload.notice.userId,
           userName: payload.notice.userName,
@@ -58,7 +58,7 @@ export default new Vuex.Store({
     },
     [Constant.MODIFY_NOTICE](context, payload) {
       return axios
-        .put(`http://127.0.0.1/qna/${payload.notice.noticeNo}`, {
+        .put(`http://127.0.0.1/notice/auth/${payload.notice.noticeNo}`, {
           noticeNo: payload.notice.noticeNo,
           userId: payload.notice.userId,
           userName: payload.notice.userName,
@@ -71,9 +71,11 @@ export default new Vuex.Store({
         });
     },
     [Constant.DELETE_NOTICE](context, payload) {
-      axios.delete(`http://127.0.0.1/qna/auth/${payload.noticeNo}`).then(() => {
-        console.log("store : 공지 삭제에 성공하였습니다.");
-      });
+      axios
+        .delete(`http://127.0.0.1/notice/auth/${payload.noticeNo}`)
+        .then(() => {
+          console.log("store : 공지 삭제에 성공하였습니다.");
+        });
     },
     // QnA
     [Constant.GET_QNAS]({ commit }) {
@@ -88,7 +90,7 @@ export default new Vuex.Store({
     },
     [Constant.REGIST_QNA](context, payload) {
       axios
-        .post("http://127.0.0.1/qna/auth", {
+        .post("http://127.0.0.1/qna", {
           subject: payload.qna.subject,
           question: payload.qna.question,
         })
@@ -98,7 +100,7 @@ export default new Vuex.Store({
     },
     [Constant.MODIFY_QNA](context, payload) {
       return axios
-        .put(`http://127.0.0.1/qna/auth/${payload.qna.qnaNo}`, {
+        .put(`http://127.0.0.1/qna/${payload.qna.qnaNo}`, {
           qnaNo: payload.qna.qnaNo,
           userId: payload.qna.userId,
           userName: payload.qna.userName,
@@ -112,7 +114,7 @@ export default new Vuex.Store({
         });
     },
     [Constant.DELETE_QNA](context, payload) {
-      axios.delete(`http://127.0.0.1/qna/auth/${payload.qnaNo}`).then(() => {
+      axios.delete(`http://127.0.0.1/qna/${payload.qnaNo}`).then(() => {
         console.log("store : 질문 삭제에 성공하였습니다.");
       });
     },
