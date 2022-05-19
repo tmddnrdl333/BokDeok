@@ -49,31 +49,34 @@
 </template>
 
 <script>
-import axios from "axios";
+import { mapState, mapActions } from "vuex";
+
+const memberStore = "memberStore";
 export default {
   name: "MemberLogin",
   data() {
     return {
-      isLoginError: false,
       user: {
         id: "",
         pw: "",
       },
     };
   },
+  computed: {
+    ...mapState(memberStore, ["isLogin", "isLoginError"]),
+  },
   methods: {
-    movePage() {
-      this.$router.push("/member/signup");
+    ...mapActions(memberStore, ["userConfirm", "getUserInfo"]),
+    async confirm() {
+      await this.userConfirm(this.user);
+      let token = sessionStorage.getItem("access-token");
+      if (this.isLogin) {
+        await this.getUserInfo(token);
+        this.$router.push({ path: "/" });
+      }
     },
-    login() {
-      axios
-        .post("http://127.0.0.1/user/login", {
-          id: this.user.id,
-          pw: this.user.pw,
-        })
-        .then(() => {
-          this.$router.push("/");
-        });
+    movePage() {
+      this.$router.push({ path: "/member/signup" });
     },
   },
 };

@@ -34,24 +34,24 @@
 </template>
 
 <script>
-export default {
-  computed: {
-    qna() {
-      return this.$store.state.qna;
-    },
+// export default {
+//   computed: {
+//     qna() {
+//       return this.$store.state.qna;
+//     },
 
-    answer() {
-      if (this.qna.answer) return this.qna.answer.split("\n").join("<br>");
-      return "";
-    },
-  },
-  methods: {
-    // getQna() {},
-    moveAnswerInput() {
-      this.$router.push({ path: `/qna/${this.qna.qnaNo}/answer` });
-    },
-  },
-};
+//     answer() {
+//       if (this.qna.answer) return this.qna.answer.split("\n").join("<br>");
+//       return "";
+//     },
+//   },
+//   methods: {
+//     // getQna() {},
+//     moveAnswerInput() {
+//       this.$router.push({ path: `/qna/${this.qna.qnaNo}/answer` });
+//     },
+//   },
+// };
 </script>
 
 <style></style>

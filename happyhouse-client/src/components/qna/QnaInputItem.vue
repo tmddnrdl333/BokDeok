@@ -2,22 +2,6 @@
   <b-row class="mb-1">
     <b-col style="text-align: left">
       <b-form @submit="onSubmit" @reset="onReset">
-        <!-- <b-form-group
-          id="userid-group"
-          label="작성자:"
-          label-for="userid"
-          description="작성자를 입력하세요."
-        >
-          <b-form-input
-            id="userid"
-            :disabled="isUserid"
-            v-model="qna.userid"
-            type="text"
-            required
-            placeholder="작성자 입력..."
-          ></b-form-input>
-        </b-form-group> -->
-
         <b-form-group
           id="subject-group"
           label="제목:"
@@ -60,36 +44,46 @@
 </template>
 
 <script>
-import axios from "axios";
-// import http from "@/api/http";
-import Constant from "@/common/Constant.js";
+import { writeQna, getQna, modifyQna } from "@/api/qna";
+import { mapState } from "vuex";
+
+const memberStore = "memberStore";
+
 export default {
   data() {
     return {
-      qnaNo: 0,
-      isUserid: false,
-    };
-  },
-  computed: {
-    qna() {
-      if (this.type === "modify") return this.$store.state.qna;
-      return {
+      qna: {
         qnaNo: 0,
         userId: "",
         userName: "",
         subject: "",
         question: "",
-      };
-    },
+        answer: "",
+        regTime: "",
+      },
+    };
   },
+
   props: {
     type: { type: String },
   },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+  },
   created() {
     if (this.type === "modify") {
-      this.qnaNo = this.$route.params.qnaNo;
-      this.getQna({ qnaNo: this.qnaNo });
+      getQna(
+        this.$route.params.qnaNo,
+        ({ data }) => {
+          this.qna = data;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
       this.isUserid = true;
+    } else {
+      this.qna.userid = this.userInfo.userid;
     }
   },
   methods: {
@@ -98,11 +92,7 @@ export default {
 
       let err = true;
       let msg = "";
-      // !this.qna.userId &&
-      //   ((msg = "작성자 입력해주세요"),
-      //   (err = false),
-      //   this.$refs.userId.focus());
-      // err &&
+
       !this.qna.subject &&
         ((msg = "제목 입력해주세요"),
         (err = false),
@@ -124,45 +114,48 @@ export default {
       // this.$router.push("/qna/list");
     },
     registQna() {
-      // this.$store
-      //   .dispatch(Constant.REGIST_QNA, { qna: this.qna })
-      //   .then(() => {
-      //     alert("등록에 성공하였습니다.");
-      //     this.moveList();
-      //   })
-      //   .catch(() => alert("등록에 실패하였습니다."));
-      console.log(this.qna);
-      axios
-        .post("http://localhost/qna/write", {
+      writeQna(
+        {
+          userid: this.qna.userid,
           subject: this.qna.subject,
           question: this.qna.question,
-        })
-        .then((res) => {
-          console.log("store : 질문 등록에 성공하였습니다." + res);
+        },
+        ({ data }) => {
+          let msg = "등록 처리시 문제가 발생했습니다.";
+          if (data === "success") {
+            msg = "등록이 완료되었습니다.";
+          }
+          alert(msg);
           this.moveList();
-        });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     },
     modifyQna() {
-      axios
-        .put(`http://localhost/qna/${this.qnaNo}`, {
+      modifyQna(
+        {
+          qnaNo: this.qna.qnaNo,
+          userid: this.qna.userid,
           subject: this.qna.subject,
-          question: this.qna.question,
-        })
-        .then((res) => {
-          console.log("store : 수정에 성공하였습니다." + res);
-          this.moveList();
-        });
-      // this.$store
-      //   .dispatch(Constant.MODIFY_QNA, { qna: this.qna })
-      //   .then(() => {
-      //     alert("수정에 성공하였습니다.");
-      //     this.moveList();
-      //   })
-      //   .catch(() => alert("수정에 실패하였습니다."));
+          question: this.qna.content,
+        },
+        ({ data }) => {
+          let msg = "수정 처리시 문제가 발생했습니다.";
+          if (data === "success") {
+            msg = "수정이 완료되었습니다.";
+          }
+          alert(msg);
+          // 현재 route를 /list로 변경.
+          this.$router.push("/qna/list");
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     },
-    getQna(qna) {
-      this.$store.dispatch(Constant.GET_QNA, qna);
-    },
+
     moveList() {
       this.$router.push("/qna/list");
     },

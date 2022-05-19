@@ -42,43 +42,43 @@
 </template>
 
 <script>
-import Constant from "@/common/Constant.js";
-export default {
-  data() {
-    return {
-      noticeNo: 0,
-    };
-  },
-  computed: {
-    notice() {
-      return this.$store.state.notice;
-    },
-    message() {
-      if (this.notice.content)
-        return this.notice.content.split("\n").join("<br>");
-      return "";
-    },
-  },
-  created() {
-    console.log("NoticeDetail Comp.");
-    this.noticeNo = this.$route.params.noticeNo;
-    this.getNotice({ noticeNo: this.noticeNo });
-  },
-  methods: {
-    moveList() {
-      this.$router.push("/notice/list");
-    },
-    getNotice(notice) {
-      this.$store.dispatch(Constant.GET_NOTICE, notice);
-    },
-    moveModifyNotice() {
-      this.$router.push({ path: `/notice/modify/${this.notice.noticeNo}` });
-    },
-    deleteNotice() {
-      this.$store.dispatch(Constant.DELETE_NOTICE, { noticeNo: this.noticeNo });
-    },
-  },
-};
+// import Constant from "@/common/Constant.js";
+// export default {
+//   data() {
+//     return {
+//       noticeNo: 0,
+//     };
+//   },
+//   computed: {
+//     notice() {
+//       return this.$store.state.notice;
+//     },
+//     message() {
+//       if (this.notice.content)
+//         return this.notice.content.split("\n").join("<br>");
+//       return "";
+//     },
+//   },
+//   created() {
+//     console.log("NoticeDetail Comp.");
+//     this.noticeNo = this.$route.params.noticeNo;
+//     this.getNotice({ noticeNo: this.noticeNo });
+//   },
+//   methods: {
+//     moveList() {
+//       this.$router.push("/notice/list");
+//     },
+//     getNotice(notice) {
+//       this.$store.dispatch(Constant.GET_NOTICE, notice);
+//     },
+//     moveModifyNotice() {
+//       this.$router.push({ path: `/notice/modify/${this.notice.noticeNo}` });
+//     },
+//     deleteNotice() {
+//       this.$store.dispatch(Constant.DELETE_NOTICE, { noticeNo: this.noticeNo });
+//     },
+//   },
+// };
 </script>
 
 <style></style>

@@ -24,43 +24,43 @@
 </template>
 
 <script>
-import Constant from "@/common/Constant.js";
-export default {
-  computed: {
-    qna() {
-      return this.$store.state.qna;
-    },
-  },
-  methods: {
-    onSubmit(event) {
-      event.preventDefault();
+// import Constant from "@/common/Constant.js";
+// export default {
+//   computed: {
+//     qna() {
+//       return this.$store.state.qna;
+//     },
+//   },
+//   methods: {
+//     onSubmit(event) {
+//       event.preventDefault();
 
-      let err = true;
-      let msg = "";
-      !this.qna.answer &&
-        ((msg = "답변을 입력해주세요"),
-        (err = false),
-        this.$refs.answer.focus());
+//       let err = true;
+//       let msg = "";
+//       !this.qna.answer &&
+//         ((msg = "답변을 입력해주세요"),
+//         (err = false),
+//         this.$refs.answer.focus());
 
-      if (!err) alert(msg);
-      else this.writeAnswer();
-    },
+//       if (!err) alert(msg);
+//       else this.writeAnswer();
+//     },
 
-    writeAnswer() {
-      console.log(this.qna);
-      this.$store
-        .dispatch(Constant.MODIFY_QNA, { qna: this.qna })
-        .then(() => {
-          alert("답변 등록에 성공하였습니다.");
-          this.moveDetail();
-        })
-        .catch(() => alert("답변 등록에 실패하였습니다."));
-    },
-    moveDetail() {
-      this.$router.push({ path: `/qna/${this.qna.qnaNo}` });
-    },
-  },
-};
+//     writeAnswer() {
+//       console.log(this.qna);
+//       this.$store
+//         .dispatch(Constant.MODIFY_QNA, { qna: this.qna })
+//         .then(() => {
+//           alert("답변 등록에 성공하였습니다.");
+//           this.moveDetail();
+//         })
+//         .catch(() => alert("답변 등록에 실패하였습니다."));
+//     },
+//     moveDetail() {
+//       this.$router.push({ path: `/qna/${this.qna.qnaNo}` });
+//     },
+//   },
+// };
 </script>
 
 <style></style>

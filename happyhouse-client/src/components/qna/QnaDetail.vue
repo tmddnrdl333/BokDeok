@@ -43,42 +43,42 @@
 </template>
 
 <script>
-import Constant from "@/common/Constant.js";
-export default {
-  data() {
-    return {
-      qnaNo: 0,
-    };
-  },
-  computed: {
-    qna() {
-      return this.$store.state.qna;
-    },
-    question() {
-      if (this.qna.question) return this.qna.question.split("\n").join("<br>");
-      return "";
-    },
-  },
-  created() {
-    console.log("QnaDetail Comp.");
-    this.qnaNo = this.$route.params.qnaNo;
-    this.getQna({ qnaNo: this.qnaNo });
-  },
-  methods: {
-    moveList() {
-      this.$router.push("/qna/list");
-    },
-    getQna(qna) {
-      this.$store.dispatch(Constant.GET_QNA, qna);
-    },
-    moveModifyQna() {
-      this.$router.push({ path: `/qna/modify/${this.qna.qnaNo}` });
-    },
-    deleteQna() {
-      this.$store.dispatch(Constant.DELETE_QNA, { qnaNo: this.qnaNo });
-    },
-  },
-};
+// import Constant from "@/common/Constant.js";
+// export default {
+//   data() {
+//     return {
+//       qnaNo: 0,
+//     };
+//   },
+//   computed: {
+//     qna() {
+//       return this.$store.state.qna;
+//     },
+//     question() {
+//       if (this.qna.question) return this.qna.question.split("\n").join("<br>");
+//       return "";
+//     },
+//   },
+//   created() {
+//     console.log("QnaDetail Comp.");
+//     this.qnaNo = this.$route.params.qnaNo;
+//     this.getQna({ qnaNo: this.qnaNo });
+//   },
+//   methods: {
+//     moveList() {
+//       this.$router.push("/qna/list");
+//     },
+//     getQna(qna) {
+//       this.$store.dispatch(Constant.GET_QNA, qna);
+//     },
+//     moveModifyQna() {
+//       this.$router.push({ path: `/qna/modify/${this.qna.qnaNo}` });
+//     },
+//     deleteQna() {
+//       this.$store.dispatch(Constant.DELETE_QNA, { qnaNo: this.qnaNo });
+//     },
+//   },
+// };
 </script>
 
 <style></style>
