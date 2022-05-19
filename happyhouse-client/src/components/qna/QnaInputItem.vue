@@ -38,6 +38,7 @@
           >질문 수정</b-button
         >
         <b-button type="reset" variant="danger" class="m-1">초기화</b-button>
+        s{{ this.userInfo }}s
       </b-form>
     </b-col>
   </b-row>

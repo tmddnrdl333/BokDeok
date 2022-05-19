@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -95,15 +97,44 @@ public class MemberController {
 		return ResponseEntity.noContent().build();
 	}
 
-	@GetMapping("/info")
-	public ResponseEntity<MemberDto> memberDetail(HttpSession session) {
-		String id = (String) session.getAttribute("userId");
-		MemberDto member = memberService.getMember(id);
-		if (member != null) {
-			return ResponseEntity.ok(member);
+//	@GetMapping("/info")
+//	public ResponseEntity<MemberDto> memberDetail(HttpSession session) {
+//		String id = (String) session.getAttribute("userId");
+//		MemberDto member = memberService.getMember(id);
+//		if (member != null) {
+//			return ResponseEntity.ok(member);
+//		}
+//		return ResponseEntity.notFound().build();
+//	}
+	
+	@GetMapping("/info/{userid}")
+	public ResponseEntity<Map<String, Object>> getInfo(
+			@PathVariable("userid") String userid,
+			HttpServletRequest request) {
+//		logger.debug("userid : {} ", userid);
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+		if (jwtService.isUsable(request.getHeader("access-token"))) {
+			logger.info("사용 가능한 토큰!!!");
+			try {
+//				로그인 사용자 정보.
+				MemberDto memberDto = memberService.getMember(userid);
+				resultMap.put("userInfo", memberDto);
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			} catch (Exception e) {
+				logger.error("정보조회 실패 : {}", e);
+				resultMap.put("message", e.getMessage());
+				status = HttpStatus.INTERNAL_SERVER_ERROR;
+			}
+		} else {
+			logger.error("사용 불가능 토큰!!!");
+			resultMap.put("message", FAIL);
+			status = HttpStatus.ACCEPTED;
 		}
-		return ResponseEntity.notFound().build();
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
+	
 
 	@DeleteMapping("/remove")
 	public ResponseEntity removeMember(HttpSession session) {
