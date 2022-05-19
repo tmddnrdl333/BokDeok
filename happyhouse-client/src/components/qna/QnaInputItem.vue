@@ -38,29 +38,26 @@
           >질문 수정</b-button
         >
         <b-button type="reset" variant="danger" class="m-1">초기화</b-button>
-        s{{ this.userInfo }}s
       </b-form>
     </b-col>
   </b-row>
 </template>
 
 <script>
-import { writeQna, getQna, modifyQna } from "@/api/qna";
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 const memberStore = "memberStore";
+const qnaStore = "qnaStore";
 
 export default {
   data() {
     return {
       qna: {
-        qnaNo: 0,
         userId: "",
         userName: "",
         subject: "",
         question: "",
         answer: "",
-        regTime: "",
       },
     };
   },
@@ -72,8 +69,10 @@ export default {
     ...mapState(memberStore, ["userInfo"]),
   },
   created() {
+    this.qna.userId = this.userInfo.id;
+    this.qna.userName = this.userInfo.name;
     if (this.type === "modify") {
-      getQna(
+      this.getQna(
         this.$route.params.qnaNo,
         ({ data }) => {
           this.qna = data;
@@ -83,17 +82,14 @@ export default {
         }
       );
       this.isUserid = true;
-    } else {
-      this.qna.userid = this.userInfo.userid;
     }
   },
   methods: {
+    ...mapActions(qnaStore, ["registQna", "modifyQna", "getQna"]),
     onSubmit(event) {
       event.preventDefault();
-
       let err = true;
       let msg = "";
-
       !this.qna.subject &&
         ((msg = "제목 입력해주세요"),
         (err = false),
@@ -105,7 +101,13 @@ export default {
         this.$refs.question.focus());
 
       if (!err) alert(msg);
-      else this.type === "regist" ? this.registQna() : this.modifyQna();
+      else if (this.type === "regist") {
+        console.log("im here");
+        console.log(this.qna);
+        this.registQna(this.qna);
+      } else {
+        this.modifyQna();
+      }
     },
     onReset(event) {
       event.preventDefault();
@@ -113,48 +115,6 @@ export default {
       this.qna.subject = "";
       this.qna.question = "";
       // this.$router.push("/qna/list");
-    },
-    registQna() {
-      writeQna(
-        {
-          userid: this.qna.userid,
-          subject: this.qna.subject,
-          question: this.qna.question,
-        },
-        ({ data }) => {
-          let msg = "등록 처리시 문제가 발생했습니다.";
-          if (data === "success") {
-            msg = "등록이 완료되었습니다.";
-          }
-          alert(msg);
-          this.moveList();
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    },
-    modifyQna() {
-      modifyQna(
-        {
-          qnaNo: this.qna.qnaNo,
-          userid: this.qna.userid,
-          subject: this.qna.subject,
-          question: this.qna.content,
-        },
-        ({ data }) => {
-          let msg = "수정 처리시 문제가 발생했습니다.";
-          if (data === "success") {
-            msg = "수정이 완료되었습니다.";
-          }
-          alert(msg);
-          // 현재 route를 /list로 변경.
-          this.$router.push("/qna/list");
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
     },
 
     moveList() {

@@ -7,6 +7,10 @@ function listQna(param, success, fail) {
 }
 
 function writeQna(qna, success, fail) {
+  let token = sessionStorage.getItem("access-token");
+  console.log(qna);
+  api.defaults.headers["access-token"] = token;
+  api.post(`/qna/auth`, qna).then(success).catch(fail);
   api.post(`/qna/auth`, JSON.stringify(qna)).then(success).catch(fail);
 }
 

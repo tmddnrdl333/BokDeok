@@ -43,18 +43,27 @@ const qnaStore = {
         }
       );
     },
-    registQna: (qna) => {
+    registQna: (context, qna) => {
       writeQna(
         qna,
-        () => {},
-        () => {}
+        ({ data }) => {
+          console.log(data);
+        },
+        (error) => {
+          console.log("error 발생");
+          console.log(error);
+        }
       );
     },
-    modifyQna: (qna) => {
+    modifyQna: (context, qna) => {
       modifyQna(
         qna,
-        () => {},
-        () => {}
+        ({ data }) => {
+          console.log(data);
+        },
+        (error) => {
+          console.log("error" + error);
+        }
       );
     },
     deleteQna: (qnaNo) => {
