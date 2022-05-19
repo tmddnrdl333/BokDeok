@@ -58,44 +58,47 @@
       </b-col>
       <b-col v-else class="text-center">QnA 목록이 없습니다.</b-col>
     </b-row>
-    <div></div>
   </b-container>
 </template>
 
 <script>
-// import Constant from "@/common/Constant.js";
-// export default {
-//   data() {
-//     return {
-//       perPage: 10,
-//       currentPage: 1,
-//     };
-//   },
-//   computed: {
-//     qnas() {
-//       const items = this.$store.state.qnas;
-//       return items.slice(
-//         (this.currentPage - 1) * this.perPage,
-//         this.currentPage * this.perPage
-//       );
-//     },
-//     rows() {
-//       return this.$store.state.notices.length;
-//     },
-//   },
-//   created() {
-//     console.log("QnaList Comp.");
-//     this.getQnas();
-//   },
-//   methods: {
-//     getQnas() {
-//       this.$store.dispatch(Constant.GET_QNAS);
-//     },
-//     moveRegist() {
-//       this.$router.push("/qna/regist");
-//     },
-//   },
-// };
+import { mapState, mapActions } from "vuex";
+
+const qnaStore = "qnaStore";
+
+export default {
+  data() {
+    return {
+      perPage: 10,
+      currentPage: 1,
+    };
+  },
+  computed: {
+    ...mapState(qnaStore, ["qnas"]),
+    pagedQnas() {
+      const items = this.qnas;
+      return items.slice(
+        (this.currentPage - 1) * this.perPage,
+        this.currentPage * this.perPage
+      );
+    },
+
+    rows() {
+      return this.qnas.length;
+    },
+    // pagination 됐는지 regist 작성 후 확인 요
+  },
+  created() {
+    console.log("QnaList Comp.");
+    this.getQnas();
+  },
+  methods: {
+    ...mapActions(qnaStore, ["getQnas"]),
+    moveRegist() {
+      this.$router.push("/qna/regist");
+    },
+  },
+};
 </script>
 
 <style></style>

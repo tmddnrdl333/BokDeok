@@ -30,7 +30,11 @@
                 placeholder="비밀번호 입력...."
               ></b-form-input>
             </b-form-group>
-            <b-button type="button" variant="primary" class="m-1" @click="login"
+            <b-button
+              type="button"
+              variant="primary"
+              class="m-1"
+              @click="confirm"
               >로그인</b-button
             >
             <b-button
@@ -71,6 +75,7 @@ export default {
       await this.userConfirm(this.user);
       let token = sessionStorage.getItem("access-token");
       if (this.isLogin) {
+        console.log("로그인 했엉");
         await this.getUserInfo(token);
         this.$router.push({ path: "/" });
       }

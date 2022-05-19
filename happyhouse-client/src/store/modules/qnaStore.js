@@ -13,7 +13,7 @@ const qnaStore = {
   getters: {},
   mutations: {
     setQnas(state, payload) {
-      state.qnas = payload.qnas;
+      state.qnas = payload;
     },
     setQna(state, payload) {
       state.qna = payload.qna;
@@ -23,6 +23,7 @@ const qnaStore = {
     getQnas: ({ commit }, params) => {
       params,
         listQna(
+          null,
           ({ data }) => {
             commit("setQnas", data);
           },

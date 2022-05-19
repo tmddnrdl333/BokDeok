@@ -1,6 +1,7 @@
 package com.ssafy.happyhouse.controller;
 
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.happyhouse.model.MemberDto;
+import com.ssafy.happyhouse.model.service.JwtServiceImpl;
 import com.ssafy.happyhouse.model.service.MemberService;
 
 @RestController
@@ -28,7 +30,12 @@ import com.ssafy.happyhouse.model.service.MemberService;
 @CrossOrigin
 public class MemberController {
 
-	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	public static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	private static final String SUCCESS = "success";
+	private static final String FAIL = "fail";
+
+	@Autowired
+	private JwtServiceImpl jwtService;
 
 	@Autowired
 	private MemberService memberService;
@@ -58,16 +65,28 @@ public class MemberController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<MemberDto> login(@RequestBody Map<String, String> map, HttpSession session) {
-		MemberDto member = memberService.login(map);
-		if (member != null) {
-			session.setAttribute("userId", member.getId());
-			session.setAttribute("userName", member.getName());
-			System.out.println(session.getAttribute("userId"));
-			System.out.println("로그인 했엉");
-			return ResponseEntity.ok(member);
+	public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> idpw) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+		try {
+			MemberDto loginUser = memberService.login(idpw);
+			if (loginUser != null) {
+				String token = jwtService.create("userid", loginUser.getId(), "access-token");// key, data, subject
+				logger.debug("로그인 토큰정보 : {}", token);
+				resultMap.put("access-token", token);
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+				System.out.println("로그인 했엉");
+			} else {
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
+			}
+		} catch (Exception e) {
+			logger.error("로그인 실패 : {}", e);
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
-		return ResponseEntity.notFound().build();
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
 	@GetMapping("/logout")
