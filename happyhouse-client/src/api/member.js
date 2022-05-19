@@ -15,4 +15,11 @@ async function logout(success, fail) {
   await api.get(`/user/logout`).then(success).catch(fail);
 }
 
-export { login, findById, logout };
+async function signup(user, success, fail) {
+  await api
+    .post(`/user/regist`, JSON.stringify(user))
+    .then(success)
+    .catch(fail);
+}
+
+export { login, findById, logout, signup };

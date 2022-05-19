@@ -61,9 +61,20 @@ public class MemberController {
 	}
 
 	@PostMapping("/regist")
-	public ResponseEntity regist(@RequestBody MemberDto member) {
-		memberService.registMember(member);
-		return ResponseEntity.created(URI.create("/user/" + member.getId())).build();
+	public ResponseEntity<Map<String, Object>> regist(@RequestBody MemberDto member) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+		try {
+			memberService.registMember(member);
+			logger.debug("회원가입 성공!");
+			resultMap.put("message", SUCCESS);
+			status = HttpStatus.ACCEPTED;
+		}catch(Exception e) {
+			logger.error("회원가입 실패~");
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
 	@PostMapping("/login")
@@ -106,6 +117,7 @@ public class MemberController {
 //		}
 //		return ResponseEntity.notFound().build();
 //	}
+	
 	
 	@GetMapping("/info/{userid}")
 	public ResponseEntity<Map<String, Object>> getInfo(

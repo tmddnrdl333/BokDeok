@@ -1,12 +1,12 @@
 import jwt_decode from "jwt-decode";
-import { login } from "@/api/member.js";
-import { findById } from "../../api/member";
+import { login, findById, signup } from "@/api/member.js";
 
 const memberStore = {
   namespaced: true,
   state: {
     isLogin: false,
     isLoginError: false,
+    isRegistError: false,
     userInfo: null,
   },
   getters: {
@@ -21,9 +21,13 @@ const memberStore = {
     SET_IS_LOGIN_ERROR: (state, isLoginError) => {
       state.isLoginError = isLoginError;
     },
+    SET_IS_REGIST_ERROR: (state, isRegistError) => {
+      state.isRegistError = isRegistError;
+    },
     SET_USER_INFO: (state, userInfo) => {
       state.isLogin = true;
       state.userInfo = userInfo;
+      console.log(state.userInfo);
     },
   },
   actions: {
@@ -53,6 +57,23 @@ const memberStore = {
             commit("SET_USER_INFO", response.data.userInfo);
           } else {
             console.log("유저 정보 없음!!");
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+
+    userRegist({ commit }, user) {
+      signup(
+        user,
+        (response) => {
+          if (response.data.message === "success") {
+            commit("SET_IS_REGIST_ERROR", false);
+          } else {
+            commit("SET_IS_REGIST_ERROR", true);
+            console.log("회원가입 실패!");
           }
         },
         (error) => {

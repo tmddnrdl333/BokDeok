@@ -22,7 +22,28 @@ import MemberLogin from "@/components/member/MemberLogin.vue";
 import MemberSignup from "@/components/member/MemberSignup.vue";
 import MemberInfo from "@/components/member/MemberInfo.vue";
 
+import store from "@/store/index.js";
+
 Vue.use(VueRouter);
+
+// https://router.vuejs.org/kr/guide/advanced/navigation-guards.html
+const onlyAuthUser = async (to, from, next) => {
+  // console.log(store);
+  const checkUserInfo = store.getters["memberStore/checkUserInfo"];
+  const getUserInfo = store._actions["memberStore/getUserInfo"];
+  let token = sessionStorage.getItem("access-token");
+  if (checkUserInfo == null && token) {
+    await getUserInfo(token);
+  }
+  if (checkUserInfo === null) {
+    alert("로그인이 필요한 페이지입니다..");
+    next("/member/login");
+    // router.push("/member/login");
+  } else {
+    // console.log("로그인 했다.");
+    next();
+  }
+};
 
 const routes = [
   {
@@ -44,6 +65,7 @@ const routes = [
       },
       {
         path: "regist",
+        beforeEnter: onlyAuthUser,
         component: NoticeRegist,
       },
       {
@@ -52,6 +74,7 @@ const routes = [
       },
       {
         path: "modify/:noticeNo",
+        beforeEnter: onlyAuthUser,
         component: NoticeModify,
       },
     ],
@@ -68,6 +91,7 @@ const routes = [
       },
       {
         path: "regist",
+        beforeEnter: onlyAuthUser,
         component: QnaRegist,
       },
       {
@@ -80,18 +104,21 @@ const routes = [
           },
           {
             path: "answer",
+            beforeEnter: onlyAuthUser,
             component: QnaAnswerInput,
           },
         ],
       },
       {
         path: "modify/:qnaNo",
+        beforeEnter: onlyAuthUser,
         component: QnaModify,
       },
     ],
   },
   {
     path: "/interest",
+    beforeEnter: onlyAuthUser,
     component: InterestView,
   },
   {
@@ -108,6 +135,7 @@ const routes = [
       },
       {
         path: "info",
+
         component: MemberInfo,
       },
     ],
