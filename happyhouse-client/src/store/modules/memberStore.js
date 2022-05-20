@@ -29,6 +29,11 @@ const memberStore = {
       state.userInfo = userInfo;
       console.log(state.userInfo);
     },
+    LOGOUT: (state) => {
+      state.userInfo = null;
+      sessionStorage.removeItem("access-token");
+      location.reload();
+    },
   },
   actions: {
     async userConfirm({ commit }, user) {
@@ -80,6 +85,11 @@ const memberStore = {
           console.log(error);
         }
       );
+    },
+
+    logout({ commit }) {
+      // console.log("ACTIONS");
+      commit("LOGOUT");
     },
   },
 };
