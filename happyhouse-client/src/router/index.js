@@ -8,6 +8,8 @@ import InterestView from "@/views/InterestView.vue";
 import MemberView from "@/views/MemberView.vue";
 import QnaView from "@/views/QnaView.vue";
 
+import AptList from "@/components/apt/AptList.vue";
+import AptDeal from "@/components/apt/AptDeal.vue";
 import NoticeList from "@/components/notice/NoticeList.vue";
 import NoticeRegist from "@/components/notice/NoticeRegist.vue";
 import NoticeDetail from "@/components/notice/NoticeDetail.vue";
@@ -53,6 +55,17 @@ const routes = [
   {
     path: "/apt",
     component: AptView,
+    redirect: "/apt/",
+    children: [
+      {
+        path: "",
+        component: AptList,
+      },
+      {
+        path: "deal",
+        component: AptDeal,
+      },
+    ],
   },
   {
     path: "/notice",

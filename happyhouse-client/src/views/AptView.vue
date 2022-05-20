@@ -1,11 +1,42 @@
 <template>
   <div>
-    <h2>AptView등장</h2>
+    <div class="fluid-col"><apt-map></apt-map></div>
+    <div class="fixed-col"><router-view></router-view></div>
+    <!-- <b-container fluid>
+      <b-row>
+        <b-col class="col"> <apt-map></apt-map></b-col>
+        <b-col class="col" cols="3"><router-view></router-view></b-col>
+      </b-row>
+    </b-container> -->
   </div>
 </template>
 
 <script>
-export default {};
+import AptMap from "@/components/apt/AptMap.vue";
+export default {
+  components: {
+    AptMap,
+  },
+};
 </script>
 
-<style></style>
+<style scoped>
+.col {
+  padding: 0;
+}
+.fixed-col {
+  width: 350px;
+  float: left;
+}
+.fluid-col {
+  width: calc(100% - 350px);
+  float: left;
+}
+#aptList {
+  background-color: lemonchiffon;
+}
+#aptMap {
+  background-color: mediumseagreen;
+  padding: 0;
+}
+</style>
