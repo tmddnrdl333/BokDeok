@@ -12,14 +12,16 @@
     >
     <b-collapse id="search-collapse" v-model="visible" class="mt-2" visible>
       <b-form-input
-        @keyup.enter="getDongList()"
+        @keypress.enter="getDongList()"
         v-model="dongInput"
         type="search"
         placeholder="동 입력...."
       ></b-form-input>
 
       <b-list-group v-for="dongRes in dongList" :key="dongRes.dongCode">
-        <b-list-group-item>{{ dongRes.fullName }}</b-list-group-item>
+        <b-list-group-item @click="clickDong(dongRes)">{{
+          dongRes.fullName
+        }}</b-list-group-item>
       </b-list-group>
     </b-collapse>
   </div>
@@ -29,8 +31,9 @@
 import { apiInstance } from "@/api/index.js";
 const api = apiInstance();
 
-import { mapState } from "vuex";
-const aptStore = "aptStore";
+import { mapState, mapActions } from "vuex";
+
+const mapStore = "mapStore";
 export default {
   data() {
     return {
@@ -40,8 +43,15 @@ export default {
       dongInput: "",
     };
   },
+  watch: {
+    dongInput(newVal, oldVal) {
+      if (oldVal && !newVal) {
+        this.dongList = "";
+      }
+    },
+  },
   computed: {
-    ...mapState(aptStore, ["apts"]),
+    ...mapState(mapStore, ["houseInfos", "dong"]),
   },
   mounted() {
     if (window.kakao && window.kakao.maps) {
@@ -56,8 +66,10 @@ export default {
     }
   },
   methods: {
-    test() {
-      console.log(this.dongInput);
+    ...mapActions(mapStore, ["getHouseInfos", "searchDong"]),
+    clickDong(dongRes) {
+      this.searchDong(dongRes);
+      this.getHouseInfos(dongRes.dongCode);
     },
     initMap() {
       const container = document.getElementById("map");
@@ -70,6 +82,7 @@ export default {
     },
 
     getDongList() {
+      this.dongList = "";
       console.log("getDongList");
       console.log(this.dongInput);
       api

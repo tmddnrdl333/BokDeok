@@ -7,13 +7,14 @@ Vue.use(Vuex);
 import memberStore from "@/store/modules/memberStore.js";
 import noticeStore from "@/store/modules/noticeStore.js";
 import qnaStore from "@/store/modules/qnaStore.js";
+import mapStore from "@/store/modules/mapStore.js";
 
 export default new Vuex.Store({
   modules: {
-    // aptStore,
     memberStore,
     noticeStore,
     qnaStore,
+    mapStore,
   },
   plugins: [
     createPersistedState({
