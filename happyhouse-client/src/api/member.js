@@ -11,9 +11,9 @@ async function findById(userid, success, fail) {
   await api.get(`/user/info/${userid}`).then(success).catch(fail);
 }
 
-async function logout(success, fail) {
-  await api.get(`/user/logout`).then(success).catch(fail);
-}
+// async function logout(success, fail) {
+//   await api.get(`/user/logout`).then(success).catch(fail);
+// }
 
 async function signup(user, success, fail) {
   await api
@@ -22,4 +22,4 @@ async function signup(user, success, fail) {
     .catch(fail);
 }
 
-export { login, findById, logout, signup };
+export { login, findById, signup };

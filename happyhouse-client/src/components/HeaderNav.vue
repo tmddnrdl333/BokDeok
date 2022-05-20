@@ -51,9 +51,7 @@
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto" v-else>
           <b-nav-item
-            ><router-link class="nav-link" to="/member/logout"
-              >로그아웃</router-link
-            ></b-nav-item
+            ><b-nav-text @click="clickLogout">로그아웃</b-nav-text></b-nav-item
           >
           <b-nav-item
             ><router-link class="nav-link" to="/member/info"
@@ -67,13 +65,19 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-
+import { mapState, mapActions } from "vuex";
 const memberStore = "memberStore";
 
 export default {
   computed: {
     ...mapState(memberStore, ["userInfo"]),
+  },
+  methods: {
+    ...mapActions(memberStore, ["logout"]),
+    clickLogout() {
+      this.logout();
+      alert("로그아웃되었습니다!");
+    },
   },
 };
 </script>
