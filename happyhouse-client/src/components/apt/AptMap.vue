@@ -19,7 +19,7 @@
       ></b-form-input>
 
       <b-list-group v-for="dongRes in dongList" :key="dongRes.dongCode">
-        <b-list-group-item>{{ dongRes.dongCode }}</b-list-group-item>
+        <b-list-group-item>{{ dongRes.fullName }}</b-list-group-item>
       </b-list-group>
     </b-collapse>
   </div>
@@ -56,6 +56,9 @@ export default {
     }
   },
   methods: {
+    test() {
+      console.log(this.dongInput);
+    },
     initMap() {
       const container = document.getElementById("map");
       const options = {
@@ -70,7 +73,7 @@ export default {
       console.log("getDongList");
       console.log(this.dongInput);
       api
-        .get(`/map/dong`, { params: { input: this.dongInput } })
+        .get(`/dongsearch`, { params: { keyword: this.dongInput } })
         .then(({ data }) => {
           this.dongList = data;
         })
