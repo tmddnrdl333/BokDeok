@@ -1,66 +1,69 @@
 <template>
-  <b-row class="mb-1">
+  <b-row class="mt-2 mb-1">
     <b-col style="text-align: left">
       <b-form @submit="onSubmit">
         <b-form-group id="content-group" label="답변:" label-for="answer">
           <b-form-textarea
             id="answer"
             v-model="qna.answer"
+            required
             placeholder="답변 입력..."
-            rows="10"
+            rows="5"
             max-rows="15"
           ></b-form-textarea>
         </b-form-group>
-
-        <b-button type="submit" variant="primary" class="m-1"
-          >답변 등록</b-button
+        <b-button type="submit" variant="outline-primary" class="m-1"
+          >등록</b-button
         >
-        <!-- <b-button type="submit" variant="primary" class="m-1" v-else
-          >답변 수정</b-button
-        > -->
       </b-form>
     </b-col>
   </b-row>
 </template>
 
 <script>
-// import Constant from "@/common/Constant.js";
-// export default {
-//   computed: {
-//     qna() {
-//       return this.$store.state.qna;
-//     },
-//   },
-//   methods: {
-//     onSubmit(event) {
-//       event.preventDefault();
+import { mapState, mapActions } from "vuex";
 
-//       let err = true;
-//       let msg = "";
-//       !this.qna.answer &&
-//         ((msg = "답변을 입력해주세요"),
-//         (err = false),
-//         this.$refs.answer.focus());
+const memberStore = "memberStore";
+const qnaStore = "qnaStore";
 
-//       if (!err) alert(msg);
-//       else this.writeAnswer();
-//     },
+export default {
+  props: ["answer"],
+  data() {
+    return {
+      qnaNo: 0,
+    };
+  },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+    ...mapState(qnaStore, ["qna"]),
+  },
+  methods: {
+    ...mapActions(qnaStore, ["answerQna"]),
 
-//     writeAnswer() {
-//       console.log(this.qna);
-//       this.$store
-//         .dispatch(Constant.MODIFY_QNA, { qna: this.qna })
-//         .then(() => {
-//           alert("답변 등록에 성공하였습니다.");
-//           this.moveDetail();
-//         })
-//         .catch(() => alert("답변 등록에 실패하였습니다."));
-//     },
-//     moveDetail() {
-//       this.$router.push({ path: `/qna/${this.qna.qnaNo}` });
-//     },
-//   },
-// };
+    moveAnswerInput() {
+      this.$router.push({ path: `/qna/${this.qna.qnaNo}/answer` });
+    },
+    onSubmit(event) {
+      event.preventDefault();
+      this.answerQna(this.qna);
+      this.$router.push({ path: `/qna/${this.qna.qnaNo}/` });
+    },
+
+    // writeAnswer() {
+    //   console.log(this.qna);
+    //   this.$store
+    //     .dispatch(Constant.MODIFY_QNA, { qna: this.qna })
+    //     .then(() => {
+    //       alert("답변 등록에 성공하였습니다.");
+    //       this.moveDetail();
+    //     })
+    //     .catch(() => alert("답변 등록에 실패하였습니다."));
+    // },
+    moveDetail() {
+      this.$router.push({ path: `/qna/${this.qna.qnaNo}` });
+    },
+  },
+};
 </script>
 
 <style></style>

@@ -39,7 +39,7 @@
             <tr v-for="qna in qnas" :key="qna.quaNo">
               <td>{{ qna.qnaNo }}</td>
               <td>
-                <router-link :to="'/qna/' + qna.qnaNo">{{
+                <router-link :to="'/qna/' + qna.qnaNo + '/'">{{
                   qna.subject
                 }}</router-link>
               </td>
@@ -88,7 +88,7 @@ export default {
     },
     // pagination 됐는지 regist 작성 후 확인 요
   },
-  created() {
+  mounted() {
     console.log("QnaList Comp.");
     this.getQnas();
   },

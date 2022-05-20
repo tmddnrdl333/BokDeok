@@ -11,20 +11,6 @@ import com.ssafy.happyhouse.controller.interceptor.JwtInterceptor;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-	private static final String[] EXCLUDE_PATHS = { "/user/**", "/error/**" };
-
-	@Autowired
-	private JwtInterceptor jwtInterceptor;
-
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(jwtInterceptor).addPathPatterns("/**/auth/**")// 기본 적용 경로
-				.excludePathPatterns(EXCLUDE_PATHS);// 적용 제외 경로
-//		registry.addInterceptor(jwtInterceptor).addPathPatterns("/user/**", "/article/**", "/memo/**") // 기본 적용 경로
-//        .excludePathPatterns(Arrays.asList("/user/confirm/**", "/article/list"));// 적용 제외 경로
-	}
-
-//  Interceptor를 이용해서 처리하므로 전역의 Cross Origin 처리를 해준다.
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 //		default 설정.

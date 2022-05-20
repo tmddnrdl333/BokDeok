@@ -55,37 +55,22 @@ public class NoticeController {
 		return ResponseEntity.notFound().build();
 	}
 
-//	@CrossOrigin(origins="http://localhost:8080", maxAge=3600)
-	@PostMapping("/auth")
+	@PostMapping("/regist")
 	public ResponseEntity writeNotice(@RequestBody NoticeDto noticeDto) throws SQLException {
-//		System.out.println(session.getAttribute("userId"));
-		noticeDto.setUserId("1234");
-		noticeDto.setUserName("kim");
 		noticeService.writeNotice(noticeDto);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok().build();
 	}
 
-	@DeleteMapping("/auth/{noticeNo}")
-	public ResponseEntity removeNotice(@PathVariable int noticeNo, HttpSession session) throws SQLException {
-		String remover = (String) session.getAttribute("userId"); // 삭제하려는 사람
-		if (remover.equals("admin")) { // 관리자만 삭제 가능
-			noticeService.removeNotice(noticeNo);
-			return ResponseEntity.noContent().build();
-		} else {
-			return ResponseEntity.badRequest().build();
-		}
+	@DeleteMapping("/{noticeNo}")
+	public ResponseEntity removeNotice(@PathVariable int noticeNo) throws SQLException {
+		noticeService.removeNotice(noticeNo);
+		return ResponseEntity.ok().build();
 	}
 
-	@PutMapping("/auth/{noticeNo}")
-	public ResponseEntity modifyNotice(@PathVariable int noticeNo, @RequestBody NoticeDto noticeDto,
-			HttpSession session) throws SQLException {
-		String modifier = (String) session.getAttribute("userId"); // 수정하려는 사람
-		if (modifier.equals("admin")) { // 관리자만 수정 가능
-			noticeDto.setNoticeNo(noticeNo);
-			noticeService.modifyNotice(noticeDto);
-			return ResponseEntity.ok().build();
-		} else {
-			return ResponseEntity.badRequest().build();
-		}
+	@PutMapping("/{noticeNo}")
+	public ResponseEntity modifyNotice(@PathVariable int noticeNo, @RequestBody NoticeDto noticeDto)
+			throws SQLException {
+		noticeService.modifyNotice(noticeDto);
+		return ResponseEntity.ok().build();
 	}
 }

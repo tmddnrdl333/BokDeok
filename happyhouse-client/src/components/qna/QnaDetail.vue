@@ -15,7 +15,7 @@
           no-body
         >
           <b-card-body class="text-left">
-            <div v-html="question"></div>
+            <div v-html="qna.question"></div>
           </b-card-body>
         </b-card>
       </b-col>
@@ -28,57 +28,61 @@
       ><b-col class="text-right">
         <b-button
           variant="outline-info"
-          size="sm"
           @click="moveModifyQna"
           class="mr-2"
-          >질문 수정</b-button
+          v-if="userInfo.id == qna.userId"
+          >수정</b-button
         >
-        <b-button variant="outline-danger" size="sm" @click="deleteQna"
-          >질문 삭제</b-button
+        <b-button
+          variant="outline-danger"
+          @click="removeQna"
+          v-if="userInfo.id == qna.userId || userInfo.id == 'admin'"
+          >삭제</b-button
         >
       </b-col></b-row
     >
-    <router-view></router-view>
+    <router-view :answer="this.qna.answer"></router-view>
   </b-container>
 </template>
 
 <script>
-// import Constant from "@/common/Constant.js";
-// export default {
-//   data() {
-//     return {
-//       qnaNo: 0,
-//     };
-//   },
-//   computed: {
-//     qna() {
-//       return this.$store.state.qna;
-//     },
-//     question() {
-//       if (this.qna.question) return this.qna.question.split("\n").join("<br>");
-//       return "";
-//     },
-//   },
-//   created() {
-//     console.log("QnaDetail Comp.");
-//     this.qnaNo = this.$route.params.qnaNo;
-//     this.getQna({ qnaNo: this.qnaNo });
-//   },
-//   methods: {
-//     moveList() {
-//       this.$router.push("/qna/list");
-//     },
-//     getQna(qna) {
-//       this.$store.dispatch(Constant.GET_QNA, qna);
-//     },
-//     moveModifyQna() {
-//       this.$router.push({ path: `/qna/modify/${this.qna.qnaNo}` });
-//     },
-//     deleteQna() {
-//       this.$store.dispatch(Constant.DELETE_QNA, { qnaNo: this.qnaNo });
-//     },
-//   },
-// };
+import { mapState, mapActions } from "vuex";
+
+const memberStore = "memberStore";
+const qnaStore = "qnaStore";
+
+export default {
+  data() {
+    return {
+      qnaNo: 0,
+    };
+  },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+    ...mapState(qnaStore, ["qna"]),
+  },
+  mounted() {
+    console.log("Qna Comp.");
+    this.qnaNo = this.$route.params.qnaNo;
+    this.getQna(this.qnaNo);
+  },
+  methods: {
+    ...mapActions(qnaStore, ["getQna", "deleteQna"]),
+    moveList() {
+      this.$router.push("/qna/list");
+    },
+    moveModifyQna() {
+      this.$router.push(`/qna/modify/${this.qna.qnaNo}`);
+    },
+    moveAnswerQna() {
+      this.$router.push(`/qna/${this.qna.qnaNo}/answer`);
+    },
+    removeQna() {
+      this.deleteQna(this.qnaNo);
+      this.$router.push(`/qna/list`);
+    },
+  },
+};
 </script>
 
 <style></style>

@@ -7,7 +7,7 @@ function listNotice(param, success, fail) {
 }
 
 function writeNotice(notice, success, fail) {
-  api.post(`/notice/auth`, JSON.stringify(notice)).then(success).catch(fail);
+  api.post(`/notice/regist`, JSON.stringify(notice)).then(success).catch(fail);
 }
 
 function getNotice(noticeNo, success, fail) {
@@ -16,13 +16,13 @@ function getNotice(noticeNo, success, fail) {
 
 function modifyNotice(notice, success, fail) {
   api
-    .put(`/notice/auth/${notice.noticeNo}`, JSON.stringify(notice))
+    .put(`/notice/${notice.noticeNo}`, JSON.stringify(notice))
     .then(success)
     .catch(fail);
 }
 
 function deleteNotice(noticeNo, success, fail) {
-  api.delete(`/notice/auth/${noticeNo}`).then(success).catch(fail);
+  api.delete(`/notice/${noticeNo}`).then(success).catch(fail);
 }
 
 export { listNotice, writeNotice, getNotice, modifyNotice, deleteNotice };

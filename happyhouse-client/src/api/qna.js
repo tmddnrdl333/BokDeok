@@ -7,11 +7,7 @@ function listQna(param, success, fail) {
 }
 
 function writeQna(qna, success, fail) {
-  let token = sessionStorage.getItem("access-token");
-  console.log(qna);
-  api.defaults.headers["access-token"] = token;
-  api.post(`/qna/auth`, qna).then(success).catch(fail);
-  api.post(`/qna/auth`, JSON.stringify(qna)).then(success).catch(fail);
+  api.post(`/qna/regist`, JSON.stringify(qna)).then(success).catch(fail);
 }
 
 function getQna(qnaNo, success, fail) {
@@ -19,19 +15,16 @@ function getQna(qnaNo, success, fail) {
 }
 
 function modifyQna(qna, success, fail) {
-  api
-    .put(`/qna/auth/${qna.qnaNo}`, JSON.stringify(qna))
-    .then(success)
-    .catch(fail);
+  api.put(`/qna/${qna.qnaNo}`, JSON.stringify(qna)).then(success).catch(fail);
 }
 
 function deleteQna(qnaNo, success, fail) {
-  api.delete(`/qna/auth/${qnaNo}`).then(success).catch(fail);
+  api.delete(`/qna/${qnaNo}`).then(success).catch(fail);
 }
 
 function answerQna(qna, success, fail) {
   api
-    .put(`/qna/auth/answer/${qna.qnaNo}`, JSON.stringify(qna))
+    .put(`/qna/answer/${qna.qnaNo}`, JSON.stringify(qna))
     .then(success)
     .catch(fail);
 }

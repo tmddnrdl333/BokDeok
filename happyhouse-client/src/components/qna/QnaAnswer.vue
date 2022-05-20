@@ -1,17 +1,17 @@
 <template>
   <b-row class="mb-1">
     <b-col>
-      <div v-if="qna.answer">
-        <b-card class="mb-2" border-variant="dark" no-body>
+      <div v-if="answer">
+        <b-card class="mt-1 mb-2" border-variant="dark" no-body>
           <b-card-body>
             <div v-html="answer"></div>
           </b-card-body> </b-card
         ><b-button
-          variant="outline-info"
-          size="sm"
+          variant="outline-secondary"
           @click="moveAnswerInput"
           class="mr-2"
-          >답변 수정하기</b-button
+          v-if="userInfo.id == 'admin'"
+          >답변 수정</b-button
         >
       </div>
       <div v-else class="mx-auto">
@@ -23,9 +23,9 @@
           </div> </b-card
         ><b-button
           variant="outline-info"
-          size="sm"
           @click="moveAnswerInput"
           class="mr-2"
+          v-if="userInfo.id == 'admin'"
           >답변하기</b-button
         >
       </div>
@@ -34,24 +34,38 @@
 </template>
 
 <script>
-// export default {
-//   computed: {
-//     qna() {
-//       return this.$store.state.qna;
-//     },
+import { mapState, mapActions } from "vuex";
 
-//     answer() {
-//       if (this.qna.answer) return this.qna.answer.split("\n").join("<br>");
-//       return "";
-//     },
-//   },
-//   methods: {
-//     // getQna() {},
-//     moveAnswerInput() {
-//       this.$router.push({ path: `/qna/${this.qna.qnaNo}/answer` });
-//     },
-//   },
-// };
+const memberStore = "memberStore";
+const qnaStore = "qnaStore";
+
+export default {
+  props: ["answer"],
+  data() {
+    return {
+      qnaNo: 0,
+    };
+  },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+    ...mapState(qnaStore, ["qna"]),
+  },
+  created() {
+    console.log("QnaAnswer Comp.");
+    this.qnaNo = this.$route.params.qnaNo;
+  },
+  // updated() {
+  //   this.getQna(this.qnaNo);
+  //   this.answer = this.qna.answer;
+  // },
+  methods: {
+    ...mapActions(qnaStore, ["getQna"]),
+
+    moveAnswerInput() {
+      this.$router.push({ path: `/qna/${this.qna.qnaNo}/answer` });
+    },
+  },
+};
 </script>
 
 <style></style>

@@ -14,7 +14,10 @@
         </b-form>
       </b-col>
       <b-col class="text-right">
-        <b-button variant="outline-primary" @click="moveRegist()"
+        <b-button
+          v-if="userInfo.id == 'admin'"
+          variant="outline-primary"
+          @click="moveRegist()"
           >작성하기</b-button
         >
       </b-col>
@@ -70,6 +73,44 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+
+const memberStore = "memberStore";
+const noticeStore = "noticeStore";
+
+export default {
+  data() {
+    return {
+      perPage: 10,
+      currentPage: 1,
+    };
+  },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+    ...mapState(noticeStore, ["notices"]),
+    pagedNotices() {
+      const items = this.notices;
+      return items.slice(
+        (this.currentPage - 1) * this.perPage,
+        this.currentPage * this.perPage
+      );
+    },
+    rows() {
+      return this.notices.length;
+    },
+  },
+  mounted() {
+    console.log("NoticeList Comp.");
+    this.getNotices();
+  },
+  methods: {
+    ...mapActions(noticeStore, ["getNotices"]),
+    moveRegist() {
+      this.$router.push("/notice/regist");
+    },
+  },
+};
+
 // import Constant from "@/common/Constant.js";
 // export default {
 //   data() {

@@ -15,70 +15,70 @@
           no-body
         >
           <b-card-body class="text-left">
-            <div v-html="message"></div>
+            <div v-html="notice.content"></div>
           </b-card-body>
         </b-card>
       </b-col>
     </b-row>
     <b-row class="mb-1">
       <b-col class="text-left">
-        <b-button variant="outline-primary" @click="moveList"
+        <b-button variant="outline-primary" class="ml-1 mr-1" @click="moveList"
           >목록</b-button
-        > </b-col
-      ><b-col class="text-right">
+        >
+      </b-col>
+      <b-col class="text-right" v-if="userInfo.id == 'admin'">
         <b-button
           variant="outline-info"
-          size="sm"
+          class="ml-1 mr-1"
           @click="moveModifyNotice"
-          class="mr-2"
-          >공지 수정</b-button
+          >수정</b-button
         >
-        <b-button variant="outline-danger" size="sm" @click="deleteNotice"
-          >공지 삭제</b-button
+        <b-button
+          variant="outline-danger"
+          class="ml-1 mr-1"
+          @click="removeNotice"
+          >삭제</b-button
         >
-      </b-col></b-row
-    >
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
 <script>
-// import Constant from "@/common/Constant.js";
-// export default {
-//   data() {
-//     return {
-//       noticeNo: 0,
-//     };
-//   },
-//   computed: {
-//     notice() {
-//       return this.$store.state.notice;
-//     },
-//     message() {
-//       if (this.notice.content)
-//         return this.notice.content.split("\n").join("<br>");
-//       return "";
-//     },
-//   },
-//   created() {
-//     console.log("NoticeDetail Comp.");
-//     this.noticeNo = this.$route.params.noticeNo;
-//     this.getNotice({ noticeNo: this.noticeNo });
-//   },
-//   methods: {
-//     moveList() {
-//       this.$router.push("/notice/list");
-//     },
-//     getNotice(notice) {
-//       this.$store.dispatch(Constant.GET_NOTICE, notice);
-//     },
-//     moveModifyNotice() {
-//       this.$router.push({ path: `/notice/modify/${this.notice.noticeNo}` });
-//     },
-//     deleteNotice() {
-//       this.$store.dispatch(Constant.DELETE_NOTICE, { noticeNo: this.noticeNo });
-//     },
-//   },
-// };
+import { mapState, mapActions } from "vuex";
+
+const memberStore = "memberStore";
+const noticeStore = "noticeStore";
+
+export default {
+  data() {
+    return {
+      noticeNo: 0,
+    };
+  },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+    ...mapState(noticeStore, ["notice"]),
+  },
+  mounted() {
+    console.log("Notice Comp.");
+    this.noticeNo = this.$route.params.noticeNo;
+    this.getNotice(this.noticeNo);
+  },
+  methods: {
+    ...mapActions(noticeStore, ["getNotice", "deleteNotice"]),
+    moveList() {
+      this.$router.push("/notice/list");
+    },
+    moveModifyNotice() {
+      this.$router.push({ path: `/notice/modify/${this.notice.noticeNo}` });
+    },
+    removeNotice() {
+      this.deleteNotice(this.noticeNo);
+      this.$router.push(`/notice/list`);
+    },
+  },
+};
 </script>
 
 <style></style>

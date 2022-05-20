@@ -16,14 +16,14 @@ const qnaStore = {
       state.qnas = payload;
     },
     setQna(state, payload) {
-      state.qna = payload.qna;
+      state.qna = payload;
     },
   },
   actions: {
     getQnas: ({ commit }, params) => {
       params,
         listQna(
-          null,
+          params,
           ({ data }) => {
             commit("setQnas", data);
           },
@@ -35,8 +35,8 @@ const qnaStore = {
     getQna: ({ commit }, qnaNo) => {
       getQna(
         qnaNo,
-        ({ data }) => {
-          commit("setQna", data);
+        async ({ data }) => {
+          await commit("setQna", data);
         },
         (error) => {
           console.log(error);
@@ -46,11 +46,8 @@ const qnaStore = {
     registQna: (context, qna) => {
       writeQna(
         qna,
-        ({ data }) => {
-          console.log(data);
-        },
+        () => {},
         (error) => {
-          console.log("error 발생");
           console.log(error);
         }
       );
@@ -58,26 +55,28 @@ const qnaStore = {
     modifyQna: (context, qna) => {
       modifyQna(
         qna,
-        ({ data }) => {
-          console.log(data);
-        },
+        () => {},
         (error) => {
-          console.log("error" + error);
+          console.log(error);
         }
       );
     },
-    deleteQna: (qnaNo) => {
+    deleteQna: (context, qnaNo) => {
       deleteQna(
         qnaNo,
         () => {},
-        () => {}
+        (error) => {
+          console.log(error);
+        }
       );
     },
-    answerQna: (qna) => {
+    answerQna: (context, qna) => {
       answerQna(
         qna,
         () => {},
-        () => {}
+        (error) => {
+          console.log(error);
+        }
       );
     },
   },
