@@ -1,11 +1,14 @@
 <template>
   <div>
-    <h2>InterestView등장</h2>
+    <interest-main></interest-main>
   </div>
 </template>
 
 <script>
-export default {};
+import InterestMain from "@/components/interest/InterestMain.vue";
+export default {
+  components: { InterestMain },
+};
 </script>
 
 <style></style>
