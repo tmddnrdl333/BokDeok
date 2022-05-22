@@ -11,7 +11,6 @@ import interstStore from "./modules/interestStore";
 
 export default new Vuex.Store({
   modules: {
-    // aptStore,
     memberStore,
     noticeStore,
     qnaStore,
