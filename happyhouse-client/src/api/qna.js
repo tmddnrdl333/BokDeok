@@ -7,7 +7,7 @@ function listQna(param, success, fail) {
 }
 
 function writeQna(qna, success, fail) {
-  api.post(`/qna/regist`, JSON.stringify(qna)).then(success).catch(fail);
+  return api.post(`/qna/regist`, JSON.stringify(qna)).then(success).catch(fail);
 }
 
 function getQna(qnaNo, success, fail) {

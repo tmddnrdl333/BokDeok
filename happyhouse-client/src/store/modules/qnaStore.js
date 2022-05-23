@@ -44,9 +44,11 @@ const qnaStore = {
       );
     },
     registQna: (context, qna) => {
-      writeQna(
+      return writeQna(
         qna,
-        () => {},
+        () => {
+          console.log("store!!");
+        },
         (error) => {
           console.log(error);
         }

@@ -8,7 +8,7 @@
     <!--  -->
     <b-row class="mb-1">
       <b-col style="text-align: left">
-        <b-form @submit="onSubmit" @reset="onReset">
+        <b-form @submit.prevent="onSubmit" @reset.prevent="onReset">
           <b-form-group id="subject-group" label="제목:" label-for="subject">
             <b-form-input
               id="subject"
@@ -68,13 +68,13 @@ export default {
   },
   methods: {
     ...mapActions(qnaStore, ["registQna"]),
-    onSubmit(event) {
-      event.preventDefault();
-      this.registQna(this.qna);
-      this.moveList();
+    onSubmit() {
+      this.registQna(this.qna).then(() => {
+        console.log("Regist Comp");
+        this.moveList();
+      });
     },
-    onReset(event) {
-      event.preventDefault();
+    onReset() {
       this.qna.subject = "";
       this.qna.question = "";
     },

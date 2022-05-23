@@ -88,7 +88,7 @@ export default {
     },
     // pagination 됐는지 regist 작성 후 확인 요
   },
-  mounted() {
+  created() {
     console.log("QnaList Comp.");
     this.getQnas();
   },

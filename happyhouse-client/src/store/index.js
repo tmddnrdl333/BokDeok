@@ -7,7 +7,8 @@ Vue.use(Vuex);
 import memberStore from "@/store/modules/memberStore.js";
 import noticeStore from "@/store/modules/noticeStore.js";
 import qnaStore from "@/store/modules/qnaStore.js";
-import interstStore from "./modules/interestStore";
+import interstStore from "@/store/modules/interestStore";
+import mapStore from "@/store/modules/mapStore";
 
 export default new Vuex.Store({
   modules: {
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     noticeStore,
     qnaStore,
     interstStore,
+    mapStore,
   },
   plugins: [
     createPersistedState({
