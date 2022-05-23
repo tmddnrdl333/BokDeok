@@ -35,15 +35,25 @@ export default {
       ],
     };
   },
+  watch: {
+    $route(to, from) {
+      if (to.path != from.path) {
+        this.initHouseDeal();
+      }
+    },
+  },
   computed: {
     ...mapState(mapStore, ["selectHouse"]),
   },
   mounted() {
-    this.aptCode = this.$route.params.aptCode;
-    this.getHouseDeals(this.aptCode);
+    this.initHouseDeal();
   },
   methods: {
     ...mapActions(mapStore, ["getHouseDeals"]),
+    initHouseDeal() {
+      this.aptCode = this.$route.params.aptCode;
+      this.getHouseDeals(this.aptCode);
+    },
     moveList() {
       // this.$router.back();
       this.$router.push("/apt");

@@ -20,7 +20,6 @@ export default {
     initMap() {
       let kakao = window.kakao;
       this.clearMap();
-      // const container = document.getElementById("map");
       const container = this.$refs.map;
       const options = {
         center: new kakao.maps.LatLng(33.450701, 126.570667),
