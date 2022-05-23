@@ -1,10 +1,11 @@
-import { CctvList, testList } from "@/api/interest";
+import { CctvList, testList, SclfcltList } from "@/api/interest";
 
 const interstStore = {
   namespaced: true,
   state: {
     cctvs: [],
     tests: [],
+    sclfclts: [],
   },
   getters: {},
   mutations: {
@@ -13,6 +14,9 @@ const interstStore = {
     },
     setTests(state, payload) {
       state.tests = payload;
+    },
+    setSclfclts(state, payload) {
+      state.sclfclts = payload;
     },
   },
   actions: {
@@ -45,6 +49,20 @@ const interstStore = {
                   data.response.result.featureCollection.features.length
               );
             } else commit("setTests", { status });
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    },
+    getSclfclts: ({ commit }, dongCode) => {
+      "",
+        SclfcltList(
+          dongCode,
+          ({ data }) => {
+            console.log(dongCode);
+            console.log(data.response.body.items.item);
+            commit("setSclfclts", data.response.body.items.item);
           },
           (error) => {
             console.log(error);

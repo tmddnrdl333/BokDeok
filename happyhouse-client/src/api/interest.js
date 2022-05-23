@@ -27,4 +27,22 @@ function testList(dongCode, success, fail) {
   testInstance.get("", dongCode).then(success).catch(fail);
 }
 
-export { CctvList, testList };
+// 한국사회보장정보원_사회복지시설정보서비스 현황
+
+const SCLFCLT_URL =
+  "https://apis.data.go.kr/B554287/sclWlfrFcltInfoInqirService1/getFcltListInfoInqire?serviceKey=RC7TjOxHMIzb62XIfDTR1EzuS3KoqDBOwA5BrJ%2BuU3%2FHJRHixFHyMN9rgxhFCxTIJ7tTIdRDoTlLn%2BP%2BnoaF5g%3D%3D&numOfRows=100&pageNo=1&jrsdSggCd=";
+
+function SclfcltInstance() {
+  return axios.create({
+    baseURL: SCLFCLT_URL,
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+}
+function SclfcltList(dongCode, success, fail) {
+  const instance = SclfcltInstance();
+  instance.get("", dongCode).then(success).catch(fail);
+}
+
+export { CctvList, testList, SclfcltList };
