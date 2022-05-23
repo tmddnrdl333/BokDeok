@@ -9,6 +9,13 @@ function listHouseInfo(dongCode, success, fail) {
     .catch(fail);
 }
 
+function listHouseDeal(aptCode, success, fail) {
+  api
+    .get(`/house/` + aptCode)
+    .then(success)
+    .catch(fail);
+}
+
 // function listDong(param, success, fail) {
 //   api.get(`/map/dong`, { params: param }).then(success).catch(fail);
 // }
@@ -21,4 +28,4 @@ function listHouseInfo(dongCode, success, fail) {
 //   api.get(`/house/${aptNo}`, { params: param }).then(success).catch(fail);
 // }
 
-export { listHouseInfo };
+export { listHouseInfo, listHouseDeal };

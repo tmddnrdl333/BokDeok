@@ -62,7 +62,7 @@ const routes = [
         component: AptList,
       },
       {
-        path: "deal",
+        path: "deal/:aptCode",
         component: AptDeal,
       },
     ],

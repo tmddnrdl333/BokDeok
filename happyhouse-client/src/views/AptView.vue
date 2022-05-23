@@ -25,11 +25,11 @@ export default {
   padding: 0;
 }
 .fixed-col {
-  width: 350px;
+  width: 450px;
   float: left;
 }
 .fluid-col {
-  width: calc(100% - 350px);
+  width: calc(100% - 450px);
   float: left;
 }
 #aptList {
