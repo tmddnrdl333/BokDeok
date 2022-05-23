@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.happyhouse.model.HouseInfoDto;
 import com.ssafy.happyhouse.model.InterestlocDto;
-import com.ssafy.happyhouse.model.SearchFilterDto;
+import com.ssafy.happyhouse.model.FilterDto;
 import com.ssafy.happyhouse.model.service.InterestlocService;
 
 @RestController

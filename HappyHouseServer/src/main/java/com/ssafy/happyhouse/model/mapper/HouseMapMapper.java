@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ssafy.happyhouse.model.FilterDto;
 import com.ssafy.happyhouse.model.HouseInfoDto;
 import com.ssafy.happyhouse.model.SidoGugunCodeDto;
 
@@ -19,4 +20,5 @@ public interface HouseMapMapper {
 
 	List<HouseInfoDto> getAptInDong(String dong) throws SQLException;
 
+	List<HouseInfoDto> getAptByFilter(FilterDto filter) throws SQLException;
 }

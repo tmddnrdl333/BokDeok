@@ -36,4 +36,12 @@
 		order by aptName
 	</select> 
 	
+	<select id="getAptByFilter" parameterType="FilterDto" resultType="houseInfoDto">
+		select distinct hi.*
+		from houseinfo hi
+		left join housedeal hd
+		on hi.aptCode = hd.aptCode
+		where hi.dongCode = ${dongCode} and (CAST(replace(hd.dealAmount, ',', '') AS UNSIGNED) between ${priceLeft} and ${priceRight}) and (CAST(hd.area as unsigned) between ${areaLeft} and ${areaRight}) 
+		order by aptName
+	</select> 
 </mapper>

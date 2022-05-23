@@ -54,7 +54,7 @@
 		order by dongCode, aptName;
 	</select>
 
-	<select id="searchAptList" parameterType="SearchFilterDto"
+	<select id="searchAptList" parameterType="FilterDto"
 		resultType="HouseInfoDto">
 		select h.aptCode, h.aptName, h.buildyear, h.dongCode, h.dongName, h.jibun,
 		h.lat, h.lng, si.sidoname, gu.gugunname,

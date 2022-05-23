@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.ssafy.happyhouse.model.HouseInfoDto;
 import com.ssafy.happyhouse.model.InterestlocDto;
-import com.ssafy.happyhouse.model.SearchFilterDto;
+import com.ssafy.happyhouse.model.FilterDto;
 
 @Mapper
 public interface InterestlocMapper {
@@ -19,5 +19,5 @@ public interface InterestlocMapper {
 	
 	List<HouseInfoDto> getInterestAptList(String id);
 
-	List<HouseInfoDto> searchAptList(SearchFilterDto filter);
+	List<HouseInfoDto> searchAptList(FilterDto filter);
 }

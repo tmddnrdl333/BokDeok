@@ -1,26 +1,26 @@
 package com.ssafy.happyhouse.model;
 
-public class SearchFilterDto {
-	private String id;
+public class FilterDto {
+	private String dongCode;
 	private int priceLeft;
 	private int priceRight;
 	private int areaLeft;
 	private int areaRight;
 
-	public SearchFilterDto(String id, int priceLeft, int priceRight, int areaLeft, int areaRight) {
-		this.id = id;
+	public FilterDto(String dongCode, int priceLeft, int priceRight, int areaLeft, int areaRight) {
+		this.dongCode = dongCode;
 		this.priceLeft = priceLeft;
 		this.priceRight = priceRight;
 		this.areaLeft = areaLeft;
 		this.areaRight = areaRight;
 	}
 
-	public String getId() {
-		return id;
+	public String getdongCode() {
+		return dongCode;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setdongCode(String dongCode) {
+		this.dongCode = dongCode;
 	}
 
 	public int getPriceLeft() {
@@ -53,6 +53,12 @@ public class SearchFilterDto {
 
 	public void setAreaRight(int areaRight) {
 		this.areaRight = areaRight;
+	}
+
+	@Override
+	public String toString() {
+		return "FilterDto [dongCode=" + dongCode + ", priceLeft=" + priceLeft + ", priceRight=" + priceRight
+				+ ", areaLeft=" + areaLeft + ", areaRight=" + areaRight + "]";
 	}
 
 }

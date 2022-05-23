@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.ssafy.happyhouse.model.HouseInfoDto;
 import com.ssafy.happyhouse.model.InterestlocDto;
-import com.ssafy.happyhouse.model.SearchFilterDto;
+import com.ssafy.happyhouse.model.FilterDto;
 
 public interface InterestlocService {
 
@@ -16,6 +16,6 @@ public interface InterestlocService {
 
 	List<HouseInfoDto> getInterestAptList(String id);
 
-	List<HouseInfoDto> searchApt(SearchFilterDto filter);
+	List<HouseInfoDto> searchApt(FilterDto filter);
 
 }

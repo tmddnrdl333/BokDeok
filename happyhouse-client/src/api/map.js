@@ -9,6 +9,21 @@ function listHouseInfo(dongCode, success, fail) {
     .catch(fail);
 }
 
+function listHouseInfoByFilter(data, success, fail) {
+  api
+    .get(`/map/apt/filter`, {
+      params: {
+        dong: data.dongCode,
+        priceleft: data.filter.price[0],
+        priceright: data.filter.price[1],
+        arealeft: data.filter.area[0],
+        arearight: data.filter.area[1],
+      },
+    })
+    .then(success)
+    .catch(fail);
+}
+
 function listHouseDeal(aptCode, success, fail) {
   api
     .get(`/house/` + aptCode)
@@ -28,4 +43,4 @@ function listHouseDeal(aptCode, success, fail) {
 //   api.get(`/house/${aptNo}`, { params: param }).then(success).catch(fail);
 // }
 
-export { listHouseInfo, listHouseDeal };
+export { listHouseInfo, listHouseDeal, listHouseInfoByFilter };

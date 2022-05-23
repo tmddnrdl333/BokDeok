@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.happyhouse.model.HouseInfoDto;
 import com.ssafy.happyhouse.model.InterestlocDto;
-import com.ssafy.happyhouse.model.SearchFilterDto;
+import com.ssafy.happyhouse.model.FilterDto;
 import com.ssafy.happyhouse.model.mapper.InterestlocMapper;
 
 @Service
@@ -41,7 +41,7 @@ public class InterestlocServiceImpl implements InterestlocService {
 
 
 	@Override
-	public List<HouseInfoDto> searchApt(SearchFilterDto filter) {
+	public List<HouseInfoDto> searchApt(FilterDto filter) {
 		return interestlocMapper.searchAptList(filter);
 	}
 	
