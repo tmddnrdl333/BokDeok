@@ -1,5 +1,6 @@
 package com.ssafy.happyhouse.model.service;
 
+import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class HouseServiceImpl implements HouseService {
 	private HouseMapper houseMapper;
 
 	@Override
-	public List<HouseDealDto> getHouseDealInAptNo(int aptNo) throws SQLException {
+	public List<HouseDealDto> getHouseDealInAptNo(BigInteger aptNo) throws SQLException {
 		return houseMapper.getHouseDealInAptNo(aptNo);
 	}
 

@@ -1,8 +1,10 @@
 package com.ssafy.happyhouse.model;
 
+import java.math.BigInteger;
+
 public class HouseInfoDto {
 
-	private int aptCode;
+	private BigInteger aptCode;
 	private String aptName;
 	private String dongCode;
 	private String dongName;
@@ -15,11 +17,11 @@ public class HouseInfoDto {
 	private String img;
 	private String recentPrice;
 
-	public int getAptCode() {
+	public BigInteger getAptCode() {
 		return aptCode;
 	}
 
-	public void setAptCode(int aptCode) {
+	public void setAptCode(BigInteger aptCode) {
 		this.aptCode = aptCode;
 	}
 

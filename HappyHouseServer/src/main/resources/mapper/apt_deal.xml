@@ -4,10 +4,10 @@
 
 <mapper namespace="com.ssafy.happyhouse.model.mapper.HouseMapper">
 
-	<select id="getHouseDealInAptNo" parameterType="int" resultType="HouseDealDto">
+	<select id="getHouseDealInAptNo" parameterType="biginteger" resultType="HouseDealDto">
 		select *
 		from housedeal
 		where aptCode = #{aptNo}
-	</select>
+	</select> 
 	
 </mapper>

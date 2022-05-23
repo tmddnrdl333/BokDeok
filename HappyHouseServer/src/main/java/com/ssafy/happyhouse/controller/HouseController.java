@@ -1,7 +1,9 @@
 package com.ssafy.happyhouse.controller;
 
+import java.math.BigInteger;
 import java.util.List;
 
+import org.apache.ibatis.javassist.expr.Instanceof;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,7 @@ public class HouseController {
 	private HouseService houseService;
 
 	@GetMapping("/{aptNo}")
-	public ResponseEntity<List<HouseDealDto>> houseDealList(@PathVariable("aptNo") int aptNo) throws Exception {
+	public ResponseEntity<List<HouseDealDto>> houseDealList(@PathVariable("aptNo") BigInteger aptNo) throws Exception {
 		List<HouseDealDto> list = houseService.getHouseDealInAptNo(aptNo);
 		return new ResponseEntity<List<HouseDealDto>>(list, HttpStatus.OK);
 	}

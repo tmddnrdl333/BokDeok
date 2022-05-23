@@ -34,6 +34,6 @@
 		on left(h.dongcode,5) = left(gu.guguncode,5)
 		where dongCode = #{dong} 
 		order by aptName
-	</select>
+	</select> 
 	
 </mapper>

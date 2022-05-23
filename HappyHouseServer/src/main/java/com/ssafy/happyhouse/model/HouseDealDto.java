@@ -1,8 +1,10 @@
 package com.ssafy.happyhouse.model;
 
+import java.math.BigInteger;
+
 public class HouseDealDto {
-	private int no;
-	private int aptCode;
+	private BigInteger no;
+	private BigInteger aptCode;
 	private String dealAmount;
 	private int dealYear;
 	private int dealMonth;
@@ -12,19 +14,19 @@ public class HouseDealDto {
 	private int type;
 	private int rentMoney;
 
-	public int getNo() {
+	public BigInteger getNo() {
 		return no;
 	}
 
-	public void setNo(int no) {
+	public void setNo(BigInteger no) {
 		this.no = no;
 	}
 
-	public int getAptCode() {
+	public BigInteger getAptCode() {
 		return aptCode;
 	}
 
-	public void setAptCode(int aptCode) {
+	public void setAptCode(BigInteger aptCode) {
 		this.aptCode = aptCode;
 	}
 
