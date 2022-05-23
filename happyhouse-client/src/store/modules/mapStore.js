@@ -2,6 +2,7 @@ import {
   listHouseInfo,
   listHouseDeal,
   listHouseInfoByFilter,
+  listFclt,
 } from "@/api/map.js";
 const mapStore = {
   namespaced: true,
@@ -11,6 +12,10 @@ const mapStore = {
     // houseDeals: [],
     selectHouse: {},
     filter: {},
+
+    seniors: [],
+    juniors: [],
+    etcs: [],
   },
   getters: {},
   mutations: {
@@ -28,6 +33,24 @@ const mapStore = {
     },
     SET_FILTER(state, payload) {
       state.filter = payload.filter;
+    },
+
+    SET_FCLTS(state, payload) {
+      state.seniors = [];
+      state.juniors = [];
+      state.etcs = [];
+      for (var item of payload) {
+        if (typeof item.fcltKindCd === "number") continue;
+        let addrKeyword =
+          item.fcltAddr +
+          (typeof item.fcltDtl_1Addr != undefined
+            ? " " + item.fcltDtl_1Addr
+            : "");
+        let kind = item.fcltKindCd.substr(0, 2);
+        if (kind == "01") state.seniors.push(addrKeyword);
+        else if (kind == "02") state.juniors.push(addrKeyword);
+        else state.etcs.push(addrKeyword);
+      }
     },
   },
   actions: {
@@ -77,6 +100,19 @@ const mapStore = {
     },
     getFilter({ commit }, filter) {
       commit("SET_FILTER", { filter: filter });
+    },
+
+    getFclts: ({ commit }, dongCode) => {
+      return listFclt(
+        dongCode.substr(0, 4) + "000000",
+        ({ data }) => {
+          let payload = data.response.body.items.item;
+          commit("SET_FCLTS", payload);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     },
   },
 };

@@ -20,11 +20,28 @@
       ></b-form-input>
 
       <b-list-group v-for="dongRes in dongList" :key="dongRes.dongCode">
-        <b-list-group-item @click="clickDong(dongRes)">{{
-          dongRes.fullName
-        }}</b-list-group-item>
+        <b-list-group-item
+          @click="[clickDong(dongRes), getFcltList(dongRes.dongCode)]"
+          >{{ dongRes.fullName }}</b-list-group-item
+        >
       </b-list-group>
     </b-collapse>
+
+    <div class="fcltIcons" :aria-expanded="visible ? 'true' : 'false'">
+      <img
+        src="@/assets/senior.png"
+        width="30px"
+        alt="senior"
+        @click="markSenior"
+      />
+      <img
+        src="@/assets/junior.png"
+        width="30px"
+        alt="junior"
+        @click="markJunior"
+      />
+      <img src="@/assets/junior.png" width="30px" alt="etc" @click="markEtc" />
+    </div>
   </div>
 </template>
 
@@ -60,7 +77,14 @@ export default {
     },
   },
   computed: {
-    ...mapState(mapStore, ["houseInfos", "dong", "selectHouse"]),
+    ...mapState(mapStore, [
+      "houseInfos",
+      "dong",
+      "selectHouse",
+      "seniors",
+      "juniors",
+      "etcs",
+    ]),
   },
   mounted() {
     this.initMap();
@@ -71,6 +95,7 @@ export default {
       "searchDong",
       "clearMap",
       "getSelectHouse",
+      "getFclts",
     ]),
     clickDong(dongRes) {
       this.clearMap();
@@ -107,6 +132,22 @@ export default {
         })
         .catch((error) => console.log(error));
     },
+    markSenior() {
+      console.log("marking senior");
+      console.log(this.seniors);
+    },
+    markJunior() {
+      console.log("marking junior");
+      console.log(this.juniors);
+    },
+    markEtc() {
+      console.log("marking etc");
+      console.log(this.etcs);
+    },
+    getFcltList(dongCode) {
+      this.getFclts(dongCode);
+      this.markers.setFclt([this.seniors, this.juniors, this.etcs]);
+    },
   },
 };
 </script>
@@ -134,5 +175,11 @@ export default {
 .collapsed > .when-open,
 .not-collapsed > .when-closed {
   display: none;
+}
+.fcltIcons {
+  position: absolute;
+  top: 15px;
+  left: 75px;
+  z-index: 1;
 }
 </style>

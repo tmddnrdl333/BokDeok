@@ -47,6 +47,38 @@ class MarkerHandler {
     }
     markers = [];
   }
+  setFclt([arr1, arr2, arr3]) {
+    var geocoder = new kakao.maps.services.Geocoder();
+    console.log(this.vueMap);
+    geocoder.addressSearch(
+      "제주특별자치도 제주시 첨단로 242",
+      function (result, status) {
+        // 정상적으로 검색이 완료됐으면
+        if (status === kakao.maps.services.Status.OK) {
+          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+          // 결과값으로 받은 위치를 마커로 표시합니다
+          var marker = new kakao.maps.Marker({
+            map: this.vueMap.map,
+            position: coords,
+          });
+          // 인포윈도우로 장소에 대한 설명을 표시합니다
+          var infowindow = new kakao.maps.InfoWindow({
+            content:
+              '<div style="width:150px;text-align:center;padding:6px 0;">요기용</div>',
+          });
+          infowindow.open(this.vueMap.map, marker);
+        }
+      }
+    );
+    console.log("from here");
+    arr1.forEach((item) => {
+      console.log(item);
+    });
+    console.log(arr2);
+    console.log(arr3);
+    console.log("to here");
+  }
 }
 
 export default MarkerHandler;

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_BASE_URL } from "@/config";
+import { API_BASE_URL, SCLFCLT_URL } from "@/config";
 
 // axios 객체 생성
 function apiInstance() {
@@ -12,6 +12,15 @@ function apiInstance() {
   return instance;
 }
 
+function fcltInstance(dongCode) {
+  return axios.create({
+    baseURL: SCLFCLT_URL + "&jrsdSggCd=" + dongCode,
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+}
+
 // function houseInstance() {
 //   const instance = axios.create({
 //     baseURL: APT_DEAL_URL,
@@ -22,4 +31,4 @@ function apiInstance() {
 //   return instance;
 // }
 
-export { apiInstance };
+export { apiInstance, fcltInstance };

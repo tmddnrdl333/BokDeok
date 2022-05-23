@@ -9,7 +9,7 @@ const interstStore = {
   },
   getters: {},
   mutations: {
-    setFclts(state, payload) {
+    SET_FCLTS(state, payload) {
       state.seniors = [];
       state.juniors = [];
       state.etcs = [];
@@ -33,7 +33,7 @@ const interstStore = {
           dongCode,
           ({ data }) => {
             let payload = data.response.body.items.item;
-            commit("setFclts", payload);
+            commit("SET_FCLTS", payload);
           },
           (error) => {
             console.log(error);

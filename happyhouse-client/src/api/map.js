@@ -1,4 +1,4 @@
-import { apiInstance } from "./index.js";
+import { apiInstance, fcltInstance } from "./index.js";
 
 const api = apiInstance();
 
@@ -43,4 +43,8 @@ function listHouseDeal(aptCode, success, fail) {
 //   api.get(`/house/${aptNo}`, { params: param }).then(success).catch(fail);
 // }
 
-export { listHouseInfo, listHouseDeal, listHouseInfoByFilter };
+function listFclt(dongCode, success, fail) {
+  return fcltInstance(dongCode).get("").then(success).catch(fail);
+}
+
+export { listHouseInfo, listHouseDeal, listHouseInfoByFilter, listFclt };

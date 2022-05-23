@@ -32,7 +32,7 @@ import axios from "axios";
 const SCLFCLT_URL =
   "https://apis.data.go.kr/B554287/sclWlfrFcltInfoInqirService1/getFcltByBassInfoInqire?serviceKey=RC7TjOxHMIzb62XIfDTR1EzuS3KoqDBOwA5BrJ%2BuU3%2FHJRHixFHyMN9rgxhFCxTIJ7tTIdRDoTlLn%2BP%2BnoaF5g%3D%3D&numOfRows=100&pageNo=1";
 
-function FcltList(dongCode, success, fail) {
+function fcltList(dongCode, success, fail) {
   const instance = axios.create({
     baseURL: SCLFCLT_URL + "&jrsdSggCd=" + dongCode,
     //   SCLFCLT_URL + "&fcltBldgMngtNo=1126010600106420000001874",
@@ -43,4 +43,4 @@ function FcltList(dongCode, success, fail) {
   instance.get("").then(success).catch(fail);
 }
 
-export { FcltList };
+export { fcltList };
