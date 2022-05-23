@@ -9,7 +9,7 @@
 
     <b-row class="mb-1">
       <b-col style="text-align: left">
-        <b-form @submit="onSubmit">
+        <b-form @submit.prevent="onSubmit">
           <b-form-group id="subject-group" label="제목:" label-for="subject">
             <b-form-input
               id="subject"
@@ -56,13 +56,13 @@ export default {
   },
   methods: {
     ...mapActions(noticeStore, ["modifyNotice", "getNotice"]),
-    onSubmit(event) {
-      event.preventDefault();
-      this.modifyNotice(this.notice);
-      this.moveList();
+    onSubmit() {
+      this.modifyNotice(this.notice).then(() =>
+        this.moveDetail(this.notice.noticeNo)
+      );
     },
-    moveList() {
-      this.$router.push("/notice/list");
+    moveDetail(noticeNo) {
+      this.$router.push({ path: `/notice/${noticeNo}` });
     },
   },
 };

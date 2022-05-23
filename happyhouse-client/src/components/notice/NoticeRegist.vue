@@ -8,7 +8,7 @@
     <!--  -->
     <b-row class="mb-1">
       <b-col style="text-align: left">
-        <b-form @submit="onSubmit" @reset="onReset">
+        <b-form @submit.prevent="onSubmit" @reset.prevent="onReset">
           <b-form-group id="subject-group" label="제목:" label-for="subject">
             <b-form-input
               id="subject"
@@ -66,13 +66,10 @@ export default {
   },
   methods: {
     ...mapActions(noticeStore, ["registNotice"]),
-    onSubmit(event) {
-      event.preventDefault();
-      this.registNotice(this.notice);
-      this.moveList();
+    onSubmit() {
+      this.registNotice(this.notice).then(() => this.moveList());
     },
-    onReset(event) {
-      event.preventDefault();
+    onReset() {
       this.notice.subject = "";
       this.notice.content = "";
     },

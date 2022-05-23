@@ -21,19 +21,18 @@ const qnaStore = {
   },
   actions: {
     getQnas: ({ commit }, params) => {
-      params,
-        listQna(
-          params,
-          ({ data }) => {
-            commit("setQnas", data);
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
+      return listQna(
+        params,
+        ({ data }) => {
+          commit("setQnas", data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     },
     getQna: ({ commit }, qnaNo) => {
-      getQna(
+      return getQna(
         qnaNo,
         async ({ data }) => {
           await commit("setQna", data);
@@ -46,16 +45,14 @@ const qnaStore = {
     registQna: (context, qna) => {
       return writeQna(
         qna,
-        () => {
-          console.log("store!!");
-        },
+        () => {},
         (error) => {
           console.log(error);
         }
       );
     },
     modifyQna: (context, qna) => {
-      modifyQna(
+      return modifyQna(
         qna,
         () => {},
         (error) => {
@@ -64,7 +61,7 @@ const qnaStore = {
       );
     },
     deleteQna: (context, qnaNo) => {
-      deleteQna(
+      return deleteQna(
         qnaNo,
         () => {},
         (error) => {
@@ -73,7 +70,7 @@ const qnaStore = {
       );
     },
     answerQna: (context, qna) => {
-      answerQna(
+      return answerQna(
         qna,
         () => {},
         (error) => {

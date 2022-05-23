@@ -20,19 +20,18 @@ const noticeStore = {
   },
   actions: {
     getNotices: ({ commit }, params) => {
-      params,
-        listNotice(
-          params,
-          ({ data }) => {
-            commit("setNotices", data);
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
+      return listNotice(
+        params,
+        ({ data }) => {
+          commit("setNotices", data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     },
     getNotice: ({ commit }, noticeNo) => {
-      getNotice(
+      return getNotice(
         noticeNo,
         ({ data }) => {
           commit("setNotice", data);
@@ -43,7 +42,7 @@ const noticeStore = {
       );
     },
     registNotice: (context, notice) => {
-      writeNotice(
+      return writeNotice(
         notice,
         () => {},
         (error) => {
@@ -52,7 +51,7 @@ const noticeStore = {
       );
     },
     modifyNotice: (context, notice) => {
-      modifyNotice(
+      return modifyNotice(
         notice,
         () => {},
         (error) => {
@@ -61,7 +60,7 @@ const noticeStore = {
       );
     },
     deleteNotice: (context, noticeNo) => {
-      deleteNotice(
+      return deleteNotice(
         noticeNo,
         () => {},
         (error) => {

@@ -60,22 +60,21 @@ export default {
     ...mapState(memberStore, ["userInfo"]),
     ...mapState(noticeStore, ["notice"]),
   },
-  mounted() {
+  created() {
     console.log("Notice Comp.");
     this.noticeNo = this.$route.params.noticeNo;
     this.getNotice(this.noticeNo);
   },
   methods: {
     ...mapActions(noticeStore, ["getNotice", "deleteNotice"]),
-    moveList() {
-      this.$router.push("/notice/list");
-    },
     moveModifyNotice() {
       this.$router.push({ path: `/notice/modify/${this.notice.noticeNo}` });
     },
     removeNotice() {
-      this.deleteNotice(this.noticeNo);
-      this.$router.push(`/notice/list`);
+      this.deleteNotice(this.noticeNo).then(() => this.moveList());
+    },
+    moveList() {
+      this.$router.push("/notice/list");
     },
   },
 };

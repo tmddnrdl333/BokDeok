@@ -69,10 +69,7 @@ export default {
   methods: {
     ...mapActions(qnaStore, ["registQna"]),
     onSubmit() {
-      this.registQna(this.qna).then(() => {
-        console.log("Regist Comp");
-        this.moveList();
-      });
+      this.registQna(this.qna).then(() => this.moveList());
     },
     onReset() {
       this.qna.subject = "";

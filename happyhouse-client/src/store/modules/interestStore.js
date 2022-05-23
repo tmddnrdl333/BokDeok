@@ -1,68 +1,39 @@
-import { CctvList, testList, SclfcltList } from "@/api/interest";
+import { FcltList } from "@/api/interest";
 
 const interstStore = {
   namespaced: true,
   state: {
-    cctvs: [],
-    tests: [],
-    sclfclts: [],
+    seniors: [],
+    juniors: [],
+    etcs: [],
   },
   getters: {},
   mutations: {
-    setCctvs(state, payload) {
-      state.cctvs = payload;
-    },
-    setTests(state, payload) {
-      state.tests = payload;
-    },
-    setSclfclts(state, payload) {
-      state.sclfclts = payload;
+    setFclts(state, payload) {
+      state.seniors = [];
+      state.juniors = [];
+      state.etcs = [];
+      for (var item of payload) {
+        if (typeof item.fcltKindCd === "number") continue;
+        let kind = item.fcltKindCd.substr(0, 2);
+        console.log(kind == "01");
+        if (kind == "01") state.seniors.push(item);
+        else if (kind == "02") state.juniors.push(item);
+        else state.etcs.push(item);
+      }
+      console.log(state.seniors);
+      console.log(state.juniors);
+      console.log(state.etcs);
     },
   },
   actions: {
-    getCctvs: ({ commit }, dongCode) => {
+    getFclts: ({ commit }, dongCode) => {
       "",
-        CctvList(
+        FcltList(
           dongCode,
           ({ data }) => {
-            commit("setCctvs", data.response.result.featureCollection.features);
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-    },
-    getTests: ({ commit }, dongCode) => {
-      "",
-        testList(
-          dongCode,
-          ({ data }) => {
-            let status = data.response.status;
-            if (status == "OK") {
-              commit(
-                "setTests",
-                data.response.result.featureCollection.features
-              );
-              console.log(
-                dongCode +
-                  " " +
-                  data.response.result.featureCollection.features.length
-              );
-            } else commit("setTests", { status });
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-    },
-    getSclfclts: ({ commit }, dongCode) => {
-      "",
-        SclfcltList(
-          dongCode,
-          ({ data }) => {
-            console.log(dongCode);
-            console.log(data.response.body.items.item);
-            commit("setSclfclts", data.response.body.items.item);
+            let payload = data.response.body.items.item;
+            commit("setFclts", payload);
           },
           (error) => {
             console.log(error);

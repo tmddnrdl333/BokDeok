@@ -1,25 +1,38 @@
 <template>
   <div>
-    8자리 동코드 입력<input type="text" v-model="dongCode" /> <br />
-    <button @click="cctv">CCTV</button>
-    <button @click="test">TEST</button>
-    <button @click="sclfclt">sclfclt</button>
+    8자리 동코드 입력<input type="text" v-model="dongCode" />
+    <button @click="search">update</button><br />
+
     <!--  -->
-    <template v-if="cctvShow">
-      <div v-for="(cctv, index) in cctvs" :key="index">
-        <div>{{ index }} : {{ cctv }}</div>
+    <button @click="showSen">노인복지</button>
+    <button @click="showJun">아동복지</button>
+    <button @click="showEtc">기타복지</button>
+    <button v-if="showSen || showJun || showEtc" @click="closeAll">닫기</button>
+    <template v-if="seniorShow">
+      <div v-for="(senior, index) in seniors" :key="index">
+        <div>[No.{{ index }}]</div>
+        <div>
+          {{ senior.fcltAddr }} {{ senior.fcltDtl_1Addr }} <br />
+          {{ senior.fcltNm }}
+        </div>
       </div>
     </template>
-    <!--  -->
-    <template v-if="testShow">
-      <div v-for="(test, index) in tests" :key="index">
-        <div>{{ index }} : {{ test }}</div>
+    <template v-if="juniorShow">
+      <div v-for="(junior, index) in juniors" :key="index">
+        <div>[No.{{ index }}]</div>
+        <div>
+          {{ junior.fcltAddr }} {{ junior.fcltDtl_1Addr }}<br />
+          {{ junior.fcltNm }}
+        </div>
       </div>
     </template>
-    <!--  -->
-    <template v-if="sclfcltShow">
-      <div v-for="(sclfclt, index) in sclfclts" :key="index">
-        <div>{{ index }} : {{ sclfclt }}</div>
+    <template v-if="etcShow">
+      <div v-for="(etc, index) in etcs" :key="index">
+        <div>[No.{{ index }}]</div>
+        <div>
+          {{ etc.fcltAddr }} {{ etc.fcltDtl_1Addr }}<br />
+          {{ etc.fcltNm }}
+        </div>
       </div>
     </template>
   </div>
@@ -33,37 +46,46 @@ const interstStore = "interstStore";
 export default {
   data() {
     return {
-      dongCode: "11200102",
-      cctvShow: false,
-      testShow: false,
-      sclfcltShow: false,
+      dongCode: "1120000000",
+      seniorShow: false,
+      juniorShow: false,
+      etcShow: false,
     };
   },
   computed: {
-    ...mapState(interstStore, ["cctvs", "tests", "sclfclts"]),
+    ...mapState(interstStore, ["seniors", "juniors", "etcs"]),
   },
   methods: {
-    ...mapActions(interstStore, ["getCctvs", "getTests", "getSclfclts"]),
-    cctv() {
-      this.getCctvs(this.dongCode);
-      this.cctvShow = true;
-      this.testShow = false;
-      this.sclfcltShow = false;
+    ...mapActions(interstStore, ["getFclts"]),
+    search() {
+      this.getFclts(this.dongCode);
     },
-    test() {
-      this.getTests(this.dongCode);
-      this.testShow = true;
-      this.cctvShow = false;
-      this.sclfcltShow = false;
+    showSen() {
+      this.juniorShow = false;
+      this.etcShow = false;
+      this.seniorShow = true;
     },
-    sclfclt() {
-      this.getSclfclts(this.dongCode);
-      this.sclfcltShow = true;
-      this.testShow = false;
-      this.cctvShow = false;
+    showJun() {
+      this.etcShow = false;
+      this.seniorShow = false;
+      this.juniorShow = true;
+    },
+    showEtc() {
+      this.juniorShow = false;
+      this.seniorShow = false;
+      this.etcShow = true;
+    },
+    closeAll() {
+      this.juniorShow = false;
+      this.seniorShow = false;
+      this.etcShow = false;
     },
   },
 };
+
+//
+
+//
 </script>
 
 <style></style>

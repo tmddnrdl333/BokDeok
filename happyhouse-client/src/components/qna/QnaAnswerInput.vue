@@ -1,7 +1,7 @@
 <template>
   <b-row class="mt-2 mb-1">
     <b-col style="text-align: left">
-      <b-form @submit="onSubmit">
+      <b-form @submit.prevent="onSubmit">
         <b-form-group id="content-group" label="답변:" label-for="answer">
           <b-form-textarea
             id="answer"
@@ -39,28 +39,11 @@ export default {
   },
   methods: {
     ...mapActions(qnaStore, ["answerQna"]),
-
-    moveAnswerInput() {
-      this.$router.push({ path: `/qna/${this.qna.qnaNo}/answer` });
+    onSubmit() {
+      this.answerQna(this.qna).then(() => this.moveDetail(this.qna.qnaNo));
     },
-    onSubmit(event) {
-      event.preventDefault();
-      this.answerQna(this.qna);
-      this.$router.push({ path: `/qna/${this.qna.qnaNo}/` });
-    },
-
-    // writeAnswer() {
-    //   console.log(this.qna);
-    //   this.$store
-    //     .dispatch(Constant.MODIFY_QNA, { qna: this.qna })
-    //     .then(() => {
-    //       alert("답변 등록에 성공하였습니다.");
-    //       this.moveDetail();
-    //     })
-    //     .catch(() => alert("답변 등록에 실패하였습니다."));
-    // },
-    moveDetail() {
-      this.$router.push({ path: `/qna/${this.qna.qnaNo}` });
+    moveDetail(qnaNo) {
+      this.$router.push({ path: `/qna/${qnaNo}` });
     },
   },
 };

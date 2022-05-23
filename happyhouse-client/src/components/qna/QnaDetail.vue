@@ -61,16 +61,13 @@ export default {
     ...mapState(memberStore, ["userInfo"]),
     ...mapState(qnaStore, ["qna"]),
   },
-  mounted() {
+  created() {
     console.log("Qna Comp.");
     this.qnaNo = this.$route.params.qnaNo;
     this.getQna(this.qnaNo);
   },
   methods: {
     ...mapActions(qnaStore, ["getQna", "deleteQna"]),
-    moveList() {
-      this.$router.push("/qna/list");
-    },
     moveModifyQna() {
       this.$router.push(`/qna/modify/${this.qna.qnaNo}`);
     },
@@ -78,8 +75,10 @@ export default {
       this.$router.push(`/qna/${this.qna.qnaNo}/answer`);
     },
     removeQna() {
-      this.deleteQna(this.qnaNo);
-      this.$router.push(`/qna/list`);
+      this.deleteQna(this.qnaNo).then(() => this.moveList());
+    },
+    moveList() {
+      this.$router.push("/qna/list");
     },
   },
 };

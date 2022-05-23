@@ -3,7 +3,7 @@ import { apiInstance } from "./index.js";
 const api = apiInstance();
 
 function listQna(param, success, fail) {
-  api.get(`/qna`, { params: param }).then(success).catch(fail);
+  return api.get(`/qna`, { params: param }).then(success).catch(fail);
 }
 
 function writeQna(qna, success, fail) {
@@ -11,19 +11,22 @@ function writeQna(qna, success, fail) {
 }
 
 function getQna(qnaNo, success, fail) {
-  api.get(`/qna/${qnaNo}`).then(success).catch(fail);
+  return api.get(`/qna/${qnaNo}`).then(success).catch(fail);
 }
 
 function modifyQna(qna, success, fail) {
-  api.put(`/qna/${qna.qnaNo}`, JSON.stringify(qna)).then(success).catch(fail);
+  return api
+    .put(`/qna/${qna.qnaNo}`, JSON.stringify(qna))
+    .then(success)
+    .catch(fail);
 }
 
 function deleteQna(qnaNo, success, fail) {
-  api.delete(`/qna/${qnaNo}`).then(success).catch(fail);
+  return api.delete(`/qna/${qnaNo}`).then(success).catch(fail);
 }
 
 function answerQna(qna, success, fail) {
-  api
+  return api
     .put(`/qna/answer/${qna.qnaNo}`, JSON.stringify(qna))
     .then(success)
     .catch(fail);

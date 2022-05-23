@@ -9,7 +9,7 @@
 
     <b-row class="mb-1">
       <b-col style="text-align: left">
-        <b-form @submit="onSubmit">
+        <b-form @submit.prevent="onSubmit">
           <b-form-group id="subject-group" label="제목:" label-for="subject">
             <b-form-input
               id="subject"
@@ -56,13 +56,11 @@ export default {
   },
   methods: {
     ...mapActions(qnaStore, ["modifyQna", "getQna"]),
-    onSubmit(event) {
-      event.preventDefault();
-      this.modifyQna(this.qna);
-      this.moveList();
+    onSubmit() {
+      this.modifyQna(this.qna).then(() => this.moveDetail(this.qna.qnaNo));
     },
-    moveList() {
-      this.$router.push("/qna/list");
+    moveDetail(qnaNo) {
+      this.$router.push({ path: `/qna/${qnaNo}` });
     },
   },
 };

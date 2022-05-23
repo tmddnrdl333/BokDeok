@@ -99,7 +99,7 @@ export default {
       return this.notices.length;
     },
   },
-  mounted() {
+  created() {
     console.log("NoticeList Comp.");
     this.getNotices();
   },
