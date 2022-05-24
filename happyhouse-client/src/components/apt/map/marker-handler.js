@@ -33,7 +33,8 @@ class MarkerHandler {
       }
 
       const infowindow = new kakao.maps.InfoWindow({
-        content: data.aptName,
+        content:
+          '<div style="padding:5px;z-index:1;">' + data.aptName + "</div>",
       });
       kakao.maps.event.addListener(markerInstance, "mouseover", () => {
         infowindow.open(this.vueMap.map, markerInstance);
@@ -54,6 +55,14 @@ class MarkerHandler {
     });
     fcltMarkers = [];
     setArr = [[], [], []];
+  }
+  highlightMarker(info) {
+    console.log("MARKER HANDLER");
+    for (var i = 0; i < markers.length; i++) {
+      if (markers[i] === info) {
+        console.log(info);
+      }
+    }
   }
   setFclt(arrArr, dongName) {
     let geocoder = new kakao.maps.services.Geocoder();

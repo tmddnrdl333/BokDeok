@@ -73,7 +73,12 @@ export default {
       }
     },
     houseInfos() {
+      this.markers.removeAll();
       this.markers.add(this.houseInfos);
+    },
+    selectHouse() {
+      console.log("APTMAP");
+      this.markers.highlightMarker(this.selectHouse.houseInfo);
     },
   },
   computed: {
@@ -119,9 +124,12 @@ export default {
         },
       });
     },
+
     moveDetail(house) {
+      console.log("APTMAP");
       this.$router.push("/apt/deal/" + house.aptCode);
       this.getSelectHouse(house);
+      this.markers.highlightMarker(this.selectHouse.houseInfo);
     },
     getDongList() {
       this.dongList = "";
@@ -158,10 +166,12 @@ export default {
 #aptMap {
   position: relative;
 }
+
 .kmap {
   width: 100%;
-  height: 600px;
+  height: 100%;
 }
+
 #search-btn {
   position: absolute;
   top: 10px;

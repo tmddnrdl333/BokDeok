@@ -34,9 +34,15 @@ export default {
 }
 #aptList {
   background-color: lemonchiffon;
+  height: calc(100vh - 75px);
+}
+#aptDeal {
+  /* background-color: lemonchiffon; */
+  height: calc(100vh - 75px);
 }
 #aptMap {
   background-color: mediumseagreen;
   padding: 0;
+  height: calc(100vh - 75px);
 }
 </style>

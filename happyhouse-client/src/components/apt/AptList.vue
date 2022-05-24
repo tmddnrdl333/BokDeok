@@ -1,41 +1,46 @@
 <template>
   <div id="aptList">
-    <h4 v-if="dong.fullName">{{ dong.fullName }}</h4>
-    <h4 v-else>아파트 목록</h4>
-    <b-button
-      :class="visible ? null : 'collapsed'"
-      :aria-expanded="visible ? 'true' : 'false'"
-      aria-controls="filter-collapse"
-      @click="visible = !visible"
-      >필터</b-button
-    >
-    <b-collapse id="filter-collapse" v-model="visible" class="mt-2" visible>
-      <b-card>
-        <!-- <p class="card-text">Collapse contents Here</p> -->
-        <h5>가격대</h5>
-        <vue-slider
-          v-model="filter.price"
-          :min-range="500"
-          :min="0"
-          :max="1200000"
-          :lazy="true"
-          :interval="500"
-          :width="200"
-          @change="changeFilter"
-        ></vue-slider>
-        <h5>면적</h5>
-        <vue-slider
-          v-model="filter.area"
-          :min-range="1"
-          :min="0"
-          :max="500"
-          :lazy="true"
-          :interval="1"
-          :width="200"
-          @change="changeFilter"
-        ></vue-slider>
-      </b-card>
-    </b-collapse>
+    <div style="height: 50px; text-align: center">
+      <h4 v-if="dong.fullName">{{ dong.fullName }}</h4>
+      <h4 v-else>아파트 목록</h4>
+    </div>
+
+    <div v-if="dong.dongCode">
+      <b-button
+        :class="visible ? null : 'collapsed'"
+        :aria-expanded="visible ? 'true' : 'false'"
+        aria-controls="filter-collapse"
+        @click="visible = !visible"
+        >필터</b-button
+      >
+      <b-collapse id="filter-collapse" v-model="visible" class="mt-2" visible>
+        <b-card>
+          <!-- <p class="card-text">Collapse contents Here</p> -->
+          <h5>가격대</h5>
+          <vue-slider
+            v-model="filter.price"
+            :min-range="500"
+            :min="0"
+            :max="1200000"
+            :lazy="true"
+            :interval="500"
+            :width="200"
+            @change="changeFilter"
+          ></vue-slider>
+          <h5>면적</h5>
+          <vue-slider
+            v-model="filter.area"
+            :min-range="1"
+            :min="0"
+            :max="500"
+            :lazy="true"
+            :interval="1"
+            :width="200"
+            @change="changeFilter"
+          ></vue-slider>
+        </b-card>
+      </b-collapse>
+    </div>
     <div id="houseinfo-list" v-if="houseInfos.length">
       <b-list-group v-for="house in houseInfos" :key="house.aptCode">
         <b-list-group-item @click="moveDetail(house)">
@@ -96,7 +101,11 @@ export default {
 <style>
 #houseinfo-list {
   position: relative;
-  height: 500px;
+  height: calc(100% - 100px);
   overflow-y: scroll;
+}
+
+.collapsed + #houseinfo-list {
+  height: calc(100% - 100px);
 }
 </style>

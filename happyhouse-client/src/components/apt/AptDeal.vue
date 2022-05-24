@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div id="aptDeal">
+    <div style="height: 50px; text-align: center">
+      <h5 v-if="dong.fullName">{{ dong.fullName }}</h5>
+    </div>
     <b-button @click="moveList">목록으로</b-button>
     <div>
       <b-container
@@ -10,11 +13,34 @@
         ><b-row>
           <!-- <h8>건축년도 : {{ selectHouse.houseInfo.buildYear }}</h8> -->
         </b-row>
-        <b-row><h5>차트</h5></b-row>
+        <b-tabs fill content-class="mt-3" lazy>
+          <b-tab title="상세 정보">
+            <div>
+              <b-table stacked :items="infoTable"></b-table>
+            </div>
+          </b-tab>
+          <b-tab title="모든 매매 정보">
+            <div id="housedeal-list">
+              <b-table
+                :items="selectHouse.houseDeals"
+                :fields="dealFields"
+                sticky-header
+                no-border-collapse
+              >
+              </b-table></div
+          ></b-tab>
+        </b-tabs>
+        <!-- <b-row><h5>차트</h5></b-row>
         <b-row><h5>매매 신고 정보</h5></b-row>
         <div id="housedeal-list">
-          <b-table :items="selectHouse.houseDeals" :fields="fields"></b-table>
-        </div>
+          <b-table
+            :items="selectHouse.houseDeals"
+            :fields="fields"
+            sticky-header
+            no-border-collapse
+          >
+          </b-table> 
+        </div> -->
       </b-container>
     </div>
   </div>
@@ -28,11 +54,18 @@ export default {
   data() {
     return {
       aptCode: 0,
-      fields: [
-        { key: "dealAmount", label: "거래금액 (만원)", sortable: true },
-        { key: "area", label: "전용면적", sortable: true },
+      dealFields: [
+        //, sortable: true
+        { key: "dealAmount", label: "거래금액 (만원)" },
+        { key: "area", label: "전용면적" },
         { key: "floor", label: "층" },
       ],
+      infoFields: [
+        { key: "jibun", label: "지번" },
+        { key: "buildYear", label: "건축연도" },
+        { key: "floor", label: "층" },
+      ],
+      infoTable: [],
     };
   },
   watch: {
@@ -43,7 +76,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(mapStore, ["selectHouse"]),
+    ...mapState(mapStore, ["selectHouse", "dong"]),
   },
   mounted() {
     this.initHouseDeal();
@@ -53,6 +86,7 @@ export default {
     initHouseDeal() {
       this.aptCode = this.$route.params.aptCode;
       this.getHouseDeals(this.aptCode);
+      this.infoTable[0] = this.selectHouse.houseInfo;
     },
     moveList() {
       // this.$router.back();
@@ -65,7 +99,7 @@ export default {
 <style>
 #housedeal-list {
   position: relative;
-  height: 500px;
+  height: 100%;
   overflow-y: scroll;
 }
 </style>
