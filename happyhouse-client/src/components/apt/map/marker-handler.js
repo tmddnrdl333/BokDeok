@@ -57,11 +57,13 @@ class MarkerHandler {
     setArr = [[], [], []];
   }
   highlightMarker(info) {
-    console.log("MARKER HANDLER");
     for (var i = 0; i < markers.length; i++) {
-      if (markers[i] === info) {
-        console.log(info);
-      }
+      if (markers[i].$$.data == info) {
+        markers[i].Fc.src =
+          "https://cdn-icons-png.flaticon.com/512/447/447031.png"; // 하이라이트 마커 이미지
+      } else
+        markers[i].Fc.src =
+          "http://t1.daumcdn.net/mapjsapi/images/2x/transparent.gif"; // 기존 마커 이미지
     }
   }
   setFclt(arrArr, dongName) {
@@ -69,13 +71,13 @@ class MarkerHandler {
 
     for (let index in arrArr) {
       arrArr[index].forEach((item) => {
-        geocoder.addressSearch(item, function (result, status) {
+        geocoder.addressSearch(item.addrKeyword, function (result, status) {
           // 정상적으로 검색이 완료됐으면
           if (
             status === kakao.maps.services.Status.OK &&
             result[0].road_address.region_3depth_name == dongName
           ) {
-            setArr[index].push(result[0]);
+            setArr[index].push({ result: result[0], fcltName: item.fcltName });
           }
         });
       });
@@ -97,7 +99,7 @@ class MarkerHandler {
     );
     let thismap = this.vueMap;
     setArr[index].forEach((item) => {
-      let coords = new kakao.maps.LatLng(item.y, item.x);
+      let coords = new kakao.maps.LatLng(item.result.y, item.result.x);
       // 결과값으로 받은 위치를 마커로 표시합니다
       let marker = new kakao.maps.Marker({
         map: thismap.map,
@@ -105,6 +107,17 @@ class MarkerHandler {
         image: markerImage,
       });
       fcltMarkers.push(marker);
+      console.log(item);
+      const infowindow = new kakao.maps.InfoWindow({
+        content:
+          '<div style="padding:5px;z-index:1;">' + item.fcltName + "</div>",
+      });
+      kakao.maps.event.addListener(marker, "mouseover", () => {
+        infowindow.open(this.vueMap.map, marker);
+      });
+      kakao.maps.event.addListener(marker, "mouseout", () => {
+        infowindow.close();
+      });
     });
     console.log(fcltMarkers);
   }

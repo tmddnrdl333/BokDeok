@@ -77,7 +77,8 @@ export default {
       this.markers.add(this.houseInfos);
     },
     selectHouse() {
-      console.log("APTMAP");
+      console.log("APTMAP!!");
+      console.log(this.selectHouse.houseInfo);
       this.markers.highlightMarker(this.selectHouse.houseInfo);
     },
   },
@@ -126,11 +127,12 @@ export default {
     },
 
     moveDetail(house) {
-      console.log("APTMAP");
       this.$router.push("/apt/deal/" + house.aptCode);
-      this.getSelectHouse(house);
-      this.markers.highlightMarker(this.selectHouse.houseInfo);
+      this.getSelectHouse(house).then(() =>
+        this.markers.highlightMarker(house)
+      );
     },
+
     getDongList() {
       this.dongList = "";
       return api
@@ -191,7 +193,7 @@ export default {
 .fcltIcons {
   position: absolute;
   top: 15px;
-  left: 75px;
+  right: 15px;
   z-index: 1;
 }
 </style>

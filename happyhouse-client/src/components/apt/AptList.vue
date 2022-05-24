@@ -85,7 +85,9 @@ export default {
     ]),
     moveDetail(house) {
       this.$router.push("/apt/deal/" + house.aptCode);
-      this.getSelectHouse(house);
+      this.getSelectHouse(house).then(() =>
+        this.markers.highlightMarker(house)
+      );
     },
     changeFilter() {
       this.getFilter({ price: this.filter.price, area: this.filter.area });

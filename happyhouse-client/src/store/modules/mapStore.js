@@ -46,10 +46,12 @@ const mapStore = {
           (typeof item.fcltDtl_1Addr != undefined
             ? " " + item.fcltDtl_1Addr
             : "");
+        let fcltName = item.fcltNm;
+        let fcltDto = { addrKeyword, fcltName };
         let kind = item.fcltKindCd.substr(0, 2);
-        if (kind == "01") state.seniors.push(addrKeyword);
-        else if (kind == "02") state.juniors.push(addrKeyword);
-        else state.etcs.push(addrKeyword);
+        if (kind == "01") state.seniors.push(fcltDto);
+        else if (kind == "02") state.juniors.push(fcltDto);
+        else state.etcs.push(fcltDto);
       }
     },
   },

@@ -15,7 +15,7 @@
       </b-col>
       <b-col class="text-right">
         <b-button
-          v-if="userInfo.id == 'admin'"
+          v-if="userInfo && userInfo.id == 'admin'"
           variant="outline-primary"
           @click="moveRegist()"
           >작성하기</b-button
