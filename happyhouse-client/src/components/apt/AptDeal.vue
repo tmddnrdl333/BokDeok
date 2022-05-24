@@ -9,10 +9,13 @@
         ><b-row
           ><b-col cols="9"
             ><h4>{{ selectHouse.houseInfo.aptName }}</h4></b-col
-          ><b-col cols="3"> <b-button>관심</b-button></b-col> </b-row
-        ><b-row>
-          <!-- <h8>건축년도 : {{ selectHouse.houseInfo.buildYear }}</h8> -->
-        </b-row>
+          ><b-col cols="3">
+            <!-- <b-button @click="clickInterest(selectHouse.houseInfo.aptCode)"
+              >관심</b-button
+            > -->
+            <b-button :pressed.sync="toggleInterest">관심</b-button></b-col
+          > </b-row
+        ><b-row> </b-row>
         <b-tabs fill content-class="mt-3" lazy>
           <b-tab title="상세 정보">
             <div>
@@ -41,17 +44,6 @@
               </b-table></div
           ></b-tab>
         </b-tabs>
-        <!-- <b-row><h5>차트</h5></b-row>
-        <b-row><h5>매매 신고 정보</h5></b-row>
-        <div id="housedeal-list">
-          <b-table
-            :items="selectHouse.houseDeals"
-            :fields="fields"
-            sticky-header
-            no-border-collapse
-          >
-          </b-table> 
-        </div> -->
       </b-container>
     </div>
   </div>
@@ -62,6 +54,7 @@ import AptDealChart from "@/components/apt/AptDealChart.vue";
 import { mapState, mapActions } from "vuex";
 
 const mapStore = "mapStore";
+const interestAptStore = "interestAptStore";
 export default {
   components: {
     AptDealChart,
@@ -77,12 +70,13 @@ export default {
       ],
       infoFields: [
         { key: "jibun", label: "지번" },
-        { key: "buildYear", label: "건축연도" },
+        { key: "buildYear", label: "건축년도" },
         { key: "recentPrice", label: "최근 거래액 (만원)" },
       ],
       infoTable: [],
       selected: null,
       options: [],
+      toggleInterest: false,
     };
   },
   watch: {
@@ -91,15 +85,25 @@ export default {
         this.initHouseDeal();
       }
     },
+    toggleInterest() {
+      if (this.toggleInterest === true) {
+        this.addInterestApt({ aptCode: this.selectHouse.houseInfo.aptCode });
+      } else {
+        this.removeInterestApt({ aptCode: this.selectHouse.houseInfo.aptCode });
+      }
+    },
   },
   computed: {
     ...mapState(mapStore, ["selectHouse", "dong"]),
+    ...mapState(interestAptStore, ["interestApts"]),
   },
   created() {
     this.initHouseDeal();
+    this.initToggleInterest();
   },
   methods: {
     ...mapActions(mapStore, ["getHouseDeals"]),
+    ...mapActions(interestAptStore, ["addInterestApt", "removeInterestApt"]),
     async initHouseDeal() {
       this.aptCode = this.$route.params.aptCode;
       this.infoTable[0] = this.selectHouse.houseInfo;
@@ -111,7 +115,6 @@ export default {
       this.$router.push("/apt");
     },
     initArea() {
-      console.log(this.selectHouse.houseInfo.aptName);
       this.options = [];
       const result = [
         ...new Set(
@@ -126,7 +129,12 @@ export default {
       });
       this.options.sort((a, b) => a.value - b.value);
       this.selected = this.options[0].value;
-      console.log(this.options);
+    },
+    initToggleInterest() {
+      const find = this.interestApts.find(
+        (e) => e === this.selectHouse.houseInfo.aptCode
+      );
+      if (find !== undefined) this.toggleInterest = true;
     },
   },
 };

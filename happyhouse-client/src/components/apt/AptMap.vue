@@ -71,13 +71,13 @@ export default {
       "getHouseInfos",
       "searchDong",
       "clearMap",
-      "getSelectHouse",
+      "setSelectHouse",
       "getFclts",
       "initMap",
     ]),
     moveDetail(house) {
       this.$router.push("/apt/deal/" + house.aptCode);
-      this.getSelectHouse(house).then(() =>
+      this.setSelectHouse(house).then(() =>
         this.markers.highlightMarker(house)
       );
     },

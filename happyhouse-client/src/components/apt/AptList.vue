@@ -79,18 +79,18 @@ export default {
   },
   methods: {
     ...mapActions(mapStore, [
-      "getSelectHouse",
-      "getFilter",
+      "setSelectHouse",
+      "setFilter",
       "getHouseInfosByFilter",
     ]),
     moveDetail(house) {
       this.$router.push("/apt/deal/" + house.aptCode);
-      this.getSelectHouse(house).then(() =>
+      this.setSelectHouse(house).then(() =>
         this.markers.highlightMarker(house)
       );
     },
     changeFilter() {
-      this.getFilter({ price: this.filter.price, area: this.filter.area });
+      this.setFilter({ price: this.filter.price, area: this.filter.area });
       this.getHouseInfosByFilter({
         dongCode: this.dong.dongCode,
         filter: { price: this.filter.price, area: this.filter.area },

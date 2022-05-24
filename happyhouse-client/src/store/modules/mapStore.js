@@ -11,7 +11,6 @@ const mapStore = {
   state: {
     houseInfos: [],
     dong: null,
-    // houseDeals: [],
     selectHouse: {},
     filter: {},
 
@@ -110,10 +109,10 @@ const mapStore = {
         (error) => console.log(error)
       );
     },
-    getSelectHouse({ commit }, houseInfo) {
+    setSelectHouse({ commit }, houseInfo) {
       commit("SET_SELECT_HOUSE", { houseInfo: houseInfo });
     },
-    getFilter({ commit }, filter) {
+    setFilter({ commit }, filter) {
       commit("SET_FILTER", { filter: filter });
     },
 
