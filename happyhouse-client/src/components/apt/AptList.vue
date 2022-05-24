@@ -5,7 +5,7 @@
       <h4 v-else>아파트 목록</h4>
     </div>
 
-    <div v-if="dong.dongCode">
+    <template v-if="dong.dongCode">
       <b-button
         :class="visible ? null : 'collapsed'"
         :aria-expanded="visible ? 'true' : 'false'"
@@ -40,7 +40,7 @@
           ></vue-slider>
         </b-card>
       </b-collapse>
-    </div>
+    </template>
     <div id="houseinfo-list" v-if="houseInfos.length">
       <b-list-group v-for="house in houseInfos" :key="house.aptCode">
         <b-list-group-item @click="moveDetail(house)">

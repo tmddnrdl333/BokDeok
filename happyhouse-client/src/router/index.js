@@ -55,7 +55,7 @@ const routes = [
   {
     path: "/apt",
     component: AptView,
-    redirect: "/apt/",
+    redirect: "/apt/view",
     children: [
       {
         path: "",

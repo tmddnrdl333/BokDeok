@@ -1,3 +1,5 @@
+import MarkerHandler from "@/components/apt/map/marker-handler";
+import KakaoMap from "@/components/apt/map/KakaoMap.vue";
 import {
   listHouseInfo,
   listHouseDeal,
@@ -16,6 +18,8 @@ const mapStore = {
     seniors: [],
     juniors: [],
     etcs: [],
+
+    markers: null,
   },
   getters: {},
   mutations: {
@@ -56,6 +60,15 @@ const mapStore = {
     },
   },
   actions: {
+    initMap() {
+      const vueKakaoMap = KakaoMap;
+      this.markers = new MarkerHandler(vueKakaoMap, {
+        markerClicked: (houseInfo) => {
+          // console.log("[clicked]", houseInfo);
+          this.moveDetail(houseInfo);
+        },
+      });
+    },
     clearMap({ commit }) {
       console.log("CLEAR MAP");
       commit("SET_DONG", { dong: {} });

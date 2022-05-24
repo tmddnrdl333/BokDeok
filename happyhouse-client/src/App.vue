@@ -1,7 +1,7 @@
 <template>
   <div id="body">
-    <header-nav></header-nav>
-    <router-view />
+    <header-nav id="header-nav"></header-nav>
+    <router-view id="router-contents" />
   </div>
 </template>
 
@@ -12,4 +12,18 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+#header-nav {
+  position: absolute;
+  width: 65px;
+  height: 100vh;
+  background-color: white;
+  border-right-style: inset;
+}
+#router-contents {
+  position: absolute;
+  left: 65px;
+  width: calc(100vw - 70px);
+  height: 100vh;
+}
+</style>

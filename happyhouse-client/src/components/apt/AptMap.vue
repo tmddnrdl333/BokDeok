@@ -3,30 +3,7 @@
     <!-- <div id="map"></div> -->
     <kakao-map class="kmap" ref="kmap" />
 
-    <b-button
-      :class="visible ? null : 'collapsed'"
-      :aria-expanded="visible ? 'true' : 'false'"
-      aria-controls="search-collapse"
-      @click="visible = !visible"
-      id="search-btn"
-      >검색</b-button
-    >
-    <b-collapse id="search-collapse" v-model="visible" class="mt-2" visible>
-      <b-form-input
-        @keypress.enter="getDongList()"
-        v-model="dongInput"
-        type="search"
-        placeholder="동 입력...."
-      ></b-form-input>
-
-      <b-list-group v-for="dongRes in dongList" :key="dongRes.dongCode">
-        <b-list-group-item @click="clickDong(dongRes)">{{
-          dongRes.fullName
-        }}</b-list-group-item>
-      </b-list-group>
-    </b-collapse>
-
-    <div class="fcltIcons" :aria-expanded="visible ? 'true' : 'false'">
+    <div class="fcltIcons">
       <img
         src="@/assets/senior.png"
         width="30px"
@@ -52,11 +29,9 @@ import { mapState, mapActions } from "vuex";
 const mapStore = "mapStore";
 
 import KakaoMap from "@/components/apt/map/KakaoMap.vue";
-import MarkerHandler from "@/components/apt/map/marker-handler";
 export default {
   data() {
     return {
-      visible: true,
       dongList: [],
       dongInput: "",
       markers: null, // marker handler
@@ -71,10 +46,6 @@ export default {
       if (oldVal && !newVal) {
         this.dongList = "";
       }
-    },
-    houseInfos() {
-      this.markers.removeAll();
-      this.markers.add(this.houseInfos);
     },
     selectHouse() {
       console.log("APTMAP!!");
@@ -102,30 +73,8 @@ export default {
       "clearMap",
       "getSelectHouse",
       "getFclts",
+      "initMap",
     ]),
-    clickDong(dongRes) {
-      this.clearMap();
-      this.markers.removeAll();
-      this.searchDong(dongRes);
-      this.getHouseInfos(dongRes.dongCode);
-      this.visible = false;
-      this.dongRes = dongRes;
-      this.getFcltList(dongRes);
-      if (this.$route.path !== "/apt") {
-        // 상세 조회 페이지에서 검색하면 다시 목록페이지로
-        this.$router.push("/apt");
-      }
-    },
-    initMap() {
-      const vueKakaoMap = this.$refs.kmap;
-      this.markers = new MarkerHandler(vueKakaoMap, {
-        markerClicked: (houseInfo) => {
-          // console.log("[clicked]", houseInfo);
-          this.moveDetail(houseInfo);
-        },
-      });
-    },
-
     moveDetail(house) {
       this.$router.push("/apt/deal/" + house.aptCode);
       this.getSelectHouse(house).then(() =>
@@ -165,30 +114,19 @@ export default {
 </script>
 
 <style scoped>
-#aptMap {
-  position: relative;
-}
-
 .kmap {
   width: 100%;
   height: 100%;
 }
 
-#search-btn {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 1;
-}
 #search-collapse {
   position: absolute;
-  top: 50px;
+  top: 0px;
   left: 10px;
-  z-index: 1;
+  z-index: 2;
 }
-.collapsed > .when-open,
-.not-collapsed > .when-closed {
-  display: none;
+#search-result {
+  z-index: 3;
 }
 .fcltIcons {
   position: absolute;
