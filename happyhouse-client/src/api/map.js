@@ -3,14 +3,14 @@ import { apiInstance, fcltInstance } from "./index.js";
 const api = apiInstance();
 
 function listHouseInfo(dongCode, success, fail) {
-  api
+  return api
     .get(`/map/apt`, { params: { dong: dongCode } })
     .then(success)
     .catch(fail);
 }
 
 function listHouseInfoByFilter(data, success, fail) {
-  api
+  return api
     .get(`/map/apt/filter`, {
       params: {
         dong: data.dongCode,
@@ -25,7 +25,7 @@ function listHouseInfoByFilter(data, success, fail) {
 }
 
 function listHouseDeal(aptCode, success, fail) {
-  api
+  return api
     .get(`/house/` + aptCode)
     .then(success)
     .catch(fail);

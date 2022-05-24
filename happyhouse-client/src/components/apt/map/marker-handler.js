@@ -1,5 +1,7 @@
 const kakao = window.kakao;
 var markers = [];
+let setArr = [[], [], []];
+let fcltMarkers = [];
 class MarkerHandler {
   constructor(vueKakaoMap, options) {
     // console.log(vueKakaoMap);
@@ -46,38 +48,56 @@ class MarkerHandler {
       markers[i].setMap(null);
     }
     markers = [];
-  }
-  setFclt([arr1, arr2, arr3]) {
-    var geocoder = new kakao.maps.services.Geocoder();
-    console.log(this.vueMap);
-    geocoder.addressSearch(
-      "제주특별자치도 제주시 첨단로 242",
-      function (result, status) {
-        // 정상적으로 검색이 완료됐으면
-        if (status === kakao.maps.services.Status.OK) {
-          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-          // 결과값으로 받은 위치를 마커로 표시합니다
-          var marker = new kakao.maps.Marker({
-            map: this.vueMap.map,
-            position: coords,
-          });
-          // 인포윈도우로 장소에 대한 설명을 표시합니다
-          var infowindow = new kakao.maps.InfoWindow({
-            content:
-              '<div style="width:150px;text-align:center;padding:6px 0;">요기용</div>',
-          });
-          infowindow.open(this.vueMap.map, marker);
-        }
-      }
-    );
-    console.log("from here");
-    arr1.forEach((item) => {
-      console.log(item);
+    //
+    fcltMarkers.forEach((item) => {
+      item.setMap(null);
     });
-    console.log(arr2);
-    console.log(arr3);
-    console.log("to here");
+    fcltMarkers = [];
+    setArr = [[], [], []];
+  }
+  setFclt(arrArr, dongName) {
+    let geocoder = new kakao.maps.services.Geocoder();
+
+    for (let index in arrArr) {
+      arrArr[index].forEach((item) => {
+        geocoder.addressSearch(item, function (result, status) {
+          // 정상적으로 검색이 완료됐으면
+          if (
+            status === kakao.maps.services.Status.OK &&
+            result[0].road_address.region_3depth_name == dongName
+          ) {
+            setArr[index].push(result[0]);
+          }
+        });
+      });
+    }
+    console.log("fclt Comp");
+  }
+  markFclt(index) {
+    fcltMarkers.forEach((item) => {
+      item.setMap(null);
+    });
+    fcltMarkers = [];
+    let imageSrc = "https://cdn-icons-png.flaticon.com/512/447/447031.png",
+      imageSize = new kakao.maps.Size(22, 22),
+      imageOption = { offset: new kakao.maps.Point(10, 22) };
+    let markerImage = new kakao.maps.MarkerImage(
+      imageSrc,
+      imageSize,
+      imageOption
+    );
+    let thismap = this.vueMap;
+    setArr[index].forEach((item) => {
+      let coords = new kakao.maps.LatLng(item.y, item.x);
+      // 결과값으로 받은 위치를 마커로 표시합니다
+      let marker = new kakao.maps.Marker({
+        map: thismap.map,
+        position: coords,
+        image: markerImage,
+      });
+      fcltMarkers.push(marker);
+    });
+    console.log(fcltMarkers);
   }
 }
 

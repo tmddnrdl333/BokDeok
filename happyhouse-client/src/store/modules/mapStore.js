@@ -66,7 +66,7 @@ const mapStore = {
       });
     },
     getHouseInfos({ commit }, dongCode) {
-      listHouseInfo(
+      return listHouseInfo(
         dongCode,
         (response) => {
           commit("SET_HOUSE_INFOS", { houseInfos: response.data });
@@ -75,7 +75,7 @@ const mapStore = {
       );
     },
     getHouseInfosByFilter({ commit }, data) {
-      listHouseInfoByFilter(
+      return listHouseInfoByFilter(
         data,
         (response) => {
           commit("SET_HOUSE_INFOS", { houseInfos: response.data });
@@ -84,7 +84,7 @@ const mapStore = {
       );
     },
     getHouseDeals({ commit }, aptCode) {
-      listHouseDeal(
+      return listHouseDeal(
         aptCode,
         (response) => {
           commit("SET_HOUSE_DEALS", {

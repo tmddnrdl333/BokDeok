@@ -20,10 +20,9 @@
       ></b-form-input>
 
       <b-list-group v-for="dongRes in dongList" :key="dongRes.dongCode">
-        <b-list-group-item
-          @click="[clickDong(dongRes), getFcltList(dongRes.dongCode)]"
-          >{{ dongRes.fullName }}</b-list-group-item
-        >
+        <b-list-group-item @click="clickDong(dongRes)">{{
+          dongRes.fullName
+        }}</b-list-group-item>
       </b-list-group>
     </b-collapse>
 
@@ -61,6 +60,7 @@ export default {
       dongList: [],
       dongInput: "",
       markers: null, // marker handler
+      dongRes: {},
     };
   },
   components: {
@@ -103,7 +103,8 @@ export default {
       this.searchDong(dongRes);
       this.getHouseInfos(dongRes.dongCode);
       this.visible = false;
-
+      this.dongRes = dongRes;
+      this.getFcltList(dongRes);
       if (this.$route.path !== "/apt") {
         // 상세 조회 페이지에서 검색하면 다시 목록페이지로
         this.$router.push("/apt");
@@ -124,8 +125,7 @@ export default {
     },
     getDongList() {
       this.dongList = "";
-      console.log(this.dongInput);
-      api
+      return api
         .get(`/dongsearch`, { params: { keyword: this.dongInput } })
         .then(({ data }) => {
           this.dongList = data;
@@ -134,19 +134,21 @@ export default {
     },
     markSenior() {
       console.log("marking senior");
-      console.log(this.seniors);
+      this.markers.markFclt(0);
     },
     markJunior() {
       console.log("marking junior");
-      console.log(this.juniors);
+      this.markers.markFclt(1);
     },
     markEtc() {
       console.log("marking etc");
-      console.log(this.etcs);
+      this.markers.markFclt(2);
     },
-    getFcltList(dongCode) {
-      this.getFclts(dongCode);
-      this.markers.setFclt([this.seniors, this.juniors, this.etcs]);
+    getFcltList(dongRes) {
+      this.getFclts(dongRes.dongCode).then(() => {
+        let dongName = dongRes.fullName.split(" ").at(-1);
+        this.markers.setFclt([this.seniors, this.juniors, this.etcs], dongName);
+      });
     },
   },
 };
