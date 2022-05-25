@@ -5,7 +5,7 @@
         @keypress.enter="getDongList()"
         v-model="dongInput"
         type="search"
-        style="width: 350px"
+        style="width: 380px"
         placeholder="동 입력...."
       ></b-form-input>
 
