@@ -12,36 +12,36 @@
       <b-nav-item to="/apt" align="center">
         <img
           class="rounded"
-          src="@/assets/junior.png"
-          width="30px"
-          height="30px"
+          src="@/assets/apt.png"
+          width="25px"
+          height="25px"
         />
         <div class="font-sm">아파트</div>
       </b-nav-item>
       <b-nav-item to="/interest" align="center">
         <img
           class="rounded"
-          src="@/assets/junior.png"
-          width="30px"
-          height="30px"
+          src="@/assets/interest.png"
+          width="25px"
+          height="25px"
         />
         <div class="font-sm">관심지역</div>
       </b-nav-item>
       <b-nav-item to="/notice" align="center">
         <img
           class="rounded"
-          src="@/assets/junior.png"
-          width="30px"
-          height="30px"
+          src="@/assets/notice.png"
+          width="25px"
+          height="25px"
         />
         <div class="font-sm">공지</div>
       </b-nav-item>
       <b-nav-item to="/qna" align="center">
         <img
           class="rounded"
-          src="@/assets/junior.png"
-          width="30px"
-          height="30px"
+          src="@/assets/qna.png"
+          width="25px"
+          height="25px"
         />
         <div class="font-sm">Q&A</div>
       </b-nav-item>
@@ -100,8 +100,9 @@ export default {
   width: 70px;
 }
 .font-sm {
-  font-size: 75%;
+  font-size: 70%;
   width: 50px;
   height: 20px;
+  color: black;
 }
 </style>

@@ -50,8 +50,9 @@
               <b-table
                 :items="selectHouse.houseDeals"
                 :fields="dealFields"
-                sticky-header="440px"
+                sticky-header="calc(100vh - 210px)"
                 no-border-collapse
+                class="hi"
               >
               </b-table>
             </div>
@@ -243,7 +244,7 @@ export default {
   position: relative;
 }
 #housedeal-list > * {
-  height: calc(100vh - 210px);
+  height: calc(100% - 210px);
 }
 #chart {
   height: calc(100vh - 210px);

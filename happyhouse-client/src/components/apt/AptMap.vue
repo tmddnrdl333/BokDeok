@@ -9,8 +9,8 @@
           <img
             v-b-popover.hover.right="'노인 복지시설 보기'"
             title=""
-            src="@/assets/senior.png"
-            width="30px"
+            src="@/assets/elder.png"
+            width="35px"
             alt="senior"
             @click="markSenior"
           />
@@ -20,8 +20,8 @@
         <b-col>
           <img
             v-b-popover.hover.right="'아동 복지시설 보기'"
-            src="@/assets/junior.png"
-            width="30px"
+            src="@/assets/child.png"
+            width="35px"
             alt="junior"
             @click="markJunior"
           />
@@ -31,8 +31,8 @@
         <b-col>
           <img
             v-b-popover.hover.right="'장애인 복지시설 보기'"
-            src="@/assets/junior.png"
-            width="30px"
+            src="@/assets/disordered.png"
+            width="35px"
             alt="etc"
             @click="markEtc"
           />
