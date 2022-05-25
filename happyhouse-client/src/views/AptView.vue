@@ -43,19 +43,20 @@ export default {
   z-index: 5;
 }
 #aptList {
-  background-color: lemonchiffon;
+  background-color: #f0e5cf;
   min-height: 100px;
   max-height: calc(100vh - 60px);
   /* max-height: calc(100% - 60px); */
 }
 #aptDeal {
-  background-color: lemonchiffon;
+  background-color: #f0e5cf;
   height: calc(100% - 60px);
 }
 #aptMap {
   background-color: mediumseagreen;
   padding: 0;
   height: 100vh;
+  width: calc(100vw - 65px);
   z-index: 1;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <b-container class="bv-example-row mt-3">
-    <b-row>
+  <b-container class="bv-example-row">
+    <b-row class="mt-2">
       <b-col>
         <b-alert variant="secondary" show><h3>로그인</h3></b-alert>
       </b-col>
@@ -28,6 +28,7 @@
                 v-model="user.pw"
                 required
                 placeholder="비밀번호 입력...."
+                @keyup.enter="confirm"
               ></b-form-input>
             </b-form-group>
             <b-button

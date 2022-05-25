@@ -14,7 +14,7 @@ export default {
 
 <style scoped>
 #header-nav {
-  position: absolute;
+  position: fixed;
   width: 65px;
   height: 100vh;
   background-color: white;
@@ -23,7 +23,7 @@ export default {
 #router-contents {
   position: absolute;
   left: 65px;
-  width: calc(100vw - 70px);
+  width: calc(100vw - 80px);
   height: 100vh;
 }
 </style>

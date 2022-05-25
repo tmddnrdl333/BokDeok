@@ -9,10 +9,10 @@
     </div>
 
     <template v-if="dong.dongCode">
-      <b-card>
+      <b-card id="filter-card">
         <b-row>
           <b-col md="6">
-            <h5 class="slider-title">가격대</h5>
+            <h6 class="slider-title">가격대</h6>
             <vue-slider
               v-model="filter.price"
               :min-range="500"
@@ -20,13 +20,13 @@
               :max="1200000"
               :lazy="true"
               :interval="500"
-              :width="120"
+              :width="150"
               @change="changeFilter"
             >
             </vue-slider>
           </b-col>
           <b-col md="6">
-            <h5 class="slider-title">면적</h5>
+            <h6 class="slider-title">면적</h6>
             <vue-slider
               v-model="filter.area"
               :min-range="1"
@@ -34,7 +34,7 @@
               :max="500"
               :lazy="true"
               :interval="1"
-              :width="120"
+              :width="150"
               @change="changeFilter"
             ></vue-slider></b-col
         ></b-row>
@@ -42,12 +42,12 @@
     </template>
     <div id="houseinfo-list" v-if="houseInfos.length">
       <b-list-group v-for="house in houseInfos" :key="house.aptCode">
-        <b-list-group-item @click="moveDetail(house)">
-          <h5>{{ house.aptName }}</h5>
+        <b-list-group-item class="list-item" @click="moveDetail(house)">
+          <h6>{{ house.aptName }}</h6>
         </b-list-group-item>
       </b-list-group>
     </div>
-    <div v-else>조회된 아파트가 없습니다!</div>
+    <b-card v-else class="text-secondary">조회된 아파트가 없습니다!</b-card>
   </div>
 </template>
 
@@ -94,11 +94,18 @@ export default {
 #houseinfo-list {
   position: relative;
   /* 아파트 리스트의 필터 밑부터 바닥 offset까지 */
-  height: calc(100vh - 200px);
+  height: calc(100vh - 170px);
   overflow-y: scroll;
 }
 
 .slider-title {
   text-align: center;
+}
+#filter-card > * {
+  margin: 0px 20px;
+  padding: 5px;
+}
+.list-item > * {
+  margin: 1px;
 }
 </style>

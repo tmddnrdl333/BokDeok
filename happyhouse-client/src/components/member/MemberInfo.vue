@@ -1,6 +1,6 @@
 <template>
-  <b-container class="mt-4" v-if="userInfo">
-    <b-row>
+  <b-container v-if="userInfo">
+    <b-row class="mt-2">
       <b-col>
         <b-alert variant="secondary" show><h3>내정보</h3></b-alert>
       </b-col>

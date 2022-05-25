@@ -8,8 +8,8 @@
     </div>
 
     <div>
-      <b-container>
-        <b-row>
+      <b-container id="deal-content">
+        <b-row class="mt-3">
           <b-col cols="1">
             <button
               style="border: none"
@@ -246,12 +246,16 @@ export default {
   height: calc(100vh - 210px);
 }
 #chart {
-  height: calc(100vh - 200px);
+  height: calc(100vh - 210px);
   overflow-y: auto;
 }
 #score {
   height: calc(100vh - 210px);
   overflow-y: auto;
+}
+#deal-content {
+  background-color: white;
+  padding-top: 3px;
 }
 .font-sm {
   font-size: 85%;

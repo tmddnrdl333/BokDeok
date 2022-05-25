@@ -1,6 +1,6 @@
 <template>
-  <b-container class="bv-example-row mt-3">
-    <b-row>
+  <b-container>
+    <b-row class="mt-2">
       <b-col>
         <b-alert variant="secondary" show><h3>회원가입</h3></b-alert>
       </b-col>
@@ -8,7 +8,7 @@
     <b-row>
       <b-col></b-col>
       <b-col cols="8">
-        <b-card class="text-center mt-3" style="max-width: 40rem" align="left">
+        <b-card class="text-center mt-3" align="left">
           <b-form class="text-left" @submit="onSubmit" @reset="onReset">
             <b-form-group label="아이디:" label-for="userid">
               <b-form-input

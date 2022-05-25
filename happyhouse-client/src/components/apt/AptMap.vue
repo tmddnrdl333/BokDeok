@@ -4,30 +4,40 @@
     <kakao-map class="kmap" ref="kmap" />
 
     <div class="fcltIcons" v-if="showFcltIcon">
-      <div>
-        <img
-          src="@/assets/senior.png"
-          width="30px"
-          alt="senior"
-          @click="markSenior"
-        />
-      </div>
-      <div>
-        <img
-          src="@/assets/junior.png"
-          width="30px"
-          alt="junior"
-          @click="markJunior"
-        />
-      </div>
-      <div>
-        <img
-          src="@/assets/junior.png"
-          width="30px"
-          alt="etc"
-          @click="markEtc"
-        />
-      </div>
+      <b-row>
+        <b-col>
+          <img
+            v-b-popover.hover.right="'노인 복지시설 보기'"
+            title=""
+            src="@/assets/senior.png"
+            width="30px"
+            alt="senior"
+            @click="markSenior"
+          />
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <img
+            v-b-popover.hover.right="'아동 복지시설 보기'"
+            src="@/assets/junior.png"
+            width="30px"
+            alt="junior"
+            @click="markJunior"
+          />
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <img
+            v-b-popover.hover.right="'장애인 복지시설 보기'"
+            src="@/assets/junior.png"
+            width="30px"
+            alt="etc"
+            @click="markEtc"
+          />
+        </b-col>
+      </b-row>
     </div>
   </div>
 </template>
