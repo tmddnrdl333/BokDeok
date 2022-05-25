@@ -19,7 +19,9 @@ const interstStore = {
         console.log(kind == "01");
         if (kind == "01") state.seniors.push(item);
         else if (kind == "02") state.juniors.push(item);
-        else state.etcs.push(item);
+        else {
+          state.etcs.push(item);
+        }
       }
       console.log(state.seniors);
       console.log(state.juniors);
@@ -33,6 +35,7 @@ const interstStore = {
           dongCode,
           ({ data }) => {
             let payload = data.response.body.items.item;
+            console.log(payload);
             commit("SET_FCLTS", payload);
           },
           (error) => {

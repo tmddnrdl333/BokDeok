@@ -80,9 +80,9 @@ export default {
   },
   methods: {
     makeChart() {
-      var info = this.selectHouse.houseDeals.filter(
-        (v) => Math.round(v.area / 3.3) === this.area
-      );
+      var info = this.selectHouse.houseDeals;
+      if (info == undefined) return;
+      info.filter((v) => Math.round(v.area / 3.3) === this.area);
       info = info.map((obj) => ({
         ...obj,
         date: new Date(obj.dealYear + "-" + obj.dealMonth + "-" + obj.dealDay),

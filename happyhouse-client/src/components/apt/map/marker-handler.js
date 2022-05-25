@@ -3,6 +3,7 @@ var markers = [];
 let setArr = [[], [], []];
 let fcltMarkers = [];
 class MarkerHandler {
+  fcltCoords = [[], [], []];
   constructor(vueKakaoMap, options) {
     this.vueMap = vueKakaoMap;
     this.options = options;
@@ -52,6 +53,7 @@ class MarkerHandler {
     });
     fcltMarkers = [];
     setArr = [[], [], []];
+    this.fcltCoords = [[], [], []];
   }
   highlightMarker(info) {
     for (var i = 0; i < markers.length; i++) {
@@ -78,6 +80,7 @@ class MarkerHandler {
         });
       });
     }
+    this.fcltCoords = setArr;
     console.log("fclt Comp");
   }
   markFclt(index) {

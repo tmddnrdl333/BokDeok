@@ -1,15 +1,18 @@
 <template>
   <div id="aptList">
-    <div style="height: 50px; text-align: center">
-      <h4 v-if="dong.fullName">{{ dong.fullName }}</h4>
-      <h4 v-else>아파트 목록</h4>
+    <div
+      class="d-flex align-items-center justify-content-center"
+      style="height: 50px; text-align: center"
+    >
+      <h5 v-if="dong && dong.fullName">{{ dong.fullName }}</h5>
+      <h5 v-else>아파트 목록</h5>
     </div>
 
     <template v-if="dong.dongCode">
       <b-card>
-        <b-row
-          ><b-col md="6"
-            ><h5 class="slider-title">가격대</h5>
+        <b-row>
+          <b-col md="6">
+            <h5 class="slider-title">가격대</h5>
             <vue-slider
               v-model="filter.price"
               :min-range="500"
@@ -19,8 +22,9 @@
               :interval="500"
               :width="120"
               @change="changeFilter"
-            ></vue-slider
-          ></b-col>
+            >
+            </vue-slider>
+          </b-col>
           <b-col md="6">
             <h5 class="slider-title">면적</h5>
             <vue-slider
@@ -89,12 +93,9 @@ export default {
 <style>
 #houseinfo-list {
   position: relative;
-  height: calc(100% - 100px);
+  /* 아파트 리스트의 필터 밑부터 바닥 offset까지 */
+  height: calc(100vh - 200px);
   overflow-y: scroll;
-}
-
-.collapsed + #houseinfo-list {
-  height: calc(100% - 100px);
 }
 
 .slider-title {

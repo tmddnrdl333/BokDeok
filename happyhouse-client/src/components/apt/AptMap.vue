@@ -3,7 +3,7 @@
     <!-- <div id="map"></div> -->
     <kakao-map class="kmap" ref="kmap" />
 
-    <div class="fcltIcons">
+    <div class="fcltIcons" v-if="showFcltIcon">
       <div>
         <img
           src="@/assets/senior.png"
@@ -48,6 +48,8 @@ export default {
       dongInput: "",
       markers: null, // marker handler
       dongRes: {},
+
+      showFcltIcon: false,
     };
   },
   components: {
@@ -61,12 +63,22 @@ export default {
     },
     selectHouse() {
       this.markers.highlightMarker(this.selectHouse.houseInfo);
+      if (this.selectHouse.houseInfo != 0) {
+        let origin = [
+          this.selectHouse.houseInfo.lat,
+          this.selectHouse.houseInfo.lng,
+        ];
+        let allFclts = this.markers.fcltCoords;
+        this.storeFcltCoords({ origin, allFclts });
+      }
     },
     houseInfos() {
       this.resetMarkers();
     },
     dong() {
+      if (this.dong.dongCode == undefined) return;
       this.getFcltList(this.dong);
+      this.showFcltIcon = true;
     },
   },
   computed: {
@@ -78,6 +90,7 @@ export default {
       "juniors",
       "etcs",
     ]),
+    // ...mapState(interestAptStore, ["interestApts"]),
   },
   mounted() {
     this.initMap();
@@ -89,6 +102,7 @@ export default {
       "clearMap",
       "setSelectHouse",
       "getFclts",
+      "storeFcltCoords",
     ]),
     moveDetail(house) {
       this.$router.push("/apt/deal/" + house.aptCode);

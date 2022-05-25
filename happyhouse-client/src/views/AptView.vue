@@ -31,7 +31,7 @@ export default {
   position: absolute;
   top: 50px;
   left: 10px;
-  height: 100%;
+  max-height: calc(100vh - 30px);
   width: 380px;
   float: left;
   z-index: 1;
@@ -45,7 +45,8 @@ export default {
 #aptList {
   background-color: lemonchiffon;
   min-height: 100px;
-  max-height: calc(100% - 60px);
+  max-height: calc(100vh - 60px);
+  /* max-height: calc(100% - 60px); */
 }
 #aptDeal {
   background-color: lemonchiffon;
