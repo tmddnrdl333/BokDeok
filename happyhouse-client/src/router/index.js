@@ -20,6 +20,8 @@ import QnaDetail from "@/components/qna/QnaDetail.vue";
 import QnaModify from "@/components/qna/QnaModify.vue";
 import QnaAnswer from "@/components/qna/QnaAnswer.vue";
 import QnaAnswerInput from "@/components/qna/QnaAnswerInput.vue";
+import InterestList from "@/components/interest/InterestList.vue";
+import InterestDetail from "@/components/interest/InterestDetail.vue";
 import MemberLogin from "@/components/member/MemberLogin.vue";
 import MemberSignup from "@/components/member/MemberSignup.vue";
 import MemberInfo from "@/components/member/MemberInfo.vue";
@@ -55,7 +57,7 @@ const routes = [
   {
     path: "/apt",
     component: AptView,
-    redirect: "/apt/view",
+    // redirect: "/apt/view",
     children: [
       {
         path: "",
@@ -133,6 +135,17 @@ const routes = [
     path: "/interest",
     beforeEnter: onlyAuthUser,
     component: InterestView,
+    redirect: "/interest",
+    children: [
+      {
+        path: "",
+        component: InterestList,
+      },
+      {
+        path: "detail/:aptCode",
+        component: InterestDetail,
+      },
+    ],
   },
   {
     path: "/member",

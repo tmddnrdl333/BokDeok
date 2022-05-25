@@ -48,7 +48,7 @@ const api = apiInstance();
 
 import { mapState, mapActions } from "vuex";
 const mapStore = "mapStore";
-
+const interestAptStore = "interestAptStore";
 import KakaoMap from "@/components/apt/map/KakaoMap.vue";
 import MarkerHandler from "@/components/apt/map/marker-handler";
 export default {
@@ -59,6 +59,7 @@ export default {
       markers: null, // marker handler
       dongRes: {},
 
+      places: new window.kakao.maps.services.Places(), // school, hospital search
       showFcltIcon: false,
     };
   },
@@ -100,10 +101,12 @@ export default {
       "juniors",
       "etcs",
     ]),
-    // ...mapState(interestAptStore, ["interestApts"]),
+    ...mapState(interestAptStore, ["interestApts"]),
   },
   mounted() {
     this.initMap();
+    this.searchCategory("SC4", "school");
+    this.searchCategory("HP8", "hospital");
   },
   methods: {
     ...mapActions(mapStore, [
@@ -158,6 +161,34 @@ export default {
     resetMarkers() {
       this.markers.removeAll();
       this.markers.add(this.houseInfos);
+    },
+    searchCategory(category, prop) {
+      var test = [];
+      this.interestApts.forEach((q, index) => {
+        this.places.categorySearch(
+          category,
+          function (result, status) {
+            if (status === window.kakao.maps.services.Status.OK) {
+              test.push({ index, result });
+            }
+          },
+          {
+            location: new window.kakao.maps.LatLng(
+              q.houseInfo.lat,
+              q.houseInfo.lng
+            ),
+            size: 5,
+            sort: window.kakao.maps.services.SortBy.DISTANCE,
+          }
+        );
+      });
+      var self = this;
+      setTimeout(function () {
+        test.forEach((e) => {
+          console.log(e);
+          self.interestApts[e.index][prop] = e.result;
+        });
+      }, 100);
     },
   },
 };
