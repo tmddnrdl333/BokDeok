@@ -48,7 +48,7 @@ export default {
   max-height: calc(100% - 60px);
 }
 #aptDeal {
-  /* background-color: lemonchiffon; */
+  background-color: lemonchiffon;
   height: calc(100% - 60px);
 }
 #aptMap {

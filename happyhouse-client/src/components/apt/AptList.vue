@@ -82,12 +82,11 @@ export default {
       "setSelectHouse",
       "setFilter",
       "getHouseInfosByFilter",
+      "highlightMarker",
     ]),
     moveDetail(house) {
       this.$router.push("/apt/deal/" + house.aptCode);
-      this.setSelectHouse(house).then(() =>
-        this.markers.highlightMarker(house)
-      );
+      this.setSelectHouse(house);
     },
     changeFilter() {
       this.setFilter({ price: this.filter.price, area: this.filter.area });

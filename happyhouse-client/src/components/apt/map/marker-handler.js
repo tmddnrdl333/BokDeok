@@ -4,10 +4,8 @@ let setArr = [[], [], []];
 let fcltMarkers = [];
 class MarkerHandler {
   constructor(vueKakaoMap, options) {
-    // console.log(vueKakaoMap);
     this.vueMap = vueKakaoMap;
     this.options = options;
-    // console.log(this.map);
   }
   add(userData) {
     var bounds = new kakao.maps.LatLngBounds();
@@ -18,7 +16,6 @@ class MarkerHandler {
         map: this.vueMap.map,
         position: placePosition,
       });
-      // console.log(markerInstance);
       bounds.extend(placePosition);
       this.vueMap.map.setBounds(bounds);
       markers.push(markerInstance);
@@ -58,7 +55,7 @@ class MarkerHandler {
   }
   highlightMarker(info) {
     for (var i = 0; i < markers.length; i++) {
-      if (markers[i].$$.data == info) {
+      if (markers[i].$$.data.aptCode == info.aptCode) {
         markers[i].Fc.src =
           "https://cdn-icons-png.flaticon.com/512/447/447031.png"; // 하이라이트 마커 이미지
       } else
@@ -68,7 +65,6 @@ class MarkerHandler {
   }
   setFclt(arrArr, dongName) {
     let geocoder = new kakao.maps.services.Geocoder();
-
     for (let index in arrArr) {
       arrArr[index].forEach((item) => {
         geocoder.addressSearch(item.addrKeyword, function (result, status) {
@@ -98,6 +94,7 @@ class MarkerHandler {
       imageOption
     );
     let thismap = this.vueMap;
+    console.log(setArr[index]);
     setArr[index].forEach((item) => {
       let coords = new kakao.maps.LatLng(item.result.y, item.result.x);
       // 결과값으로 받은 위치를 마커로 표시합니다
@@ -107,7 +104,6 @@ class MarkerHandler {
         image: markerImage,
       });
       fcltMarkers.push(marker);
-      console.log(item);
       const infowindow = new kakao.maps.InfoWindow({
         content:
           '<div style="padding:5px;z-index:1;">' + item.fcltName + "</div>",
@@ -119,7 +115,6 @@ class MarkerHandler {
         infowindow.close();
       });
     });
-    console.log(fcltMarkers);
   }
 }
 

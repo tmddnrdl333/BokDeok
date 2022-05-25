@@ -41,10 +41,11 @@ export default {
     };
   },
   methods: {
-    ...mapActions(mapStore, ["searchDong", "getHouseInfos"]),
+    ...mapActions(mapStore, ["searchDong", "getHouseInfos", "getFclts"]),
     clickDong(dongRes) {
       this.searchDong(dongRes);
       this.getHouseInfos(dongRes.dongCode);
+      this.getFclts(dongRes.dongCode);
       if (this.$route.path !== "/apt") {
         // 상세 조회 페이지에서 검색하면 다시 목록페이지로
         this.$router.push("/apt");

@@ -4,19 +4,30 @@
     <kakao-map class="kmap" ref="kmap" />
 
     <div class="fcltIcons">
-      <img
-        src="@/assets/senior.png"
-        width="30px"
-        alt="senior"
-        @click="markSenior"
-      />
-      <img
-        src="@/assets/junior.png"
-        width="30px"
-        alt="junior"
-        @click="markJunior"
-      />
-      <img src="@/assets/junior.png" width="30px" alt="etc" @click="markEtc" />
+      <div>
+        <img
+          src="@/assets/senior.png"
+          width="30px"
+          alt="senior"
+          @click="markSenior"
+        />
+      </div>
+      <div>
+        <img
+          src="@/assets/junior.png"
+          width="30px"
+          alt="junior"
+          @click="markJunior"
+        />
+      </div>
+      <div>
+        <img
+          src="@/assets/junior.png"
+          width="30px"
+          alt="etc"
+          @click="markEtc"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -29,6 +40,7 @@ import { mapState, mapActions } from "vuex";
 const mapStore = "mapStore";
 
 import KakaoMap from "@/components/apt/map/KakaoMap.vue";
+import MarkerHandler from "@/components/apt/map/marker-handler";
 export default {
   data() {
     return {
@@ -48,9 +60,13 @@ export default {
       }
     },
     selectHouse() {
-      console.log("APTMAP!!");
-      console.log(this.selectHouse.houseInfo);
       this.markers.highlightMarker(this.selectHouse.houseInfo);
+    },
+    houseInfos() {
+      this.resetMarkers();
+    },
+    dong() {
+      this.getFcltList(this.dong);
     },
   },
   computed: {
@@ -73,7 +89,6 @@ export default {
       "clearMap",
       "setSelectHouse",
       "getFclts",
-      "initMap",
     ]),
     moveDetail(house) {
       this.$router.push("/apt/deal/" + house.aptCode);
@@ -81,7 +96,14 @@ export default {
         this.markers.highlightMarker(house)
       );
     },
-
+    initMap() {
+      const vueKakaoMap = this.$refs.kmap;
+      this.markers = new MarkerHandler(vueKakaoMap, {
+        markerClicked: (houseInfo) => {
+          this.moveDetail(houseInfo);
+        },
+      });
+    },
     getDongList() {
       this.dongList = "";
       return api
@@ -103,11 +125,15 @@ export default {
       console.log("marking etc");
       this.markers.markFclt(2);
     },
-    getFcltList(dongRes) {
-      this.getFclts(dongRes.dongCode).then(() => {
-        let dongName = dongRes.fullName.split(" ").at(-1);
+    getFcltList(dong) {
+      this.getFclts(dong.dongCode).then(() => {
+        let dongName = dong.fullName.split(" ").at(-1);
         this.markers.setFclt([this.seniors, this.juniors, this.etcs], dongName);
       });
+    },
+    resetMarkers() {
+      this.markers.removeAll();
+      this.markers.add(this.houseInfos);
     },
   },
 };
@@ -131,7 +157,7 @@ export default {
 .fcltIcons {
   position: absolute;
   top: 15px;
-  right: 15px;
+  left: 315px;
   z-index: 1;
 }
 </style>

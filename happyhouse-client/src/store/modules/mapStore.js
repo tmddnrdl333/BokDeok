@@ -32,7 +32,7 @@ const mapStore = {
       state.selectHouse.houseDeals = payload.houseDeals;
     },
     SET_SELECT_HOUSE(state, payload) {
-      state.selectHouse.houseInfo = payload.houseInfo;
+      state.selectHouse = payload;
     },
     SET_FILTER(state, payload) {
       state.filter = payload.filter;
