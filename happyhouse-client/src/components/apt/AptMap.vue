@@ -157,7 +157,7 @@ export default {
 .fcltIcons {
   position: absolute;
   top: 15px;
-  left: 315px;
+  left: 365px;
   z-index: 1;
 }
 </style>

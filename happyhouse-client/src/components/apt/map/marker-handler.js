@@ -94,7 +94,10 @@ class MarkerHandler {
       imageOption
     );
     let thismap = this.vueMap;
-    console.log(setArr[index]);
+    if (setArr[index].length == 0) {
+      alert("선택한 시설 정보가 없습니다.");
+      return;
+    }
     setArr[index].forEach((item) => {
       let coords = new kakao.maps.LatLng(item.result.y, item.result.x);
       // 결과값으로 받은 위치를 마커로 표시합니다

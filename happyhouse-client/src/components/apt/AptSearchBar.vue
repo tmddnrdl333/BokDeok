@@ -5,7 +5,7 @@
         @keypress.enter="getDongList()"
         v-model="dongInput"
         type="search"
-        style="width: 300px"
+        style="width: 350px"
         placeholder="동 입력...."
       ></b-form-input>
 
@@ -15,9 +15,9 @@
           v-for="dongRes in dongList"
           :key="dongRes.dongCode"
         >
-          <b-list-group-item @click="clickDong(dongRes)">{{
-            dongRes.fullName
-          }}</b-list-group-item>
+          <b-list-group-item @click="clickDong(dongRes)">
+            {{ dongRes.fullName }}
+          </b-list-group-item>
         </b-list-group>
       </template>
     </b-collapse>
@@ -45,7 +45,6 @@ export default {
     clickDong(dongRes) {
       this.searchDong(dongRes);
       this.getHouseInfos(dongRes.dongCode);
-      this.getFclts(dongRes.dongCode);
       if (this.$route.path !== "/apt") {
         // 상세 조회 페이지에서 검색하면 다시 목록페이지로
         this.$router.push("/apt");

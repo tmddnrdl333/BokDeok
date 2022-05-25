@@ -26,6 +26,7 @@ const mapStore = {
       state.dong = payload.dong;
     },
     SET_HOUSE_INFOS(state, payload) {
+      console.log(payload);
       state.houseInfos = payload.houseInfos;
     },
     SET_HOUSE_DEALS(state, payload) {
@@ -56,6 +57,7 @@ const mapStore = {
         else if (kind == "02") state.juniors.push(fcltDto);
         else state.etcs.push(fcltDto);
       }
+      console.log(state.seniors, state.juniors, state.etcs);
     },
   },
   actions: {
@@ -63,7 +65,6 @@ const mapStore = {
       const vueKakaoMap = KakaoMap;
       this.markers = new MarkerHandler(vueKakaoMap, {
         markerClicked: (houseInfo) => {
-          // console.log("[clicked]", houseInfo);
           this.moveDetail(houseInfo);
         },
       });
@@ -117,8 +118,10 @@ const mapStore = {
     },
 
     getFclts: ({ commit }, dongCode) => {
+      let gugunCode = dongCode.substr(0, 4) + "000000";
+      console.log(gugunCode); //
       return listFclt(
-        dongCode.substr(0, 4) + "000000",
+        gugunCode,
         ({ data }) => {
           let payload = data.response.body.items.item;
           commit("SET_FCLTS", payload);

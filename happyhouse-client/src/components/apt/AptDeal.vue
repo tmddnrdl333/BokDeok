@@ -119,7 +119,7 @@ export default {
     this.initToggleInterest();
   },
   methods: {
-    ...mapActions(mapStore, ["getHouseDeals"]),
+    ...mapActions(mapStore, ["getHouseDeals", "setSelectHouse"]),
     ...mapActions(interestAptStore, ["addInterestApt", "removeInterestApt"]),
     async initHouseDeal() {
       this.aptCode = this.$route.params.aptCode;
@@ -128,8 +128,8 @@ export default {
       this.initArea();
     },
     moveList() {
-      // this.$router.back();
       this.$router.push("/apt");
+      this.setSelectHouse(0);
     },
     initArea() {
       this.options = [];

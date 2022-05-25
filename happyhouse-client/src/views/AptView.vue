@@ -32,7 +32,7 @@ export default {
   top: 50px;
   left: 10px;
   height: 100%;
-  width: 350px;
+  width: 380px;
   float: left;
   z-index: 1;
 }
