@@ -100,7 +100,11 @@ export default {
     },
     toggleInterest() {
       if (this.toggleInterest === true) {
-        this.addInterestApt({ aptCode: this.selectHouse.houseInfo.aptCode });
+        const find = this.interestApts.find(
+          (e) => e.houseInfo.aptCode === this.selectHouse.houseInfo.aptCode
+        );
+        if (find === undefined)
+          this.addInterestApt({ houseInfo: this.selectHouse.houseInfo });
       } else {
         this.removeInterestApt({ aptCode: this.selectHouse.houseInfo.aptCode });
       }
@@ -145,7 +149,7 @@ export default {
     },
     initToggleInterest() {
       const find = this.interestApts.find(
-        (e) => e === this.selectHouse.houseInfo.aptCode
+        (e) => e.houseInfo.aptCode === this.selectHouse.houseInfo.aptCode
       );
       if (find !== undefined) this.toggleInterest = true;
     },

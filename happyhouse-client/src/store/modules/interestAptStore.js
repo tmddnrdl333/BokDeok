@@ -5,20 +5,20 @@ const interstAptStore = {
   },
   mutations: {
     ADD_INTEREST_APTS: (state, payload) => {
-      state.interestApts.push(payload.aptCode);
+      state.interestApts.push(payload);
     },
     REMOVE_INTEREST_APTS: (state, payload) => {
       state.interestApts = state.interestApts.filter(
-        (apt) => apt !== payload.aptCode
+        (apt) => apt.houseInfo.aptCode !== payload.aptCode
       );
     },
   },
   actions: {
-    addInterestApt({ commit }, aptCode) {
-      commit("ADD_INTEREST_APTS", aptCode);
+    addInterestApt({ commit }, houseInfo) {
+      commit("ADD_INTEREST_APTS", houseInfo);
     },
-    removeInterestApt({ commit }, aptCode) {
-      commit("REMOVE_INTEREST_APTS", aptCode);
+    removeInterestApt({ commit }, houseInfo) {
+      commit("REMOVE_INTEREST_APTS", houseInfo);
     },
   },
 };
