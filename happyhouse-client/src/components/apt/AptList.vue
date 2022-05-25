@@ -6,53 +6,40 @@
     </div>
 
     <template v-if="dong.dongCode">
-      <b-button
-        :class="visible ? null : 'collapsed'"
-        :aria-expanded="visible ? 'true' : 'false'"
-        aria-controls="filter-collapse"
-        @click="visible = !visible"
-        >필터</b-button
-      >
-      <b-collapse id="filter-collapse" v-model="visible" class="mt-2" visible>
-        <b-card>
-          <!-- <p class="card-text">Collapse contents Here</p> -->
-          <h5>가격대</h5>
-          <vue-slider
-            v-model="filter.price"
-            :min-range="500"
-            :min="0"
-            :max="1200000"
-            :lazy="true"
-            :interval="500"
-            :width="200"
-            @change="changeFilter"
-          ></vue-slider>
-          <h5>면적</h5>
-          <vue-slider
-            v-model="filter.area"
-            :min-range="1"
-            :min="0"
-            :max="500"
-            :lazy="true"
-            :interval="1"
-            :width="200"
-            @change="changeFilter"
-          ></vue-slider>
-        </b-card>
-      </b-collapse>
+      <b-card>
+        <b-row
+          ><b-col md="6"
+            ><h5 class="slider-title">가격대</h5>
+            <vue-slider
+              v-model="filter.price"
+              :min-range="500"
+              :min="0"
+              :max="1200000"
+              :lazy="true"
+              :interval="500"
+              :width="120"
+              @change="changeFilter"
+            ></vue-slider
+          ></b-col>
+          <b-col md="6">
+            <h5 class="slider-title">면적</h5>
+            <vue-slider
+              v-model="filter.area"
+              :min-range="1"
+              :min="0"
+              :max="500"
+              :lazy="true"
+              :interval="1"
+              :width="120"
+              @change="changeFilter"
+            ></vue-slider></b-col
+        ></b-row>
+      </b-card>
     </template>
     <div id="houseinfo-list" v-if="houseInfos.length">
       <b-list-group v-for="house in houseInfos" :key="house.aptCode">
         <b-list-group-item @click="moveDetail(house)">
           <h5>{{ house.aptName }}</h5>
-
-          <!-- <b-card
-            img-height="100px"
-            img-src="https://placekitten.com/100/100"
-            img-left
-            class="mb-3"
-            ><b-card-text>{{ house.aptName }}</b-card-text></b-card
-          > -->
         </b-list-group-item>
       </b-list-group>
     </div>
@@ -108,5 +95,9 @@ export default {
 
 .collapsed + #houseinfo-list {
   height: calc(100% - 100px);
+}
+
+.slider-title {
+  text-align: center;
 }
 </style>

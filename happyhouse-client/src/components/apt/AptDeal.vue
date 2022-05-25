@@ -33,7 +33,7 @@
               ></b-table>
             </div>
           </b-tab>
-          <b-tab title="모든 매매 정보">
+          <b-tab title="매매 정보">
             <div id="housedeal-list">
               <b-table
                 :items="selectHouse.houseDeals"
@@ -43,6 +43,19 @@
               >
               </b-table></div
           ></b-tab>
+          <b-tab title="복지시설">
+            <div id="score">
+              <b-card title="노인 복지 시설">
+                <b-card-text> ~~~ </b-card-text>
+              </b-card>
+              <b-card title="아동 복지 시설">
+                <b-card-text> ~~~ </b-card-text>
+              </b-card>
+              <b-card title="기타 복지 시설">
+                <b-card-text> ~~~ </b-card-text>
+              </b-card>
+            </div></b-tab
+          >
         </b-tabs>
       </b-container>
     </div>
@@ -71,7 +84,7 @@ export default {
       infoFields: [
         { key: "jibun", label: "지번" },
         { key: "buildYear", label: "건축년도" },
-        { key: "recentPrice", label: "최근 거래액 (만원)" },
+        { key: "recentPrice", label: "최근 거래액(만원)" },
       ],
       infoTable: [],
       selected: null,
