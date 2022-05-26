@@ -5,7 +5,7 @@
         <b-alert show><h3>QnA 게시판</h3></b-alert>
       </b-col>
     </b-row>
-    <b-row class="mb-1">
+    <b-row class="mb-3" style="height: 40px">
       <b-col class="text-right">
         <b-button variant="outline-primary" @click="moveRegist()"
           >질문하기</b-button
@@ -101,4 +101,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+a {
+  color: inherit;
+}
+</style>

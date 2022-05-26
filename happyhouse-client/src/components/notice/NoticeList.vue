@@ -5,14 +5,7 @@
         <b-alert show><h3>공지사항</h3></b-alert>
       </b-col>
     </b-row>
-    <b-row class="mb-1">
-      <b-col class="text-left">
-        <b-form>
-          <b-form-group label="작성자 :"
-            ><b-form-input></b-form-input
-          ></b-form-group>
-        </b-form>
-      </b-col>
+    <b-row class="mb-3" style="height: 40px">
       <b-col class="text-right">
         <b-button
           v-if="userInfo && userInfo.id == 'admin'"
@@ -146,4 +139,8 @@ export default {
 // };
 </script>
 
-<style></style>
+<style>
+a {
+  color: inherit;
+}
+</style>

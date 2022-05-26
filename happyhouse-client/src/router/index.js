@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
+import ImgView from "@/views/ImgView.vue";
 import HomeView from "@/views/HomeView.vue";
 import AptView from "@/views/AptView.vue";
 import NoticeView from "@/views/NoticeView.vue";
@@ -50,6 +51,10 @@ const onlyAuthUser = async (to, from, next) => {
 };
 
 const routes = [
+  {
+    path: "/imgs",
+    component: ImgView,
+  },
   {
     path: "/",
     component: HomeView,

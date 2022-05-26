@@ -4,7 +4,7 @@
       <b-nav-item to="/">
         <img
           class="rounded"
-          src="@/assets/logo.jpg"
+          src="@/assets/nav/logo.jpg"
           width="40px"
           height="40px"
         />
@@ -12,7 +12,7 @@
       <b-nav-item to="/apt" align="center">
         <img
           class="rounded"
-          src="@/assets/apt.png"
+          src="@/assets/nav/apt.png"
           width="25px"
           height="25px"
         />
@@ -21,7 +21,7 @@
       <b-nav-item to="/interest" align="center">
         <img
           class="rounded"
-          src="@/assets/interest.png"
+          src="@/assets/nav/interest.png"
           width="25px"
           height="25px"
         />
@@ -30,7 +30,7 @@
       <b-nav-item to="/notice" align="center">
         <img
           class="rounded"
-          src="@/assets/notice.png"
+          src="@/assets/nav/notice.png"
           width="25px"
           height="25px"
         />
@@ -39,53 +39,18 @@
       <b-nav-item to="/qna" align="center">
         <img
           class="rounded"
-          src="@/assets/qna.png"
+          src="@/assets/nav/qna.png"
           width="25px"
           height="25px"
         />
         <div class="font-sm">Q&A</div>
       </b-nav-item>
     </b-nav>
-    <b-nav align="center" class="w-100" id="member-nav">
-      <!-- Right aligned nav items -->
-      <b-dropdown dropup text="M" variant="outline-dark" class="m-2">
-        <template v-if="userInfo == null">
-          <b-dropdown-item class="font-sm" to="/member/login">
-            로그인
-          </b-dropdown-item>
-          <b-dropdown-item class="font-sm" to="/member/signup">
-            회원가입
-          </b-dropdown-item>
-        </template>
-        <template v-else>
-          <b-dropdown-item class="font-sm" @click="clickLogout">
-            로그아웃
-          </b-dropdown-item>
-          <b-dropdown-item class="font-sm" to="/member/info">
-            회원정보
-          </b-dropdown-item>
-        </template>
-      </b-dropdown>
-    </b-nav>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-const memberStore = "memberStore";
-
-export default {
-  computed: {
-    ...mapState(memberStore, ["userInfo"]),
-  },
-  methods: {
-    ...mapActions(memberStore, ["logout"]),
-    clickLogout() {
-      this.logout();
-      alert("로그아웃되었습니다!");
-    },
-  },
-};
+export default {};
 </script>
 
 <style scoped>
