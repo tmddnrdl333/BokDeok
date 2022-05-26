@@ -144,7 +144,27 @@ class MarkerHandler {
       });
     });
   }
-  addMarker(userData) {
+
+  addMarker(userData, index) {
+    var image = {
+      0: "http://localhost:8080/img/elder.c56a11d3.png",
+      1: "http://localhost:8080/img/child.6db9934a.png",
+      2: "http://localhost:8080/img/disordered.a32b43df.png",
+      3: "http://localhost:8080/img/school.66b4af47.png",
+      4: "http://localhost:8080/img/hospital.f050171d.png",
+    };
+    let imgLink = image[index];
+
+    let imageSrc = imgLink,
+      imageSize = new kakao.maps.Size(30, 30),
+      imageOption = { offset: new kakao.maps.Point(15, 30) };
+
+    // !!
+    let markerImage = new kakao.maps.MarkerImage(
+      imageSrc,
+      imageSize,
+      imageOption
+    );
     var bounds = new kakao.maps.LatLngBounds();
     userData.forEach((data) => {
       // const houseInfo = data;
@@ -152,6 +172,7 @@ class MarkerHandler {
       const markerInstance = new kakao.maps.Marker({
         map: this.vueMap.map,
         position: placePosition,
+        image: markerImage,
       });
       bounds.extend(placePosition);
       this.vueMap.map.setBounds(bounds);

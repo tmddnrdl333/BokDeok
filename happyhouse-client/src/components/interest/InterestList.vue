@@ -6,6 +6,10 @@
     >
       <h5>관심 아파트 목록</h5>
     </div>
+    <!-- <b-button id="popover">(i)</b-button>
+    <b-popover target="popover" triggers="hover" placement="right">
+      주변 시설과의 거리를 기반으로 한 점수입니다!
+    </b-popover> -->
     <div id="interestApts-list" v-if="interestApts.length">
       <!-- <b-form-select v-model="selected" :options="options"></b-form-select> -->
       <ul
@@ -13,14 +17,9 @@
         v-for="(interest, index) in interestApts"
         :key="interest.houseInfo.aptCode"
       >
-        <li>
-          <b-button z-index="1" @click="removeInterest(interest.houseInfo)"
-            >X</b-button
-          >
-        </li>
-        <li class="list-item rounded" @click="moveDetail(interest)">
+        <li class="list-item rounded">
           <b-row>
-            <b-col cols="8"
+            <b-col cols="8" @click="moveDetail(interest)"
               ><h5>{{ interest.houseInfo.aptName }}</h5>
               <p>
                 {{ interest.houseInfo.sidoName }}
@@ -33,6 +32,18 @@
               <p>{{ interest.score.total }}</p></b-col
             ></b-row
           >
+          <!-- <button
+            class="delete-btn"
+            z-index="1"
+            @click="removeInterest(interest.houseInfo)"
+          > -->
+          <!-- <img src="@/assets/etc/trash.png" alt="" width="15" height="15" /> -->
+          <!-- </button> -->
+          <img
+            class="delete-btn"
+            src="@/assets/etc/trash.png"
+            @click="removeInterest(interest.houseInfo)"
+          />
         </li>
       </ul>
     </div>
@@ -91,6 +102,7 @@ ul.list-group {
   list-style-type: none;
 }
 .list-item.rounded {
+  position: relative;
   border-radius: 10px !important;
   margin-bottom: 5px;
   background-color: #fdf6ec;
@@ -102,11 +114,18 @@ ul.list-group {
 .list-item > * {
   margin: 1px;
 }
+.delete-btn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 15px;
+  height: 15px;
+  /* border: none; */
+}
 :root {
   --star-color: #fff;
   --star-background: #fc0;
 }
-
 .Stars {
   --percent: calc(var(--rating) / 3 * 100%);
 

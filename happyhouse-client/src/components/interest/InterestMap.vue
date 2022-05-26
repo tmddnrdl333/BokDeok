@@ -28,10 +28,12 @@ export default {
       if (this.selectInterest === null) {
         this.resetMarkers();
       } else {
-        const houseInfo = this.selectInterest.houseInfo;
-        this.$refs.kmap.map.setCenter(
-          new window.kakao.maps.LatLng(houseInfo.lat, houseInfo.lng)
-        );
+        // const houseInfo = this.selectInterest.houseInfo;
+        // this.$refs.kmap.map.setCenter(
+        //   new window.kakao.maps.LatLng(houseInfo.lat, houseInfo.lng)
+        // );
+
+        this.markers.removeAll();
         let list = [];
         this.selectInterest.nearestFclts.sFclt.forEach((e) => {
           list.push({
@@ -40,6 +42,8 @@ export default {
             name: e[1].fcltName,
           });
         });
+        this.markers.addMarker(list, 0);
+        list = [];
         this.selectInterest.nearestFclts.jFclt.forEach((e) => {
           list.push({
             lat: e[1].result.y,
@@ -47,6 +51,8 @@ export default {
             name: e[1].fcltName,
           });
         });
+        this.markers.addMarker(list, 1);
+        list = [];
         this.selectInterest.nearestFclts.eFclt.forEach((e) => {
           list.push({
             lat: e[1].result.y,
@@ -54,6 +60,8 @@ export default {
             name: e[1].fcltName,
           });
         });
+        this.markers.addMarker(list, 2);
+        list = [];
         this.selectInterest.school.forEach((e) => {
           list.push({
             lat: e.y,
@@ -61,6 +69,8 @@ export default {
             name: e.place_name,
           });
         });
+        this.markers.addMarker(list, 3);
+        list = [];
         this.selectInterest.hospital.forEach((e) => {
           list.push({
             lat: e.y,
@@ -68,7 +78,9 @@ export default {
             name: e.place_name,
           });
         });
-        this.markers.addMarker(list);
+        this.markers.addMarker(list, 4);
+        this.markers.add([this.selectInterest.houseInfo]);
+        this.$refs.kmap.map.setLevel(4);
       }
     },
   },
@@ -139,15 +151,15 @@ export default {
           score.total += score.school;
         }
         if (obj.nearestFclts.eFclt.length > 0) {
-          score.eFclt = this.getFcltScore(obj, "eFclt");
+          score.eFclt = this.rangeScore(obj.nearestFclts.eFclt[0][0]);
           score.total += score.eFclt;
         }
         if (obj.nearestFclts.jFclt.length > 0) {
-          score.jFclt = this.getFcltScore(obj, "jFclt");
+          score.jFclt = this.rangeScore(obj.nearestFclts.jFclt[0][0]);
           score.total += score.jFclt;
         }
         if (obj.nearestFclts.sFclt.length > 0) {
-          score.sFclt = this.getFcltScore(obj, "sFclt");
+          score.sFclt = this.rangeScore(obj.nearestFclts.sFclt[0][0]);
           score.total += score.sFclt;
         }
         score.total = score.total / 5;

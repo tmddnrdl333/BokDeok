@@ -2,15 +2,24 @@
   <div id="interestDetail">
     <b-container>
       <b-row style="height: 50px">
-        <b-col align-self="center"
-          ><button style="border: none" class="btn-outline" @click="moveList">
-            &lt;
-          </button></b-col
-        >
-        <b-col cols="9" align-self="center"
+        <button style="border: none" class="btn-outline" @click="moveList">
+          &lt;
+        </button>
+        <b-col class="title" align-self="center"
           ><h4>{{ selectInterest.houseInfo.aptName }}</h4></b-col
         >
       </b-row>
+      <b-button id="popover">(i)</b-button>
+      <b-popover target="popover" triggers="hover" placement="right">
+        <div class="Stars" style="--rating: 3; font-size: 15px" />
+        아주 가까워요!<br />
+        <div class="Stars" style="--rating: 2; font-size: 15px" />
+        적당히 가까워요!<br />
+        <div class="Stars" style="--rating: 1; font-size: 15px" />
+        멀지만 동네에 있어요!<br />
+        <div class="Stars" style="--rating: 0; font-size: 15px" />
+        동네에 없어요!<br />
+      </b-popover>
       <div id="score">
         <b-card>
           <b-row>
@@ -215,6 +224,16 @@ export default {
 </script>
 
 <style>
+.title {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+}
+#popover {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+}
 #housedeal-list {
   position: relative;
 }
