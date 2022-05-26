@@ -118,6 +118,7 @@ export default {
 .list-item {
   background-color: snow;
   margin: 3px 2px 0px;
+  white-space: nowrap;
 }
 .text-secondary {
   text-align: center;

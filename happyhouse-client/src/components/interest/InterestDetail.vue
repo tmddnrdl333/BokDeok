@@ -2,14 +2,30 @@
   <div id="interestDetail">
     <b-container>
       <b-row style="height: 50px">
-        <button style="border: none" class="btn-outline" @click="moveList">
-          &lt;
-        </button>
-        <b-col class="title" align-self="center"
+        <b-col cols="1">
+          <b-button
+            style="border: none"
+            class="btn-sm h-50 mt-3"
+            variant="secondary"
+            @click="moveList"
+            >◀
+          </b-button></b-col
+        >
+        <b-col
+          cols="10"
+          class="title mt-2"
+          align-self="center"
+          style="color: white"
           ><h4>{{ selectInterest.houseInfo.aptName }}</h4></b-col
         >
       </b-row>
-      <b-button id="popover">(i)</b-button>
+      <img
+        src="@/assets/icon/info.png"
+        width="20px"
+        class="m-2"
+        id="popover"
+        alt=""
+      />
       <b-popover target="popover" triggers="hover" placement="right">
         <div class="Stars" style="--rating: 3; font-size: 15px" />
         아주 가까워요!<br />
@@ -216,8 +232,8 @@ export default {
       return Math.round(dist);
     },
     fcltNameFilter: function (name) {
-      if (name.length < 15) return name;
-      else return name.substr(0, 13) + "...";
+      if (name.length < 13) return name;
+      else return name.substr(0, 12) + "...";
     },
   },
 };
@@ -239,8 +255,12 @@ export default {
 }
 
 #score {
-  height: calc(100vh - 150px);
+  height: calc(100vh - 100px);
   overflow-y: auto;
+}
+#score > * {
+  padding: 0px;
+  margin: 5px 0px;
 }
 #deal-content {
   background-color: white;

@@ -99,8 +99,8 @@ export default {
 #interestApts-list {
   position: relative;
   /* 아파트 리스트의 필터 밑부터 바닥 offset까지 */
-  height: calc(100vh - 170px);
-  overflow-y: scroll;
+  max-height: calc(100vh - 170px);
+  overflow-y: auto;
 }
 ul.list-group {
   list-style-type: none;
@@ -108,7 +108,7 @@ ul.list-group {
 .list-item.rounded {
   position: relative;
   border-radius: 10px !important;
-  margin-bottom: 5px;
+  margin-bottom: 3%;
   background-color: white;
   margin-top: 3%;
   margin-left: 5%;

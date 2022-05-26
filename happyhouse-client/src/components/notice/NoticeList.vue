@@ -2,7 +2,7 @@
   <b-container class="bv-example-row mt-3">
     <b-row>
       <b-col>
-        <b-alert show><h3>공지사항</h3></b-alert>
+        <div class="board-header"><h3>공지사항</h3></div>
       </b-col>
     </b-row>
     <b-row class="mb-3" style="height: 40px">
@@ -140,7 +140,10 @@ export default {
 </script>
 
 <style>
-a {
-  color: inherit;
+.board-header {
+  border-radius: 15px;
+  background-color: #ffe194;
+  padding: 20px 30px 15px;
+  margin: 10px 10px 20px;
 }
 </style>

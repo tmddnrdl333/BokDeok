@@ -2,7 +2,7 @@
   <b-container class="bv-example-row mt-3">
     <b-row>
       <b-col>
-        <b-alert show><h3>공지 상세보기</h3></b-alert>
+        <div class="board-header"><h3>공지 상세보기</h3></div>
       </b-col>
     </b-row>
     <b-row class="mb-1">

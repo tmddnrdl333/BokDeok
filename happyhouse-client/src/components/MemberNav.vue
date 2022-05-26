@@ -1,7 +1,16 @@
 <template>
   <b-nav align="center" class="w-5" id="member-nav">
     <!-- Right aligned nav items -->
-    <b-dropdown size="lg" dropdown right text="M" variant="dark" class="m-2">
+    <b-dropdown
+      dropdown
+      right
+      class="m-2 text-decoration-none"
+      variant="link"
+      no-caret
+    >
+      <template #button-content>
+        <img src="@/assets/nav/user.png" width="50px" alt="membership" />
+      </template>
       <template v-if="userInfo == null">
         <b-dropdown-item to="/member/login"> 로그인 </b-dropdown-item>
         <b-dropdown-item to="/member/signup"> 회원가입 </b-dropdown-item>

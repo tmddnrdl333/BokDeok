@@ -34,13 +34,13 @@
             >
               <img
                 v-if="toggleInterest"
-                src="https://cdn-icons.flaticon.com/png/512/2377/premium/2377810.png?token=exp=1653558328~hmac=1a527fcad956027f79a33aff95b7ecb1"
+                src="@/assets/icon/interested.png"
                 alt="interested"
                 width="20px"
               />
               <img
                 v-else
-                src="https://cdn-icons.flaticon.com/png/512/2377/premium/2377878.png?token=exp=1653558322~hmac=afe5e4b3334a76a12b271347c420a99c"
+                src="@/assets/icon/uninterested.png"
                 alt="uninterested"
                 width="20px"
               />

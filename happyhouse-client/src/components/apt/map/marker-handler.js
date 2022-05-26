@@ -38,8 +38,7 @@ class MarkerHandler {
       }
 
       const infowindow = new kakao.maps.InfoWindow({
-        content:
-          '<div style="padding:5px;z-index:1;">' + data.aptName + "</div>",
+        content: '<div style="padding:5px">' + data.aptName + "</div>",
         zIndex: 6,
       });
       kakao.maps.event.addListener(markerInstance, "mouseover", () => {
@@ -79,8 +78,10 @@ class MarkerHandler {
       if (markers[i].$$.data.aptCode == info.aptCode) {
         markers[i].setImage(h_markerImage);
         markers[i].setZIndex(2);
-      } else markers[i].setImage(markerImage);
-      markers[i].setZIndex(1);
+      } else {
+        markers[i].setImage(markerImage);
+        markers[i].setZIndex(1);
+      }
     }
   }
   setFclt(arrArr, dongName) {
@@ -135,8 +136,7 @@ class MarkerHandler {
       });
       fcltMarkers.push(marker);
       const infowindow = new kakao.maps.InfoWindow({
-        content:
-          '<div style="padding:5px;z-index:1;">' + item.fcltName + "</div>",
+        content: '<div style="padding:5px">' + item.fcltName + "</div>",
         zIndex: 6,
       });
       kakao.maps.event.addListener(marker, "mouseover", () => {
@@ -191,7 +191,7 @@ class MarkerHandler {
       }
 
       const infowindow = new kakao.maps.InfoWindow({
-        content: '<div style="padding:5px;z-index:1;">' + data.name + "</div>",
+        content: '<div style="padding:5px">' + data.name + "</div>",
         zIndex: 6,
       });
       kakao.maps.event.addListener(markerInstance, "mouseover", () => {
