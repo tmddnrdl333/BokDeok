@@ -1,6 +1,6 @@
 <template>
-  <b-container>
-    <b-row class="mt-2">
+  <b-container class="member-content">
+    <b-row class="member-header">
       <b-col>
         <b-alert variant="secondary" show><h3>회원가입</h3></b-alert>
       </b-col>

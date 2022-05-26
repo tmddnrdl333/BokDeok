@@ -43,11 +43,13 @@
     <div id="houseinfo-list" v-if="houseInfos.length">
       <b-list-group v-for="house in houseInfos" :key="house.aptCode">
         <b-list-group-item class="list-item" @click="moveDetail(house)">
-          <h6>{{ house.aptName }}</h6>
+          {{ house.aptName }}
         </b-list-group-item>
       </b-list-group>
     </div>
-    <b-card v-else class="text-secondary">조회된 아파트가 없습니다!</b-card>
+    <b-card v-else class="text-secondary" style="background-color: snow"
+      >조회된 아파트가 없습니다!</b-card
+    >
   </div>
 </template>
 
@@ -90,22 +92,28 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #houseinfo-list {
   position: relative;
   /* 아파트 리스트의 필터 밑부터 바닥 offset까지 */
   height: calc(100vh - 170px);
   overflow-y: scroll;
+  color: black;
 }
 
 .slider-title {
   text-align: center;
 }
+#filter-card {
+  background-color: #e8f6ef;
+  color: black;
+}
 #filter-card > * {
   margin: 0px 20px;
   padding: 5px;
 }
-.list-item > * {
-  margin: 1px;
+.list-item {
+  background-color: snow;
+  margin: 3px 2px 0px;
 }
 </style>

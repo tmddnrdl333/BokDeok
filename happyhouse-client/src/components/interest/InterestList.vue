@@ -1,17 +1,13 @@
 <template>
   <div id="interestList">
     <div
+      id="int-list-title"
       class="d-flex align-items-center justify-content-center"
       style="height: 50px; text-align: center"
     >
       <h5>관심 아파트 목록</h5>
     </div>
-    <!-- <b-button id="popover">(i)</b-button>
-    <b-popover target="popover" triggers="hover" placement="right">
-      주변 시설과의 거리를 기반으로 한 점수입니다!
-    </b-popover> -->
     <div id="interestApts-list" v-if="interestApts.length">
-      <!-- <b-form-select v-model="selected" :options="options"></b-form-select> -->
       <ul
         class="list-group"
         v-for="(interest, index) in interestApts"
@@ -92,6 +88,11 @@ export default {
 </script>
 
 <style>
+#int-list-title {
+  border-radius: 5px;
+  color: white;
+  background-color: #23689b;
+}
 #interestApts-list {
   position: relative;
   /* 아파트 리스트의 필터 밑부터 바닥 offset까지 */

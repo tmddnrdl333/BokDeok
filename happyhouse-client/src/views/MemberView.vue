@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <h3 class="mt-3 underline-steelblue">
+    <h3 class="m-3">
       <b-icon icon="person-lines-fill"></b-icon>
       Member Service
     </h3>
@@ -12,4 +12,12 @@
 export default {};
 </script>
 
-<style></style>
+<style>
+.member-content {
+  max-height: calc(100vh - 100px);
+  overflow: auto;
+  border-radius: 20px;
+  padding: 20px;
+  background-color: white;
+}
+</style>

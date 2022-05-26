@@ -40,16 +40,20 @@ export default {
   position: absolute;
   top: 0px;
   left: 10px;
-  z-index: 5;
+  z-index: 3;
 }
 #aptList {
-  background-color: #f0e5cf;
+  border-radius: 5px;
+  background-color: #4c4c6d;
   min-height: 100px;
   max-height: calc(100vh - 60px);
+  color: white;
   /* max-height: calc(100% - 60px); */
 }
 #aptDeal {
-  background-color: #f0e5cf;
+  border-radius: 5px;
+  background-color: #4c4c6d;
+  color: white;
   height: calc(100% - 60px);
 }
 #aptMap {

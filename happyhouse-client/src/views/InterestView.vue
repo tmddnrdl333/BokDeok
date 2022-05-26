@@ -26,21 +26,23 @@ export default {
 }
 .interest-content {
   position: absolute;
-  top: 50px;
+  top: 20px;
   left: 10px;
-  height: 100%;
+  max-height: calc(100vh - 40px);
   width: 380px;
   float: left;
   z-index: 1;
 }
 #interestList {
-  background-color: #f3e9dd;
+  border-radius: 5px;
+  background-color: snow;
   min-height: 100px;
-  max-height: calc(100vh - 60px);
+  max-height: calc(100vh - 40px);
 }
 #interestDetail {
-  background-color: #f0e5cf;
-  height: calc(100% - 60px);
+  border-radius: 5px;
+  background-color: #23689b;
+  height: calc(100% - 40px);
 }
 #interestMap {
   background-color: mediumseagreen;

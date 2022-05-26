@@ -1,6 +1,6 @@
 <template>
-  <b-container v-if="userInfo">
-    <b-row class="mt-2">
+  <b-container class="member-content" v-if="userInfo">
+    <b-row>
       <b-col>
         <b-alert variant="secondary" show><h3>내정보</h3></b-alert>
       </b-col>
@@ -13,7 +13,7 @@
 
           <template #lead> 내 정보 확인페이지입니다. </template>
 
-          <hr class="my-4" />
+          <hr class="my-2" />
 
           <b-container class="mt-4">
             <b-row>
@@ -41,7 +41,7 @@
               <b-col cols="2"></b-col>
             </b-row>
           </b-container>
-          <hr class="my-4" />
+          <hr class="my-2" />
 
           <b-button variant="primary" href="#" class="mr-1">정보수정</b-button>
           <b-button variant="danger" href="#">회원탈퇴</b-button>

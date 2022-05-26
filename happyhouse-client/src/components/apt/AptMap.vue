@@ -10,7 +10,7 @@
             v-b-popover.hover.right="'노인 복지시설 보기'"
             title=""
             src="@/assets/icon/elder_icon.png"
-            width="30px"
+            width="45px"
             alt="senior"
             @click="markSenior"
           />
@@ -21,7 +21,7 @@
           <img
             v-b-popover.hover.right="'아동 복지시설 보기'"
             src="@/assets/icon/child_icon.png"
-            width="30px"
+            width="45px"
             alt="junior"
             @click="markJunior"
           />
@@ -32,7 +32,7 @@
           <img
             v-b-popover.hover.right="'장애인 복지시설 보기'"
             src="@/assets/icon/disordered_icon.png"
-            width="30px"
+            width="45px"
             alt="etc"
             @click="markEtc"
           />

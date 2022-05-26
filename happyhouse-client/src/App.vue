@@ -14,7 +14,12 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+#body {
+  height: 100vh;
+  width: 100vw;
+  background-color: #f7f6f2;
+}
 #header-nav {
   position: fixed;
   width: 65px;
@@ -33,5 +38,10 @@ export default {
   left: 65px;
   width: calc(100vw - 80px);
   height: 100vh;
+}
+.board-content {
+  background-color: white;
+  border-radius: 20px;
+  padding: 10px;
 }
 </style>

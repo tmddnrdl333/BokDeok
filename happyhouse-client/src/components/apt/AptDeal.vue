@@ -9,7 +9,7 @@
 
     <div>
       <b-container id="deal-content">
-        <b-row class="mt-3">
+        <b-row class="pt-2 pb-2" id="deal-content-header">
           <b-col cols="1">
             <button
               style="border: none"
@@ -26,13 +26,34 @@
             {{ selectHouse.houseInfo.buildYear }}년 <br />건축
           </b-col>
           <b-col cols="1">
-            <b-button class="btn-sm" :pressed.sync="toggleInterest">
-              <div v-if="toggleInterest">★</div>
-              <div v-else>☆</div>
+            <b-button
+              variant="outline-light"
+              class="btn-sm"
+              :pressed.sync="toggleInterest"
+              v-b-popover.hover.right="'관심 아파트 추가/제거'"
+            >
+              <img
+                v-if="toggleInterest"
+                src="https://cdn-icons.flaticon.com/png/512/2377/premium/2377810.png?token=exp=1653558328~hmac=1a527fcad956027f79a33aff95b7ecb1"
+                alt="interested"
+                width="20px"
+              />
+              <img
+                v-else
+                src="https://cdn-icons.flaticon.com/png/512/2377/premium/2377878.png?token=exp=1653558322~hmac=afe5e4b3334a76a12b271347c420a99c"
+                alt="uninterested"
+                width="20px"
+              />
             </b-button>
           </b-col>
         </b-row>
-        <b-tabs content-class="mt-2" fill lazy class="font-sm">
+        <b-tabs
+          id="deal-content-body"
+          content-class="mt-2"
+          fill
+          lazy
+          class="font-sm"
+        >
           <b-tab active title="거래가 차트">
             <div id="chart">
               <b-form-select
@@ -58,7 +79,7 @@
             </div>
           </b-tab>
           <b-tab title="주변 복지시설">
-            <div id="score">
+            <div id="house-score">
               <b-card title="노인 복지 시설">
                 <b-card-text v-if="fcltCoords[0].length > 0">
                   <div v-for="(item, index) in fcltCoords[0]" :key="index">
@@ -265,7 +286,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #housedeal-list {
   position: relative;
 }
@@ -276,13 +297,17 @@ export default {
   height: calc(100vh - 210px);
   overflow-y: auto;
 }
-#score {
+#house-score {
   height: calc(100vh - 210px);
   overflow-y: auto;
 }
 #deal-content {
-  background-color: white;
-  padding-top: 3px;
+  color: black;
+  background-color: snow;
+}
+#deal-content-header {
+  border-radius: 10px;
+  background-color: #e8f6ef;
 }
 .font-sm {
   font-size: 85%;
