@@ -10,7 +10,7 @@
       <!-- <b-form-select v-model="selected" :options="options"></b-form-select> -->
       <ul
         class="list-group"
-        v-for="interest in interestApts"
+        v-for="(interest, index) in interestApts"
         :key="interest.houseInfo.aptCode"
       >
         <li>
@@ -20,7 +20,7 @@
         </li>
         <li class="list-item rounded" @click="moveDetail(interest)">
           <b-row>
-            <b-col cols="9"
+            <b-col cols="8"
               ><h5>{{ interest.houseInfo.aptName }}</h5>
               <p>
                 {{ interest.houseInfo.sidoName }}
@@ -28,7 +28,8 @@
                 {{ interest.houseInfo.dongName }}
               </p></b-col
             >
-            <b-col cols="3">
+            <b-col cols="4">
+              <div class="Stars" :style="styles[index]"></div>
               <p>{{ interest.score.total }}</p></b-col
             ></b-row
           >
@@ -46,11 +47,13 @@ export default {
     return {
       selected: null,
       options: [],
+      styles: [],
     };
   },
   mounted() {
     this.setSelectInterest(null);
     this.sortInterestApts();
+    this.setStarStyle();
   },
   computed: {
     ...mapState(interestAptStore, ["interestApts"]),
@@ -67,6 +70,11 @@ export default {
     },
     removeInterest(houseInfo) {
       this.removeInterestApt(houseInfo);
+    },
+    setStarStyle() {
+      this.interestApts.forEach((e, index) => {
+        this.styles[index] = "--rating : " + e.score.total;
+      });
     },
   },
 };
@@ -93,5 +101,29 @@ ul.list-group {
 }
 .list-item > * {
   margin: 1px;
+}
+:root {
+  --star-color: #fff;
+  --star-background: #fc0;
+}
+
+.Stars {
+  --percent: calc(var(--rating) / 3 * 100%);
+
+  display: inline-block;
+  font-size: 20px;
+  font-family: system-ui;
+  line-height: 1;
+}
+.Stars::before {
+  content: "★★★";
+  letter-spacing: 1px;
+  background: linear-gradient(
+    90deg,
+    var(--star-background) var(--percent),
+    var(--star-color) var(--percent)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 </style>

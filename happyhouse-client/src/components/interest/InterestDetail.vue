@@ -14,8 +14,10 @@
       <div id="score">
         <b-card>
           <b-row>
-            <b-col cols="9"><h4>노인 복지시설</h4></b-col>
-            <b-col cols="3">{{ selectInterest.score.sFclt }}</b-col>
+            <b-col cols="8"><h4>노인 복지시설</h4></b-col>
+            <b-col cols="4"
+              ><div class="Stars" :style="styles.sFclt"></div>
+            </b-col>
           </b-row>
           <b-card-text v-if="selectInterest.nearestFclts.sFclt.length > 0">
             <div
@@ -36,8 +38,10 @@
         </b-card>
         <b-card
           ><b-row>
-            <b-col cols="9"><h4>아동 복지시설</h4></b-col>
-            <b-col cols="3">{{ selectInterest.score.jFclt }}</b-col>
+            <b-col cols="8"><h4>아동 복지시설</h4></b-col>
+            <b-col cols="4"
+              ><div class="Stars" :style="styles.jFclt"></div
+            ></b-col>
           </b-row>
           <b-card-text v-if="selectInterest.nearestFclts.jFclt.length > 0">
             <div
@@ -58,8 +62,10 @@
         </b-card>
         <b-card>
           <b-row>
-            <b-col cols="9"><h4>장애인 복지시설</h4></b-col>
-            <b-col cols="3">{{ selectInterest.score.eFclt }}</b-col>
+            <b-col cols="8"><h4>장애인 복지시설</h4></b-col>
+            <b-col cols="4"
+              ><div class="Stars" :style="styles.eFclt"></div
+            ></b-col>
           </b-row>
           <b-card-text v-if="selectInterest.nearestFclts.eFclt.length > 0">
             <div
@@ -80,8 +86,10 @@
         </b-card>
         <b-card>
           <b-row>
-            <b-col cols="9"><h4>학교</h4></b-col>
-            <b-col cols="3">{{ selectInterest.score.school }}</b-col>
+            <b-col cols="8"><h4>학교</h4></b-col>
+            <b-col cols="4"
+              ><div class="Stars" :style="styles.school"></div
+            ></b-col>
           </b-row>
           <b-card-text v-if="selectInterest.school.length > 0">
             <div v-for="(item, index) in selectInterest.school" :key="index">
@@ -101,8 +109,10 @@
         </b-card>
         <b-card>
           <b-row>
-            <b-col cols="9"><h4>병원</h4></b-col>
-            <b-col cols="3">{{ selectInterest.score.hospital }}</b-col>
+            <b-col cols="8"><h4>병원</h4></b-col>
+            <b-col cols="4"
+              ><div class="Stars" :style="styles.hospital"></div
+            ></b-col>
           </b-row>
           <b-card-text v-if="selectInterest.hospital.length > 0">
             <div v-for="(item, index) in selectInterest.hospital" :key="index">
@@ -132,6 +142,7 @@ export default {
   data() {
     return {
       aptCode: 0,
+      styles: { sFclt: "", jFclt: "", eFclt: "", school: "", hospital: "" },
     };
   },
   computed: {
@@ -155,6 +166,9 @@ export default {
       );
     });
   },
+  mounted() {
+    this.setStarStyle();
+  },
   methods: {
     getDistance(lat1, lng1, lat2, lng2) {
       function deg2rad(deg) {
@@ -176,6 +190,12 @@ export default {
     },
     moveList() {
       this.$router.push("/interest");
+    },
+    setStarStyle() {
+      for (var key in this.selectInterest.score) {
+        this.styles[key] = "--rating : " + this.selectInterest.score[key];
+      }
+      console.log(this.styles);
     },
   },
   filters: {
@@ -214,5 +234,29 @@ export default {
   font-size: 60%;
   justify-content: end;
   align-self: end;
+}
+:root {
+  --star-color: rgb(198, 198, 198);
+  --star-background: #fc0;
+}
+
+.Stars {
+  --percent: calc(var(--rating) / 3 * 100%);
+
+  display: inline-block;
+  font-size: 20px;
+  font-family: system-ui;
+  line-height: 1;
+}
+.Stars::before {
+  content: "★★★";
+  letter-spacing: 1px;
+  background: linear-gradient(
+    90deg,
+    var(--star-background) var(--percent),
+    var(--star-color) var(--percent)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 </style>
