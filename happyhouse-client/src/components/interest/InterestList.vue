@@ -13,6 +13,11 @@
         v-for="interest in interestApts"
         :key="interest.houseInfo.aptCode"
       >
+        <li>
+          <b-button z-index="1" @click="removeInterest(interest.houseInfo)"
+            >X</b-button
+          >
+        </li>
         <li class="list-item rounded" @click="moveDetail(interest)">
           <b-row>
             <b-col cols="9"
@@ -45,15 +50,23 @@ export default {
   },
   mounted() {
     this.setSelectInterest(null);
+    this.sortInterestApts();
   },
   computed: {
     ...mapState(interestAptStore, ["interestApts"]),
   },
   methods: {
-    ...mapActions(interestAptStore, ["setSelectInterest", "removeInterestApt"]),
+    ...mapActions(interestAptStore, [
+      "setSelectInterest",
+      "removeInterestApt",
+      "sortInterestApts",
+    ]),
     moveDetail(interest) {
       this.$router.push("/interest/detail/" + interest.houseInfo.aptCode);
       this.setSelectInterest(interest);
+    },
+    removeInterest(houseInfo) {
+      this.removeInterestApt(houseInfo);
     },
   },
 };

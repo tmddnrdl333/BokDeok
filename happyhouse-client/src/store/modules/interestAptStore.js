@@ -22,10 +22,13 @@ const interstAptStore = {
         score: payload.score,
       });
     },
+    SORT_INTEREST_APTS: (state) => {
+      state.interestApts.sort((a, b) => b.score.total - a.score.total);
+    },
   },
   actions: {
-    addInterestApt({ commit }, { houseInfo, nearestFclts }) {
-      commit("ADD_INTEREST_APTS", { houseInfo, nearestFclts });
+    addInterestApt({ commit }, payload) {
+      commit("ADD_INTEREST_APTS", payload);
     },
     removeInterestApt({ commit }, houseInfo) {
       commit("REMOVE_INTEREST_APTS", houseInfo);
@@ -35,6 +38,9 @@ const interstAptStore = {
     },
     setInterestScore({ commit }, payload) {
       commit("SET_INTEREST_SCORE", payload);
+    },
+    sortInterestApts({ commit }) {
+      commit("SORT_INTEREST_APTS");
     },
   },
 };

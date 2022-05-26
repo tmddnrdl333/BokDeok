@@ -21,22 +21,56 @@ export default {
     KakaoMap,
   },
   watch: {
+    interestApts() {
+      this.resetMarkers();
+    },
     selectInterest() {
       if (this.selectInterest === null) {
         this.resetMarkers();
       } else {
-        let kakao = window.kakao;
         const houseInfo = this.selectInterest.houseInfo;
         this.$refs.kmap.map.setCenter(
-          new kakao.maps.LatLng(houseInfo.lat, houseInfo.lng)
+          new window.kakao.maps.LatLng(houseInfo.lat, houseInfo.lng)
         );
+        let list = [];
+        this.selectInterest.nearestFclts.sFclt.forEach((e) => {
+          list.push({
+            lat: e[1].result.y,
+            lng: e[1].result.x,
+            name: e[1].fcltName,
+          });
+        });
+        this.selectInterest.nearestFclts.jFclt.forEach((e) => {
+          list.push({
+            lat: e[1].result.y,
+            lng: e[1].result.x,
+            name: e[1].fcltName,
+          });
+        });
+        this.selectInterest.nearestFclts.eFclt.forEach((e) => {
+          list.push({
+            lat: e[1].result.y,
+            lng: e[1].result.x,
+            name: e[1].fcltName,
+          });
+        });
+        this.selectInterest.school.forEach((e) => {
+          list.push({
+            lat: e.y,
+            lng: e.x,
+            name: e.place_name,
+          });
+        });
+        this.selectInterest.hospital.forEach((e) => {
+          list.push({
+            lat: e.y,
+            lng: e.x,
+            name: e.place_name,
+          });
+        });
+        this.markers.addMarker(list);
       }
     },
-    // interestApts() {
-    //   this.searchCategory("SC4", "school");
-    //   this.searchCategory("HP8", "hospital");
-    //   setTimeout(this.getScore(), 1000);
-    // },
   },
   computed: {
     ...mapState(interestAptStore, ["interestApts", "selectInterest"]),
@@ -47,20 +81,25 @@ export default {
     this.getScore();
   },
   methods: {
-    ...mapActions(interestAptStore, ["setInterestScore"]),
+    ...mapActions(interestAptStore, ["setInterestScore", "setSelectInterest"]),
     initMap() {
       const vueKakaoMap = this.$refs.kmap;
       this.markers = new MarkerHandler(vueKakaoMap, {
-        markerClicked: (houseInfo) => {
-          this.moveDetail(houseInfo);
+        markerClicked: (house) => {
+          const interest = this.interestApts.find(
+            (e) => e.houseInfo.aptCode === house.aptCode
+          );
+
+          this.moveDetail(interest);
         },
       });
     },
 
-    moveDetail(house) {
-      this.$router.push("/interest/detail" + house.aptCode);
-      this.setSelectHouse(house).then(() =>
-        this.markers.highlightMarker(house)
+    moveDetail(interest) {
+      console.log(interest);
+      this.$router.push("/interest/detail/" + interest.houseInfo.aptCode);
+      this.setSelectInterest(interest).then(() =>
+        this.markers.highlightMarker(interest.houseInfo)
       );
     },
     resetMarkers() {
@@ -111,7 +150,7 @@ export default {
           score.sFclt = this.getFcltScore(obj, "sFclt");
           score.total += score.sFclt;
         }
-        score.total = Math.round(score.total / 5);
+        score.total = score.total / 5;
         this.setInterestScore({ index: index, score: score });
       });
     },

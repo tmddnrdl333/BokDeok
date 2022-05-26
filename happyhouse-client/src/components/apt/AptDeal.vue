@@ -140,6 +140,8 @@ export default {
       selected: null,
       options: [],
       toggleInterest: false,
+      places: new window.kakao.maps.services.Places(), // school, hospital search
+      placeList: {},
     };
   },
   watch: {
@@ -161,6 +163,8 @@ export default {
               jFclt: this.fcltCoords[1],
               eFclt: this.fcltCoords[2],
             },
+            school: this.placeList["SC4"],
+            hospital: this.placeList["HP8"],
           });
           // 복지시설도 추가
         }
@@ -183,6 +187,8 @@ export default {
     this.initHouseDeal();
     this.initToggleInterest();
     // 즐찾여부 가져오기
+    this.searchCategory(this.selectHouse, "SC4", "school");
+    this.searchCategory(this.selectHouse, "HP8", "hospital");
   },
   methods: {
     ...mapActions(mapStore, [
@@ -221,6 +227,26 @@ export default {
         (e) => e.houseInfo.aptCode === this.selectHouse.houseInfo.aptCode
       );
       if (find !== undefined) this.toggleInterest = true;
+    },
+    searchCategory(q, category) {
+      var self = this;
+      this.places.categorySearch(
+        category,
+        function (result, status) {
+          if (status === window.kakao.maps.services.Status.OK) {
+            self.placeList[category] = result;
+            console.log("category search : ", self.placeList[category]);
+          }
+        },
+        {
+          location: new window.kakao.maps.LatLng(
+            q.houseInfo.lat,
+            q.houseInfo.lng
+          ),
+          size: 5,
+          sort: window.kakao.maps.services.SortBy.DISTANCE,
+        }
+      );
     },
   },
   filters: {

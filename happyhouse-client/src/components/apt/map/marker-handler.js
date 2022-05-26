@@ -122,6 +122,39 @@ class MarkerHandler {
       });
     });
   }
+  addMarker(userData) {
+    var bounds = new kakao.maps.LatLngBounds();
+    userData.forEach((data) => {
+      // const houseInfo = data;
+      const placePosition = new kakao.maps.LatLng(data.lat, data.lng);
+      const markerInstance = new kakao.maps.Marker({
+        map: this.vueMap.map,
+        position: placePosition,
+      });
+      bounds.extend(placePosition);
+      this.vueMap.map.setBounds(bounds);
+      markers.push(markerInstance);
+
+      markerInstance.$$ = {
+        data,
+      };
+      if (this.options.markerClicked) {
+        kakao.maps.event.addListener(markerInstance, "click", () => {
+          this.options.markerClicked(markerInstance.$$.data);
+        });
+      }
+
+      const infowindow = new kakao.maps.InfoWindow({
+        content: '<div style="padding:5px;z-index:1;">' + data.name + "</div>",
+      });
+      kakao.maps.event.addListener(markerInstance, "mouseover", () => {
+        infowindow.open(this.vueMap.map, markerInstance);
+      });
+      kakao.maps.event.addListener(markerInstance, "mouseout", () => {
+        infowindow.close();
+      });
+    });
+  }
 }
 
 export default MarkerHandler;
