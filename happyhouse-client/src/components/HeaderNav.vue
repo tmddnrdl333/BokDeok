@@ -4,8 +4,8 @@
       <b-nav-item to="/">
         <img
           class="rounded"
-          src="@/assets/nav/logo.jpg"
-          width="40px"
+          src="@/assets/nav/logo.png"
+          width="65px"
           height="40px"
         />
       </b-nav-item>

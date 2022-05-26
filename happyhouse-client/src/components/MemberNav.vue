@@ -1,5 +1,5 @@
 <template>
-  <b-nav align="center" class="w-5" id="member-nav">
+  <b-nav align="center" class="mr-4" id="member-nav">
     <!-- Right aligned nav items -->
     <b-dropdown
       dropdown

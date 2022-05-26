@@ -73,7 +73,7 @@ const mapStore = {
       console.log("CLEAR MAP");
       commit("SET_DONG", { dong: {} });
       commit("SET_HOUSE_INFOS", { houseInfos: [] });
-      commit("SET_FILTER", { filter: { price: [0, 1200000], area: [0, 500] } });
+      commit("SET_FILTER", { filter: { price: [0, 200000], area: [0, 250] } });
     },
     searchDong({ commit }, payload) {
       commit("SET_DONG", {
