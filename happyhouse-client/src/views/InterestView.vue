@@ -14,7 +14,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.col {
+  padding: 0;
+}
 .map-comp {
   position: absolute;
   width: 100%;
@@ -31,18 +34,19 @@ export default {
   z-index: 1;
 }
 #interestList {
-  background-color: lemonchiffon;
+  background-color: #f3e9dd;
   min-height: 100px;
-  max-height: calc(100% - 60px);
+  max-height: calc(100vh - 60px);
 }
 #interestDetail {
-  background-color: lemonchiffon;
+  background-color: #f0e5cf;
   height: calc(100% - 60px);
 }
 #interestMap {
   background-color: mediumseagreen;
   padding: 0;
   height: 100vh;
+  width: calc(100vw - 65px);
   z-index: 1;
 }
 </style>

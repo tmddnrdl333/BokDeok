@@ -71,7 +71,14 @@ export default {
     getScore() {
       console.log("CALC SCORE");
       this.interestApts.forEach((obj, index) => {
-        var score = { hospital: 0, school: 0, eFclt: 0, jFclt: 0, sFclt: 0 };
+        var score = {
+          hospital: 0,
+          school: 0,
+          eFclt: 0,
+          jFclt: 0,
+          sFclt: 0,
+          total: 0,
+        };
         if (obj.hospital.length > 0) {
           const dist = this.getDistance(
             obj.houseInfo.lat,
@@ -80,6 +87,7 @@ export default {
             obj.hospital[0].x
           );
           score.hospital = this.rangeScore(dist);
+          score.total += score.hospital;
         }
         if (obj.school.length > 0) {
           const dist = this.getDistance(
@@ -89,17 +97,21 @@ export default {
             obj.school[0].x
           );
           score.school = this.rangeScore(dist);
+          score.total += score.school;
         }
         if (obj.nearestFclts.eFclt.length > 0) {
           score.eFclt = this.getFcltScore(obj, "eFclt");
+          score.total += score.eFclt;
         }
         if (obj.nearestFclts.jFclt.length > 0) {
           score.jFclt = this.getFcltScore(obj, "jFclt");
+          score.total += score.jFclt;
         }
         if (obj.nearestFclts.sFclt.length > 0) {
           score.sFclt = this.getFcltScore(obj, "sFclt");
+          score.total += score.sFclt;
         }
-        // console.log(score);
+        score.total = Math.round(score.total / 5);
         this.setInterestScore({ index: index, score: score });
       });
     },

@@ -1,18 +1,34 @@
 <template>
   <div id="interestList">
-    <div style="height: 50px; text-align: center">
-      <h4>관심 아파트 목록</h4>
+    <div
+      class="d-flex align-items-center justify-content-center"
+      style="height: 50px; text-align: center"
+    >
+      <h5>관심 아파트 목록</h5>
     </div>
     <div id="interestApts-list" v-if="interestApts.length">
-      <b-form-select v-model="selected" :options="options"></b-form-select>
-      <b-list-group
+      <!-- <b-form-select v-model="selected" :options="options"></b-form-select> -->
+      <ul
+        class="list-group"
         v-for="interest in interestApts"
         :key="interest.houseInfo.aptCode"
       >
-        <b-list-group-item @click="moveDetail(interest)"
-          ><h5>{{ interest.houseInfo.aptName }}</h5></b-list-group-item
-        >
-      </b-list-group>
+        <li class="list-item rounded" @click="moveDetail(interest)">
+          <b-row>
+            <b-col cols="9"
+              ><h5>{{ interest.houseInfo.aptName }}</h5>
+              <p>
+                {{ interest.houseInfo.sidoName }}
+                {{ interest.houseInfo.gugunName }}
+                {{ interest.houseInfo.dongName }}
+              </p></b-col
+            >
+            <b-col cols="3">
+              <p>{{ interest.score.total }}</p></b-col
+            ></b-row
+          >
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -39,42 +55,6 @@ export default {
       this.$router.push("/interest/detail/" + interest.houseInfo.aptCode);
       this.setSelectInterest(interest);
     },
-    getDistance(lat1, lng1, lat2, lng2) {
-      function deg2rad(deg) {
-        return deg * (Math.PI / 180);
-      }
-
-      var R = 6371; // Radius of the earth in km
-      var dLat = deg2rad(lat2 - lat1); // deg2rad below
-      var dLon = deg2rad(lng2 - lng1);
-      var a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(deg2rad(lat1)) *
-          Math.cos(deg2rad(lat2)) *
-          Math.sin(dLon / 2) *
-          Math.sin(dLon / 2);
-      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      var d = R * c; // Distance in km
-      return d * 1000;
-    },
-    calcScore() {
-      this.interestApts.forEach((obj) => {
-        console.log(obj);
-        if (obj.hospital.length > 0) {
-          const dist = this.getDistance(
-            obj.houseInfo.lat,
-            obj.houseInfo.lng,
-            obj.hospital[0].y,
-            obj.hospital[0].x
-          );
-          if (dist <= 300) obj["score"]["hostpital"] = 3;
-          else if (dist <= 700) obj["score"]["hostpital"] = 2;
-          else obj["score"]["hostpital"] = 1;
-        } else {
-          obj["score"]["hostpital"] = 0;
-        }
-      });
-    },
   },
 };
 </script>
@@ -82,7 +62,23 @@ export default {
 <style>
 #interestApts-list {
   position: relative;
-  height: calc(100% - 100px);
+  /* 아파트 리스트의 필터 밑부터 바닥 offset까지 */
+  height: calc(100vh - 170px);
   overflow-y: scroll;
+}
+ul.list-group {
+  list-style-type: none;
+}
+.list-item.rounded {
+  border-radius: 10px !important;
+  margin-bottom: 5px;
+  background-color: #fdf6ec;
+  margin-left: 5%;
+  margin-right: 5%;
+  padding-left: 8%;
+  padding-top: 2%;
+}
+.list-item > * {
+  margin: 1px;
 }
 </style>
