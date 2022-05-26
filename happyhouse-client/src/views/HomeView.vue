@@ -1,6 +1,6 @@
 <template>
   <div>
-    <main-content></main-content>
+    <main-content id="main"></main-content>
   </div>
 </template>
 
@@ -11,3 +11,10 @@ export default {
   components: { MainContent },
 };
 </script>
+
+<style scoped>
+#main {
+  width: 100vh;
+  height: 100vh;
+}
+</style>
