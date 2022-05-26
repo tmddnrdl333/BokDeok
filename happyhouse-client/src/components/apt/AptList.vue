@@ -100,6 +100,9 @@ export default {
   overflow-y: scroll;
   color: black;
 }
+#houseinfo-list::-webkit-scrollbar {
+  display: none;
+}
 
 .slider-title {
   text-align: center;
@@ -115,5 +118,8 @@ export default {
 .list-item {
   background-color: snow;
   margin: 3px 2px 0px;
+}
+.text-secondary {
+  text-align: center;
 }
 </style>

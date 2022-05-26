@@ -291,7 +291,7 @@ export default {
   position: relative;
 }
 #housedeal-list > * {
-  height: calc(100% - 210px);
+  height: calc(100vh - 210px);
 }
 #chart {
   height: calc(100vh - 210px);

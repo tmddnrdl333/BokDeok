@@ -25,7 +25,7 @@
           width="25px"
           height="25px"
         />
-        <div class="font-sm">관심지역</div>
+        <div class="font-sm">관심아파트</div>
       </b-nav-item>
       <b-nav-item to="/notice" align="center">
         <img

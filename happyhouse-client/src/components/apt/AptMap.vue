@@ -4,7 +4,7 @@
     <kakao-map class="kmap" ref="kmap" />
 
     <div class="fcltIcons" v-if="showFcltIcon">
-      <b-row>
+      <b-row class="mb-1">
         <b-col>
           <img
             v-b-popover.hover.right="'노인 복지시설 보기'"
@@ -16,7 +16,7 @@
           />
         </b-col>
       </b-row>
-      <b-row>
+      <b-row class="mb-1">
         <b-col>
           <img
             v-b-popover.hover.right="'아동 복지시설 보기'"

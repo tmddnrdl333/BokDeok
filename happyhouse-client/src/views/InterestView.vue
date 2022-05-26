@@ -35,13 +35,13 @@ export default {
 }
 #interestList {
   border-radius: 5px;
-  background-color: snow;
+  background-color: #e8f6ef;
   min-height: 100px;
   max-height: calc(100vh - 40px);
 }
 #interestDetail {
   border-radius: 5px;
-  background-color: #23689b;
+  background-color: #4c4c6d;
   height: calc(100% - 40px);
 }
 #interestMap {

@@ -43,6 +43,9 @@
         </li>
       </ul>
     </div>
+    <b-card v-else class="text-secondary" style="background-color: snow"
+      >관심 아파트가 없습니다!</b-card
+    >
   </div>
 </template>
 
@@ -91,7 +94,7 @@ export default {
 #int-list-title {
   border-radius: 5px;
   color: white;
-  background-color: #23689b;
+  background-color: #4c4c6d;
 }
 #interestApts-list {
   position: relative;
@@ -106,7 +109,8 @@ ul.list-group {
   position: relative;
   border-radius: 10px !important;
   margin-bottom: 5px;
-  background-color: #fdf6ec;
+  background-color: white;
+  margin-top: 3%;
   margin-left: 5%;
   margin-right: 5%;
   padding-left: 8%;
@@ -145,5 +149,9 @@ ul.list-group {
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.text-secondary {
+  text-align: center;
 }
 </style>
