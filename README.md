@@ -2,7 +2,7 @@
 
 
 
-![001.png](./img/logo.PNG)
+<img src="./img/logo.png" width="300" height="200">
 
 
 
@@ -26,7 +26,11 @@
 
 - 메인 화면은 스크롤 스냅 모듈을 사용해, 제공되는 서비스를 소개하고, 개발자 정보, 연락처를 제공함.
 
- ![001.png](./img/Main.PNG) ![001.png](./img/MainInfo.PNG)
+
+
+<img src="./img/Main.PNG" width="500" height="300">
+
+<img src="./img/MainInfo.PNG" width="500" height="300">
 
 
 
@@ -35,11 +39,11 @@
 - 우 상단의 "회원관리" 아이콘을 통해 접근.
 - 회원가입, 로그인, 로그아웃, 회원정보 확인 기능 구현.
 
-![001.png](./img/MemberSignup.PNG)
+<img src="./img/MemberSignup.PNG" width="500" height="300">
 
-![001.png](./img/MemberLogin.PNG)
+<img src="./img/MemberLogin.PNG" width="500" height="300">
 
-![001.png](./img/MemberInfo.PNG)
+<img src="./img/MemberInfo.PNG" width="500" height="300">
 
 
 
@@ -49,11 +53,11 @@
 - 일반 유저 : 공지사항 목록 조회, 상세 조회 가능.
 - 관리자 : 공지사항 목록 조회, 상세 조회, 신규 등록, 수정/삭제 가능.
 
-![001.png](./img/NoticeList.PNG)
+<img src="./img/NoticeList.PNG" width="500" height="300">
 
-![001.png](./img/NoticeDetail.PNG)
+<img src="./img/NoticeDetail.PNG" width="500" height="300">
 
-![001.png](./img/NoticeRegist.PNG)
+<img src="./img/NoticeRegist.PNG" width="500" height="300">
 
 
 
@@ -65,13 +69,13 @@
   - QnA 게시글의 경우 수정 권한은 작성자에게만 있고, 삭제 권한은 작성자와 관리자에게 있음.
 
 
-![001.png](./img/QnaList.PNG)
+<img src="./img/QnaList.PNG" width="500" height="300">
 
-![001.png](./img/QnaDetail.PNG)
+<img src="./img/QnaDetail.PNG" width="500" height="300">
 
-![001.png](./img/QnaRegist.PNG)
+<img src="./img/QnaRegist.PNG" width="500" height="300">
 
-![001.png](./img/QnaAnswer.PNG)
+<img src="./img/QnaAnswer.PNG" width="500" height="300">
 
 
 
@@ -91,7 +95,13 @@
   - 역대 거래가 목록으로 표시.
   - 주변 복지시설(노인 복지 시설, 아동 복지 시설, 장애인 복지 시설) 정보를 해당 아파트와의 거리가 가까운 순서로 3개씩 표시함.
 
- ![001.png](./img/AptMain.PNG) ![001.png](./img/AptList.PNG) ![001.png](./img/AptDetail1.PNG) ![001.png](./img/AptDetail2.PNG)
+<img src="./img/AptMain.PNG" width="500" height="300">
+
+<img src="./img/AptList.PNG" width="500" height="300">
+
+<img src="./img/AptDetail1.PNG" width="500" height="300">
+
+<img src="./img/AptDetail2.PNG" width="500" height="300">
 
 
 
@@ -114,7 +124,9 @@
 - 주변 복지시설들과의 거리 정보를 통해 별점(점수)을 계산하여 비교할 수 있게 표시.
 - 아파트 선택 시 주변 모든 복지시설과 학교, 병원들을 거리정보와 함께 맵에 마커로 표시.
 
- ![001.png](./img/InterestMain.PNG) ![001.png](./img/InterestDetail.PNG)
+<img src="./img/InterestMain.PNG" width="500" height="300">
+
+<img src="./img/InterestDetail.PNG" width="500" height="300">
 
 #### 2. 관심 아파트 제거
 
@@ -128,15 +140,15 @@
 
 ### (1) Usecase Diagram
 
-![001.png](./img/Diagrams/QnaNoticeUml.PNG)
+<img src="./img/Diagrams/QnaNoticeUml.PNG" width="300" height="400">
 
-![001.png](./img/Diagrams/HouseInterestUml.PNG)
+<img src="./img/Diagrams/HouseInterestUml.PNG" width="300" height="400">
 
 
 
 ### (2) ERD
 
-![001.png](./img/Diagrams/ERD.PNG)
+<img src="./img/Diagrams/ERD.PNG" width="500" height="300">
 
 
 
